@@ -8,9 +8,13 @@ public:
 
    Vector3& operator*=(const float factor);
 
-   Vector3 operator+(const Vector3& other);
+   Vector3 operator+(const Vector3& other) const;
+   Vector3 operator-(const Vector3& other) const;
 
    Vector3* CreateMedian(const Vector3& other) const;
+
+   Vector3 CrossProduct(const Vector3& other) const;
+   float DotProduct(const Vector3& other) const;
 
    float X() const;
    float Y() const;
@@ -19,6 +23,8 @@ public:
    float* GetData();
 
    float ComputeLength() const;
+
+   void Normalize();
 
 private:
    float x, y, z;

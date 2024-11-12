@@ -3,7 +3,6 @@
 GlRenderer::GlRenderer(AbstractGlCamera& _camera)
    : camera(_camera), shaderProgram("data/basic.vert", "data/basic.frag")
 {
-   glViewport(0, 0, 1024, 768);
 }
 
 GlRenderer::~GlRenderer()

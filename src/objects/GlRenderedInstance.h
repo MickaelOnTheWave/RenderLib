@@ -13,6 +13,9 @@ public:
    GlRenderObject* GetRenderObject() const;
    Matrix4x4 GetTransform() const;
 
+   void SetTransform(const Matrix4x4& newTransform);
+   void ComposeTransform(const Matrix4x4& newTransform);
+
 private:
    GlRenderObject* renderObject;
    Matrix4x4 transform;

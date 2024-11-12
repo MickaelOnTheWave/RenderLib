@@ -1,6 +1,7 @@
 #ifndef MATRIX4X4_H
 #define MATRIX4X4_H
 
+#include "Vector3.h"
 
 class Matrix4x4
 {
@@ -18,6 +19,8 @@ public:
    Matrix4x4& operator=(const float* other);
    Matrix4x4 operator*(const Matrix4x4& other);
    Matrix4x4& operator*=(const Matrix4x4& other);
+
+   Vector3 operator*(const Vector3& vec);
 
    float* getData();
 

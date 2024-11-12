@@ -104,6 +104,15 @@ Matrix4x4& Matrix4x4::operator*=(const Matrix4x4 &other)
    return *this;
 }
 
+Vector3 Matrix4x4::operator*(const Vector3& vec)
+{
+   float resultX = data[0] * vec.X() + data[1] * vec.Y() + data[2] * vec.Z() + data[3];
+   float resultY = data[4] * vec.X() + data[5] * vec.Y() + data[6] * vec.Z() + data[7];
+   float resultZ = data[8] * vec.X() + data[9] * vec.Y() + data[10] * vec.Z() + data[11];
+
+   return Vector3(resultX, resultY, resultZ);
+}
+
 float* Matrix4x4::getData()
 {
    return data;
