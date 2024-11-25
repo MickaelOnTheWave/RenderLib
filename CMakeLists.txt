@@ -89,6 +89,5 @@ target_include_directories(RenderLib PUBLIC src/ libs/glfw/deps)
 ###
 target_link_libraries(${PROJECT_NAME} ${PROJ_LINK_LIBS})
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/basic.frag ${CMAKE_BINARY_DIR}/data/basic.frag COPYONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/singleTexture.frag ${CMAKE_BINARY_DIR}/data/singleTexture.frag COPYONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/basic.vert ${CMAKE_BINARY_DIR}/data/basic.vert COPYONLY)
+file(GLOB shaderFiles "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/*")
+file(COPY ${shaderFiles} DESTINATION "${CMAKE_BINARY_DIR}/data")
