@@ -25,12 +25,33 @@ vector<GLfloat> GlRenderCube::CreateVertexBufferData() const
        -value, -value,  value,   1.f,0.f,0.f,   0.f,0.f,
        value, -value,  value,   0.f,1.f,0.f,   1.f,0.f,
        value,  value,  value,   0.f,0.f,1.f,   1.f,1.f,
-       -value,  value,  value,   1.f,1.f,1.f,   1.f,0.f,
+       -value,  value,  value,   1.f,1.f,1.f,   0.f,1.f,
 
-       -value, -value, -value,   0.f,0.f,0.f,   1.f,0.f,
+       value, -value,  value,   0.f,1.f,0.f,   0.f,0.f,
+       value, -value,  -value,   0.f,1.f,0.f,   1.f,0.f,
+       value, value,  -value,   0.f,1.f,0.f,   1.f,1.f,
+       value, value,  value,   0.f,1.f,0.f,   0.f,1.f,
+
        value, -value, -value,   1.f,1.f,0.f,   0.f,0.f,
+       -value, -value, -value,   0.f,0.f,0.f,   1.f,0.f,
+       -value,  value, -value,   1.f,0.f,1.f,   1.f,1.f,
        value,  value, -value,   0.f,1.f,1.f,   0.f,1.f,
-       -value,  value, -value,   1.f,0.f,1.f,   1.f,1.f
+
+       -value, -value, -value,   0.f,0.f,0.f,   0.f,0.f,
+       -value, -value,  value,   1.f,0.f,0.f,   1.f,0.f,
+       -value,  value,  value,   1.f,1.f,1.f,   1.f,1.f,
+       -value,  value, -value,   1.f,1.f,1.f,   0.f,1.f,
+
+       -value, -value, -value,   0.f,0.f,0.f,   0.f,0.f,
+        value, -value, -value,   1.f,0.f,0.f,   1.f,0.f,
+        value, -value,  value,   1.f,1.f,1.f,   1.f,1.f,
+       -value, -value,  value,   1.f,1.f,1.f,   0.f,1.f,
+
+       -value,  value, -value,   0.f,0.f,0.f,   0.f,0.f,
+        value,  value, -value,   1.f,0.f,0.f,   1.f,0.f,
+        value,  value,  value,   1.f,1.f,1.f,   1.f,1.f,
+       -value,  value,  value,   1.f,1.f,1.f,   0.f,1.f
+
    };
    return verticesColorsTexcoords;
 }
@@ -39,11 +60,11 @@ vector<GLuint> GlRenderCube::CreateIndexData() const
 {
    const vector<GLuint> indices = {
        0,1,2, 0,2,3,
-       1,5,6, 1,6,2,
-       5,4,7, 5,7,6,
-       4,0,3, 4,3,7,
-       3,2,6, 3,6,7,
-       4,5,1, 4,1,0
+       4,5,6, 4,6,7,
+       8,9,10, 8,10,11,
+       12,13,14, 12,14,15,
+       16,17,18, 16,18,19,
+       20,21,22, 20,22,23
    };
    return indices;
 }

@@ -1,8 +1,14 @@
 #include "GlRenderer.h"
 
 GlRenderer::GlRenderer(AbstractGlCamera& _camera)
-   : camera(_camera), shaderProgram("data/basic.vert", "data/basic.frag")
+   : camera(_camera)
 {
+   shaderPrograms.reserve(10);
+   shaderPrograms.emplace_back("data/basic.vert", "data/singleTexture.frag");
+   shaderPrograms.emplace_back("data/basiclighting.vert", "data/basiclighting.frag");
+   shaderPrograms.emplace_back("data/basic.vert", "data/basic.frag");
+
+   activeShaderProgram = &shaderPrograms[2];
 }
 
 GlRenderer::~GlRenderer()
@@ -40,9 +46,9 @@ void GlRenderer::PrepareRendering()
 {
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
    glEnable(GL_DEPTH_TEST);
-   shaderProgram.use();
-   glUniform1i(glGetUniformLocation(shaderProgram.GetId(), "texture1"), 0);
-   glUniform1i(glGetUniformLocation(shaderProgram.GetId(), "texture2"), 1);
+   activeShaderProgram->use();
+   glUniform1i(glGetUniformLocation(activeShaderProgram->GetId(), "texture1"), 0);
+   glUniform1i(glGetUniformLocation(activeShaderProgram->GetId(), "texture2"), 1);
 }
 
 void GlRenderer::Render()
@@ -53,14 +59,14 @@ void GlRenderer::Render()
    glPushMatrix();
       for (const auto& renderObj : renderObjects)
       {
-         unsigned int transformLoc = glGetUniformLocation(shaderProgram.GetId(), "cameraTransform");
+         unsigned int transformLoc = glGetUniformLocation(activeShaderProgram->GetId(), "cameraTransform");
          glUniformMatrix4fv(transformLoc, 1, GL_FALSE, camera.getTransformMatrix().getData());
 
-         renderObj.first->PrepareRendering(shaderProgram.GetId());
+         renderObj.first->PrepareRendering(activeShaderProgram->GetId());
 
          for (const auto renderedObj : renderObj.second)
          {
-            unsigned int objTransformLoc = glGetUniformLocation(shaderProgram.GetId(), "objectTransform");
+            unsigned int objTransformLoc = glGetUniformLocation(activeShaderProgram->GetId(), "objectTransform");
             glUniformMatrix4fv(objTransformLoc, 1, GL_FALSE, renderedObj->GetTransform().getData());
             renderObj.first->Render();
          }

@@ -27,7 +27,8 @@ public:
 private:
    AbstractGlCamera& camera;
    std::unordered_map<GlRenderObject*, std::vector<GlRenderedInstance*>> renderObjects;
-   ShaderProgram shaderProgram;
+   std::vector<ShaderProgram> shaderPrograms;
+   ShaderProgram* activeShaderProgram = nullptr;
 
    float clearColorR, clearColorG, clearColorB;
 };
