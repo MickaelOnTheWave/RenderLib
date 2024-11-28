@@ -3,12 +3,11 @@
 GlRenderer::GlRenderer(AbstractGlCamera& _camera)
    : camera(_camera)
 {
-   shaderPrograms.reserve(10);
-   shaderPrograms.emplace_back("data/basic.vert", "data/singleTexture.frag");
-   shaderPrograms.emplace_back("data/basiclighting.vert", "data/basiclighting.frag");
-   shaderPrograms.emplace_back("data/basic.vert", "data/basic.frag");
+   shaderPrograms[RenderMode::SIMPLE_TEXTURING] = std::make_unique<ShaderProgram>("data/basic.vert", "data/singleTexture.frag");
+   shaderPrograms[RenderMode::SIMPLE_LIGHTING]  = std::make_unique<ShaderProgram>("data/basiclighting.vert", "data/basiclighting.frag");
+   shaderPrograms[RenderMode::TESTING]          = std::make_unique<ShaderProgram>("data/basic.vert", "data/basic.frag");
 
-   activeShaderProgram = &shaderPrograms[2];
+   SetRenderMode(RenderMode::TESTING);
 }
 
 GlRenderer::~GlRenderer()
@@ -28,6 +27,11 @@ void GlRenderer::ClearScene()
       delete renderObj.first;
    }
    renderObjects.clear();
+}
+
+void GlRenderer::SetRenderMode(const RenderMode &renderMode)
+{
+   activeShaderProgram = shaderPrograms[renderMode].get();
 }
 
 void GlRenderer::SetClearColor(const float r, const float g, const float b)
