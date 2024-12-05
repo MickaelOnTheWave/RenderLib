@@ -13,9 +13,10 @@
 class GlRenderer
 {
 public:
-   enum class RenderMode {
+   enum class ShaderEnum {
        SIMPLE_TEXTURING = 0,
        SIMPLE_LIGHTING,
+       OBJECT_COLOR_ONLY,
        TESTING
    };
 
@@ -24,19 +25,24 @@ public:
 
    void ClearScene();
 
-   void SetRenderMode(const RenderMode& renderMode);
+   void SetRenderShader(const ShaderEnum& renderMode);
    void SetClearColor(const float r, const float g, const float b);
 
    void AddRenderObject(GlRenderedInstance* object);
+   void AddRenderObject(GlRenderedInstance* object, const ShaderEnum& shader);
 
    void PrepareRendering();
 
    void Render();
 
+
 private:
+   void AddRenderObject(GlRenderedInstance* object, ShaderProgram* shader);
+
+   using RenderObjectsMap = std::unordered_map<GlRenderObject*, std::vector<GlRenderedInstance*>>;
    AbstractGlCamera& camera;
-   std::unordered_map<GlRenderObject*, std::vector<GlRenderedInstance*>> renderObjects;
-   std::map<RenderMode, std::unique_ptr<ShaderProgram>> shaderPrograms;
+   std::map<ShaderProgram*, RenderObjectsMap> renderObjectsPerShader;
+   std::map<ShaderEnum, std::unique_ptr<ShaderProgram>> shaderPrograms;
    ShaderProgram* activeShaderProgram = nullptr;
 
    float clearColorR, clearColorG, clearColorB;

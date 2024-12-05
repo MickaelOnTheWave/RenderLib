@@ -12,13 +12,16 @@ public:
 
    GlRenderObject* GetRenderObject() const;
    Matrix4x4 GetTransform() const;
+   Vector3 GetColor() const;
 
    void SetTransform(const Matrix4x4& newTransform);
    void ComposeTransform(const Matrix4x4& newTransform);
+   void SetColor(const Vector3& _color);
 
 private:
    GlRenderObject* renderObject;
    Matrix4x4 transform;
+   Vector3 color;
 };
 
 #endif // GLRENDEREDINSTANCE_H

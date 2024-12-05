@@ -3,11 +3,14 @@
 GlRenderer::GlRenderer(AbstractGlCamera& _camera)
    : camera(_camera)
 {
-   shaderPrograms[RenderMode::SIMPLE_TEXTURING] = std::make_unique<ShaderProgram>("data/basic.vert", "data/singleTexture.frag");
-   shaderPrograms[RenderMode::SIMPLE_LIGHTING]  = std::make_unique<ShaderProgram>("data/basiclighting.vert", "data/basiclighting.frag");
-   shaderPrograms[RenderMode::TESTING]          = std::make_unique<ShaderProgram>("data/basic.vert", "data/basic.frag");
+   shaderPrograms[ShaderEnum::SIMPLE_TEXTURING] = std::make_unique<ShaderProgram>("data/basic.vert", "data/singleTexture.frag");
+   shaderPrograms[ShaderEnum::SIMPLE_LIGHTING]  = std::make_unique<ShaderProgram>("data/basiclighting.vert", "data/basiclighting.frag");
+   shaderPrograms[ShaderEnum::TESTING]          = std::make_unique<ShaderProgram>("data/basic.vert", "data/basic.frag");
 
-   SetRenderMode(RenderMode::TESTING);
+   SetRenderShader(ShaderEnum::TESTING);
+
+   for (const auto& shader : shaderPrograms)
+      renderObjectsPerShader[shader.second.get()] = RenderObjectsMap();
 }
 
 GlRenderer::~GlRenderer()
@@ -17,19 +20,24 @@ GlRenderer::~GlRenderer()
 
 void GlRenderer::ClearScene()
 {
-   for (auto& renderObj : renderObjects)
+   for (auto& renderObjPerShader : renderObjectsPerShader)
    {
-      for (const auto renderedObj : renderObj.second)
+      for (auto& renderObjs : renderObjPerShader.second)
       {
-         delete renderedObj;
+         for (auto* renderInstance : renderObjs.second)
+         {
+            delete renderInstance;
+         }
+         renderObjs.second.clear();
+         delete renderObjs.first;
       }
-      renderObj.second.clear();
-      delete renderObj.first;
+      renderObjPerShader.second.clear();
    }
-   renderObjects.clear();
+
+   renderObjectsPerShader.clear();
 }
 
-void GlRenderer::SetRenderMode(const RenderMode &renderMode)
+void GlRenderer::SetRenderShader(const ShaderEnum &renderMode)
 {
    activeShaderProgram = shaderPrograms[renderMode].get();
 }
@@ -43,7 +51,15 @@ void GlRenderer::SetClearColor(const float r, const float g, const float b)
 
 void GlRenderer::AddRenderObject(GlRenderedInstance *object)
 {
-   renderObjects[object->GetRenderObject()].push_back(object);
+   AddRenderObject(object, activeShaderProgram);
+}
+
+void GlRenderer::AddRenderObject(GlRenderedInstance *object, const ShaderEnum &shader)
+{
+   ShaderProgram* renderObjectShader = shaderPrograms[shader].get();
+   if (!renderObjectShader)
+      renderObjectShader = activeShaderProgram;
+   AddRenderObject(object, renderObjectShader);
 }
 
 void GlRenderer::PrepareRendering()
@@ -60,21 +76,49 @@ void GlRenderer::Render()
    glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-   glPushMatrix();
-      for (const auto& renderObj : renderObjects)
-      {
-         unsigned int transformLoc = glGetUniformLocation(activeShaderProgram->GetId(), "cameraTransform");
-         glUniformMatrix4fv(transformLoc, 1, GL_FALSE, camera.getTransformMatrix().getData());
+   for (const auto& shaderRenderObj : renderObjectsPerShader)
+   {
+      if (shaderRenderObj.second.empty())
+         continue;
 
-         renderObj.first->PrepareRendering(activeShaderProgram->GetId());
+      ShaderProgram* currentShader = shaderRenderObj.first;
 
-         for (const auto renderedObj : renderObj.second)
+      unsigned int transformLoc = glGetUniformLocation(currentShader->GetId(), "cameraTransform");
+      glUniformMatrix4fv(transformLoc, 1, GL_FALSE, camera.getTransformMatrix().getData());
+
+      const std::vector<float> lightColor = {1.f, 1.0f, 1.f};
+      unsigned int lightColorLoc = glGetUniformLocation(currentShader->GetId(), "lightColor");
+      glUniform3fv(lightColorLoc, 1, &lightColor[0]);
+
+      glPushMatrix();
+         for (const auto& renderObj : shaderRenderObj.second)
          {
-            unsigned int objTransformLoc = glGetUniformLocation(activeShaderProgram->GetId(), "objectTransform");
-            glUniformMatrix4fv(objTransformLoc, 1, GL_FALSE, renderedObj->GetTransform().getData());
-            renderObj.first->Render();
-         }
-      }
+            const std::vector<float> objectColor = {1.f, 1.f, 0.f};
+            unsigned int objectColorLoc = glGetUniformLocation(currentShader->GetId(), "objectColor");
+            glUniform3fv(objectColorLoc, 1, &objectColor[0]);
 
-   glPopMatrix();
+
+            renderObj.first->PrepareRendering(currentShader->GetId());
+
+            for (const auto renderedObj : renderObj.second)
+            {
+               unsigned int objTransformLoc = glGetUniformLocation(currentShader->GetId(), "objectTransform");
+               glUniformMatrix4fv(objTransformLoc, 1, GL_FALSE, renderedObj->GetTransform().getData());
+               renderObj.first->Render();
+            }
+         }
+
+      glPopMatrix();
+   }
+}
+
+void GlRenderer::AddRenderObject(GlRenderedInstance *object, ShaderProgram *shader)
+{
+   RenderObjectsMap& renderObjectMap = renderObjectsPerShader[shader];
+
+   auto renderObjIt = renderObjectMap.find(object->GetRenderObject());
+   if (renderObjIt != renderObjectMap.end())
+      renderObjIt->second.push_back(object);
+   else
+      renderObjectMap[object->GetRenderObject()] = {object};
 }

@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-
 #include <glad/gl.h>
 
 class GlRenderObject

@@ -15,6 +15,11 @@ Matrix4x4 GlRenderedInstance::GetTransform() const
    return transform;
 }
 
+Vector3 GlRenderedInstance::GetColor() const
+{
+   return color;
+}
+
 void GlRenderedInstance::SetTransform(const Matrix4x4 &newTransform)
 {
    transform = newTransform;
@@ -23,4 +28,9 @@ void GlRenderedInstance::SetTransform(const Matrix4x4 &newTransform)
 void GlRenderedInstance::ComposeTransform(const Matrix4x4 &newTransform)
 {
    transform *= newTransform;
+}
+
+void GlRenderedInstance::SetColor(const Vector3 &_color)
+{
+   color = _color;
 }
