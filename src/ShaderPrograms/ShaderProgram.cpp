@@ -28,7 +28,6 @@ unsigned int ShaderProgram::GetId() const
 void ShaderProgram::use()
 {
    glUseProgram(shaderProgram);
-
 }
 
 void ShaderProgram::prepareShader(unsigned int& shader, char** shaderData,

@@ -1,16 +1,19 @@
 #include "GlRenderer.h"
 
+#include "ShaderPrograms/ShaderPrograms.h"
+
 GlRenderer::GlRenderer(AbstractGlCamera& _camera)
    : camera(_camera)
 {
-   shaderPrograms[ShaderEnum::SIMPLE_TEXTURING] = std::make_unique<ShaderProgram>("data/basic.vert", "data/singleTexture.frag");
-   shaderPrograms[ShaderEnum::SIMPLE_LIGHTING]  = std::make_unique<ShaderProgram>("data/basiclighting.vert", "data/basiclighting.frag");
-   shaderPrograms[ShaderEnum::TESTING]          = std::make_unique<ShaderProgram>("data/basic.vert", "data/basic.frag");
-
-   SetRenderShader(ShaderEnum::TESTING);
+   shaderPrograms[ShaderEnum::SIMPLE_TEXTURING] = std::make_unique<SimpleTexturingProgram>();
+   shaderPrograms[ShaderEnum::SIMPLE_LIGHTING]  = std::make_unique<PhongLightingProgram>();
+   shaderPrograms[ShaderEnum::TESTING]          = std::make_unique<TestingProgram>();
 
    for (const auto& shader : shaderPrograms)
       renderObjectsPerShader[shader.second.get()] = RenderObjectsMap();
+
+   // Default shader
+   SetRenderShader(ShaderEnum::TESTING);
 }
 
 GlRenderer::~GlRenderer()
@@ -66,9 +69,8 @@ void GlRenderer::PrepareRendering()
 {
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
    glEnable(GL_DEPTH_TEST);
+
    activeShaderProgram->use();
-   glUniform1i(glGetUniformLocation(activeShaderProgram->GetId(), "texture1"), 0);
-   glUniform1i(glGetUniformLocation(activeShaderProgram->GetId(), "texture2"), 1);
 }
 
 void GlRenderer::Render()
@@ -82,6 +84,7 @@ void GlRenderer::Render()
          continue;
 
       ShaderProgram* currentShader = shaderRenderObj.first;
+      currentShader->use();
 
       unsigned int transformLoc = glGetUniformLocation(currentShader->GetId(), "cameraTransform");
       glUniformMatrix4fv(transformLoc, 1, GL_FALSE, camera.getTransformMatrix().getData());

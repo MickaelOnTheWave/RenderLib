@@ -11,7 +11,7 @@ public:
    virtual ~ShaderProgram();
 
    unsigned int GetId() const;
-   void use();
+   virtual void use();
 
 private:
    void prepareShader(unsigned int& shader, char** shaderData,
