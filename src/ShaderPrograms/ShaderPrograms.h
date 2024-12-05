@@ -21,6 +21,16 @@ public:
    void use() override;
 };
 
+class ObjectColorProgram : public ShaderProgram
+{
+   public:
+   ObjectColorProgram();
+   virtual ~ObjectColorProgram() = default;
+
+   void use() override;
+};
+
+
 class TestingProgram : public ShaderProgram
 {
 public:

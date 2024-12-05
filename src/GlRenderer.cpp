@@ -7,6 +7,7 @@ GlRenderer::GlRenderer(AbstractGlCamera& _camera)
 {
    shaderPrograms[ShaderEnum::SIMPLE_TEXTURING] = std::make_unique<SimpleTexturingProgram>();
    shaderPrograms[ShaderEnum::SIMPLE_LIGHTING]  = std::make_unique<PhongLightingProgram>();
+   shaderPrograms[ShaderEnum::OBJECT_COLOR_ONLY]= std::make_unique<ObjectColorProgram>();
    shaderPrograms[ShaderEnum::TESTING]          = std::make_unique<TestingProgram>();
 
    for (const auto& shader : shaderPrograms)

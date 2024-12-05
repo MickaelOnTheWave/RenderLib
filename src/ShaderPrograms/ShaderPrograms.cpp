@@ -19,6 +19,8 @@ PhongLightingProgram::PhongLightingProgram()
 void PhongLightingProgram::use()
 {
    ShaderProgram::use();
+   glUniform3f(glGetUniformLocation(GetId(), "objectColor"), 1.0f, 0.5f, 0.31f);
+   glUniform3f(glGetUniformLocation(GetId(), "lightColor"), 1.0f, 1.0f, 1.0f);
 }
 
 TestingProgram::TestingProgram()
@@ -31,4 +33,16 @@ void TestingProgram::use()
    ShaderProgram::use();
    glUniform1i(glGetUniformLocation(GetId(), "texture1"), 0);
    glUniform1i(glGetUniformLocation(GetId(), "texture2"), 1);
+}
+
+
+ObjectColorProgram::ObjectColorProgram()
+  : ShaderProgram("data/basiclighting.vert", "data/basiccolor.frag")
+{
+}
+
+void ObjectColorProgram::use()
+{
+   ShaderProgram::use();
+   glUniform3f(glGetUniformLocation(GetId(), "objectColor"), 1.0f, 0.5f, 0.31f);
 }
