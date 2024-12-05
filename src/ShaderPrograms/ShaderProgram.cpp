@@ -30,6 +30,23 @@ void ShaderProgram::use()
    glUseProgram(shaderProgram);
 }
 
+void ShaderProgram::SetUniformMat4(const std::string &varName, const Matrix4x4 &value)
+{
+   unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
+   glUniformMatrix4fv(varLocation, 1, GL_FALSE, value.GetData());
+}
+
+void ShaderProgram::SetUniformVec3(const std::string &varName, const Vector3 &value)
+{
+   SetUniformVec3(varName, value.GetData());
+}
+
+void ShaderProgram::SetUniformVec3(const std::string &varName, const std::vector<float> &value)
+{
+   unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
+   glUniform3fv(varLocation, 1, &value[0]);
+}
+
 void ShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
                                const std::string& shaderFile, GLenum shaderType)
 {

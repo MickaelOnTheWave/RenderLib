@@ -87,27 +87,21 @@ void GlRenderer::Render()
       ShaderProgram* currentShader = shaderRenderObj.first;
       currentShader->use();
 
-      unsigned int transformLoc = glGetUniformLocation(currentShader->GetId(), "cameraTransform");
-      glUniformMatrix4fv(transformLoc, 1, GL_FALSE, camera.getTransformMatrix().getData());
+      currentShader->SetUniformMat4("cameraTransform", camera.getTransformMatrix());
 
-      const std::vector<float> lightColor = {1.f, 1.0f, 1.f};
-      unsigned int lightColorLoc = glGetUniformLocation(currentShader->GetId(), "lightColor");
-      glUniform3fv(lightColorLoc, 1, &lightColor[0]);
+      const std::vector<float> lightColor = {0.5f, 0.5f, 1.f};
+      currentShader->SetUniformVec3("lightColor", lightColor);
 
       glPushMatrix();
          for (const auto& renderObj : shaderRenderObj.second)
          {
-            const std::vector<float> objectColor = {1.f, 1.f, 0.f};
-            unsigned int objectColorLoc = glGetUniformLocation(currentShader->GetId(), "objectColor");
-            glUniform3fv(objectColorLoc, 1, &objectColor[0]);
-
-
             renderObj.first->PrepareRendering(currentShader->GetId());
 
             for (const auto renderedObj : renderObj.second)
             {
-               unsigned int objTransformLoc = glGetUniformLocation(currentShader->GetId(), "objectTransform");
-               glUniformMatrix4fv(objTransformLoc, 1, GL_FALSE, renderedObj->GetTransform().getData());
+               currentShader->SetUniformMat4("objectTransform", renderedObj->GetTransform());
+               currentShader->SetUniformVec3("objectColor", renderedObj->GetColor());
+
                renderObj.first->Render();
             }
          }

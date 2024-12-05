@@ -1,6 +1,8 @@
 #ifndef VECTOR3_H
 #define VECTOR3_H
 
+#include <vector>
+
 class Vector3
 {
 public:
@@ -20,7 +22,7 @@ public:
    float Y() const;
    float Z() const;
 
-   float* GetData();
+   std::vector<float> GetData() const;
 
    float ComputeLength() const;
 

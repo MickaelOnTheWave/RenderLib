@@ -59,6 +59,11 @@ float Vector3::Z() const
    return z;
 }
 
+std::vector<float> Vector3::GetData() const
+{
+   return std::vector<float>{x, y, z};
+}
+
 float Vector3::ComputeLength() const
 {
    return sqrt(x*x + y*y + z*z);

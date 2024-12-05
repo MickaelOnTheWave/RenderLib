@@ -4,6 +4,9 @@
 #include <glad/gl.h>
 #include <string>
 
+#include "math/Matrix4x4.h"
+#include "math/Vector3.h"
+
 class ShaderProgram
 {
 public:
@@ -12,6 +15,10 @@ public:
 
    unsigned int GetId() const;
    virtual void use();
+
+   void SetUniformMat4(const std::string& varName, const Matrix4x4& value);
+   void SetUniformVec3(const std::string& varName, const Vector3& value);
+   void SetUniformVec3(const std::string& varName, const std::vector<float>& value);
 
 private:
    void prepareShader(unsigned int& shader, char** shaderData,

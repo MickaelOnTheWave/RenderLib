@@ -23,6 +23,7 @@ public:
    Vector3 operator*(const Vector3& vec);
 
    float* getData();
+   const float *GetData() const;
 
 private:
    float ComputeLineRowProduct(const float* lineMatrix,

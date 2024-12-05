@@ -118,6 +118,11 @@ float* Matrix4x4::getData()
    return data;
 }
 
+const float *Matrix4x4::GetData() const
+{
+   return data;
+}
+
 float Matrix4x4::ComputeLineRowProduct(const float* lineMatrix,
                                        const float* rowMatrix,
                                        const int i, const int j) const

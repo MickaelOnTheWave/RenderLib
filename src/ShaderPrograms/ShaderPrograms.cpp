@@ -19,7 +19,6 @@ PhongLightingProgram::PhongLightingProgram()
 void PhongLightingProgram::use()
 {
    ShaderProgram::use();
-   glUniform3f(glGetUniformLocation(GetId(), "objectColor"), 1.0f, 0.5f, 0.31f);
    glUniform3f(glGetUniformLocation(GetId(), "lightColor"), 1.0f, 1.0f, 1.0f);
 }
 
@@ -44,5 +43,4 @@ ObjectColorProgram::ObjectColorProgram()
 void ObjectColorProgram::use()
 {
    ShaderProgram::use();
-   glUniform3f(glGetUniformLocation(GetId(), "objectColor"), 1.0f, 0.5f, 0.31f);
 }
