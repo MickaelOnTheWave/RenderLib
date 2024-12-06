@@ -25,7 +25,7 @@ protected:
    std::vector<GLuint> CreateIndexData() const override;
 
    std::vector<Vector3> points;
-   std::vector<Vector3> colors;
+   std::vector<Vector3> normals;
    std::vector<TexCoord> textureCoordinates;
 
    std::list<Triangle> triangles;

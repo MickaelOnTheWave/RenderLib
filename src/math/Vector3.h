@@ -14,8 +14,9 @@ public:
    Vector3 operator-(const Vector3& other) const;
 
    Vector3* CreateMedian(const Vector3& other) const;
-
    Vector3 CrossProduct(const Vector3& other) const;
+   Vector3 Normalized() const;
+
    float DotProduct(const Vector3& other) const;
 
    float X() const;

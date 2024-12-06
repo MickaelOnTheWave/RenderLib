@@ -21,39 +21,39 @@ void GlRenderCube::Render()
 vector<GLfloat> GlRenderCube::CreateVertexBufferData() const
 {
    const GLfloat value = 0.5f;
-   const vector<GLfloat> verticesColorsTexcoords = {
-       -value, -value,  value,   1.f,0.f,0.f,   0.f,0.f,
-       value, -value,  value,   0.f,1.f,0.f,   1.f,0.f,
+   const vector<GLfloat> verticesNormalsTexcoords = {
+       -value, -value,  value,   0.f,0.f,1.f,   0.f,0.f,
+       value, -value,  value,   0.f,0.f,1.f,   1.f,0.f,
        value,  value,  value,   0.f,0.f,1.f,   1.f,1.f,
-       -value,  value,  value,   1.f,1.f,1.f,   0.f,1.f,
+       -value,  value,  value,   0.f,0.f,1.f,   0.f,1.f,
 
-       value, -value,  value,   0.f,1.f,0.f,   0.f,0.f,
-       value, -value,  -value,   0.f,1.f,0.f,   1.f,0.f,
-       value, value,  -value,   0.f,1.f,0.f,   1.f,1.f,
-       value, value,  value,   0.f,1.f,0.f,   0.f,1.f,
+       value, -value,  value,   1.f,0.f,0.f,   0.f,0.f,
+       value, -value,  -value,   1.f,0.f,0.f,   1.f,0.f,
+       value, value,  -value,   1.f,0.f,0.f,   1.f,1.f,
+       value, value,  value,   1.f,0.f,0.f,   0.f,1.f,
 
-       value, -value, -value,   1.f,1.f,0.f,   0.f,0.f,
-       -value, -value, -value,   0.f,0.f,0.f,   1.f,0.f,
-       -value,  value, -value,   1.f,0.f,1.f,   1.f,1.f,
-       value,  value, -value,   0.f,1.f,1.f,   0.f,1.f,
+       value, -value, -value,   0.f,0.f,-1.f,   0.f,0.f,
+       -value, -value, -value,  0.f,0.f,-1.f,   1.f,0.f,
+       -value,  value, -value,   0.f,0.f,-1.f,  1.f,1.f,
+       value,  value, -value,   0.f,0.f,-1.f,   0.f,1.f,
 
-       -value, -value, -value,   0.f,0.f,0.f,   0.f,0.f,
-       -value, -value,  value,   1.f,0.f,0.f,   1.f,0.f,
-       -value,  value,  value,   1.f,1.f,1.f,   1.f,1.f,
-       -value,  value, -value,   1.f,1.f,1.f,   0.f,1.f,
+       -value, -value, -value,   -1.f,0.f,0.f,   0.f,0.f,
+       -value, -value,  value,   -1.f,0.f,0.f,   1.f,0.f,
+       -value,  value,  value,   -1.f,0.f,0.f,   1.f,1.f,
+       -value,  value, -value,   -1.f,0.f,0.f,   0.f,1.f,
 
-       -value, -value, -value,   0.f,0.f,0.f,   0.f,0.f,
-        value, -value, -value,   1.f,0.f,0.f,   1.f,0.f,
-        value, -value,  value,   1.f,1.f,1.f,   1.f,1.f,
-       -value, -value,  value,   1.f,1.f,1.f,   0.f,1.f,
+       -value, -value, -value,   0.f,-1.f,0.f,   0.f,0.f,
+        value, -value, -value,   0.f,-1.f,0.f,   1.f,0.f,
+        value, -value,  value,   0.f,-1.f,0.f,   1.f,1.f,
+       -value, -value,  value,   0.f,-1.f,0.f,   0.f,1.f,
 
-       -value,  value, -value,   0.f,0.f,0.f,   0.f,0.f,
-        value,  value, -value,   1.f,0.f,0.f,   1.f,0.f,
-        value,  value,  value,   1.f,1.f,1.f,   1.f,1.f,
-       -value,  value,  value,   1.f,1.f,1.f,   0.f,1.f
+       -value,  value, -value,   0.f,1.f,0.f,   0.f,0.f,
+        value,  value, -value,   0.f,1.f,0.f,   1.f,0.f,
+        value,  value,  value,   0.f,1.f,0.f,   1.f,1.f,
+       -value,  value,  value,   0.f,1.f,0.f,   0.f,1.f
 
    };
-   return verticesColorsTexcoords;
+   return verticesNormalsTexcoords;
 }
 
 vector<GLuint> GlRenderCube::CreateIndexData() const

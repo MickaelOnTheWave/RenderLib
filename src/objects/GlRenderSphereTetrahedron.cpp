@@ -16,10 +16,9 @@ void GlRenderSphereTetrahedron::PopulateInitialGeometry()
    points.emplace_back(cosAngle* cosAngle, -sinAngle, cosAngle * cosAngle);
    points.emplace_back(-cosAngle* cosAngle, -sinAngle, cosAngle * cosAngle);
 
-   colors.emplace_back(0.f, 1.f, 0.f);
-   colors.emplace_back(0.f, 0.f, 1.f);
-   colors.emplace_back(1.f, 0.f, 0.f);
-   colors.emplace_back(1.f, 0.f, 0.f);
+   normals = points;
+   for (auto& normal : normals)
+      normal.Normalize();
 
    textureCoordinates.emplace_back(0.5f, 1.f);
    textureCoordinates.emplace_back(0.f, 0.f);

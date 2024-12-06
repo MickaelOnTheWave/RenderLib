@@ -25,7 +25,7 @@ vector<GLfloat> GlRenderSphere::CreateVertexBufferData() const
    for (unsigned int i=0; i < points.size(); ++i)
    {
       const auto& point = points[i];
-      const auto& color = colors[i];
+      const auto& normal = normals[i];
       const auto& texCoord = textureCoordinates[i];
 
       // Point data
@@ -33,14 +33,10 @@ vector<GLfloat> GlRenderSphere::CreateVertexBufferData() const
       data.push_back(point.Y());
       data.push_back(point.Z());
 
-      // Color data
-      data.push_back(1.f);
-      data.push_back(1.f);
-      data.push_back(1.f);
-
-      /*data.push_back(color.X());
-      data.push_back(color.Y());
-      data.push_back(color.Z());*/
+      // Normal data
+      data.push_back(normal.X());
+      data.push_back(normal.Y());
+      data.push_back(normal.Z());
 
       // Texture coord data
       data.push_back(texCoord.u);

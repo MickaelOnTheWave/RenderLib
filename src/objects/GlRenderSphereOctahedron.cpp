@@ -22,7 +22,7 @@ void GlRenderSphereOctahedron::PopulateInitialGeometry()
    points.emplace_back(0.f, -radius, 0.f);
 
    for (int i=0; i<15; ++i)
-      colors.emplace_back(1.f, 1.f, 1.f);
+      normals.emplace_back(1.f, 1.f, 1.f);
 
    textureCoordinates.emplace_back(1.f, 1.f);
    textureCoordinates.emplace_back(1.f, 0.5f);

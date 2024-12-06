@@ -25,7 +25,7 @@ void GlRenderSpherePolar::PopulateCoordinates()
    SphereTextureMapping* textureMappingAlgorithm = CreateMappingAlgorithm();
 
    points.emplace_back(0.f, radius, 0.f);
-   colors.emplace_back(1.f, 1.f, 1.f);
+   normals.emplace_back(0.f, 1.f, 0.f);
 
    textureMappingAlgorithm->MapTop();
 
@@ -41,16 +41,17 @@ void GlRenderSpherePolar::PopulateCoordinates()
          const GLfloat horizontalAngle = j * horizontalAnglePerSlice;
          const float x = plane * sin(horizontalAngle);
          const float z = plane * -cos(horizontalAngle);
-         points.emplace_back(x, y, z);
 
-         colors.emplace_back(1.f, 1.f, 1.f);
+         const Vector3 point(x, y, z);
+         points.push_back(point);
+         normals.push_back(point.Normalized());
 
          textureMappingAlgorithm->Map(i, j);
       }
    }
 
    points.emplace_back(0.f, -radius, 0.f);
-   colors.emplace_back(1.f, 1.f, 1.f);
+   normals.emplace_back(0.f, -1.f, 0.f);
    textureMappingAlgorithm->MapBottom();
 }
 

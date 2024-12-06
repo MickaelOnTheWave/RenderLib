@@ -89,7 +89,10 @@ void GlRenderer::Render()
 
       currentShader->SetUniformMat4("cameraTransform", camera.getTransformMatrix());
 
-      const std::vector<float> lightColor = {0.5f, 0.5f, 1.f};
+      const std::vector<float> lightPosition = {0.5f, -0.5f, 0.f};
+      currentShader->SetUniformVec3("lightPosition", lightPosition);
+
+      const std::vector<float> lightColor = {1.f, 0.5f, 1.f};
       currentShader->SetUniformVec3("lightColor", lightColor);
 
       glPushMatrix();

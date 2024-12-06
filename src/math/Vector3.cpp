@@ -39,6 +39,13 @@ Vector3 Vector3::CrossProduct(const Vector3 &other) const
    return Vector3(resultX, resultY, resultZ);
 }
 
+Vector3 Vector3::Normalized() const
+{
+   Vector3 copy(*this);
+   copy.Normalize();
+   return copy;
+}
+
 float Vector3::DotProduct(const Vector3 &other) const
 {
    return x * other.x + y * other.y + z * other.z;
