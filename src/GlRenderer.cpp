@@ -89,11 +89,14 @@ void GlRenderer::Render()
 
       currentShader->SetUniformMat4("cameraTransform", camera.getTransformMatrix());
 
-      const std::vector<float> lightPosition = {0.5f, -0.5f, 0.f};
-      currentShader->SetUniformVec3("lightPosition", lightPosition);
 
-      const std::vector<float> lightColor = {1.f, 0.5f, 1.f};
-      currentShader->SetUniformVec3("lightColor", lightColor);
+      //const std::vector<float> lightPosition = {0.5f, -0.5f, 0.f};
+      if (lightPosition)
+         currentShader->SetUniformVec3("lightPosition", lightPosition->GetData());
+
+      //const std::vector<float> lightColor = {1.f, 0.5f, 1.f};
+      if (lightColor)
+         currentShader->SetUniformVec3("lightColor", lightColor->GetData());
 
       glPushMatrix();
          for (const auto& renderObj : shaderRenderObj.second)
@@ -111,6 +114,12 @@ void GlRenderer::Render()
 
       glPopMatrix();
    }
+}
+
+void GlRenderer::SetTempLights(Vector3 *position, Vector3 *color)
+{
+   lightPosition = position;
+   lightColor = color;
 }
 
 void GlRenderer::AddRenderObject(GlRenderedInstance *object, ShaderProgram *shader)

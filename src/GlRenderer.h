@@ -35,6 +35,8 @@ public:
 
    void Render();
 
+   void SetTempLights(Vector3* position, Vector3* color);
+
 
 private:
    void AddRenderObject(GlRenderedInstance* object, ShaderProgram* shader);
@@ -46,6 +48,10 @@ private:
    ShaderProgram* activeShaderProgram = nullptr;
 
    float clearColorR, clearColorG, clearColorB;
+
+   //Temp
+   Vector3* lightPosition = nullptr;
+   Vector3* lightColor = nullptr;
 };
 
 #endif // GLRENDERER_H

@@ -19,6 +19,7 @@ public:
    Matrix4x4& operator=(const float* other);
    Matrix4x4 operator*(const Matrix4x4& other);
    Matrix4x4& operator*=(const Matrix4x4& other);
+   float& operator[](const int index);
 
    Vector3 operator*(const Vector3& vec);
 
