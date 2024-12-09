@@ -24,20 +24,15 @@ GlRenderer::~GlRenderer()
 
 void GlRenderer::ClearScene()
 {
-   for (auto& renderObjPerShader : renderObjectsPerShader)
+   for (auto& renderObjs : renderObjectsStorage)
    {
-      for (auto& renderObjs : renderObjPerShader.second)
+      for (auto* renderInstance : renderObjs.second)
       {
-         for (auto* renderInstance : renderObjs.second)
-         {
-            delete renderInstance;
-         }
-         renderObjs.second.clear();
-         delete renderObjs.first;
+         delete renderInstance;
       }
-      renderObjPerShader.second.clear();
+      renderObjs.second.clear();
+      delete renderObjs.first;
    }
-
    renderObjectsPerShader.clear();
 }
 
@@ -125,10 +120,15 @@ void GlRenderer::SetTempLights(Vector3 *position, Vector3 *color)
 void GlRenderer::AddRenderObject(GlRenderedInstance *object, ShaderProgram *shader)
 {
    RenderObjectsMap& renderObjectMap = renderObjectsPerShader[shader];
+   AddToObjectMap(object, renderObjectMap);
+   AddToObjectMap(object, renderObjectsStorage);
+}
 
-   auto renderObjIt = renderObjectMap.find(object->GetRenderObject());
-   if (renderObjIt != renderObjectMap.end())
+void GlRenderer::AddToObjectMap(GlRenderedInstance *object, RenderObjectsMap &objectMap)
+{
+   auto renderObjIt = objectMap.find(object->GetRenderObject());
+   if (renderObjIt != objectMap.end())
       renderObjIt->second.push_back(object);
    else
-      renderObjectMap[object->GetRenderObject()] = {object};
+      objectMap[object->GetRenderObject()] = {object};
 }

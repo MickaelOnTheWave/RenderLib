@@ -39,13 +39,21 @@ public:
 
 
 private:
-   void AddRenderObject(GlRenderedInstance* object, ShaderProgram* shader);
-
    using RenderObjectsMap = std::unordered_map<GlRenderObject*, std::vector<GlRenderedInstance*>>;
+
+   void AddRenderObject(GlRenderedInstance* object, ShaderProgram* shader);
+   void AddToObjectMap(GlRenderedInstance* object, RenderObjectsMap& objectMap);
+
+
    AbstractGlCamera& camera;
-   std::map<ShaderProgram*, RenderObjectsMap> renderObjectsPerShader;
    std::map<ShaderEnum, std::unique_ptr<ShaderProgram>> shaderPrograms;
    ShaderProgram* activeShaderProgram = nullptr;
+
+   // Used as a reference. Objects are stored in the RenderObjects map.
+   std::map<ShaderProgram*, RenderObjectsMap> renderObjectsPerShader;
+
+   // Used for storage.
+   RenderObjectsMap renderObjectsStorage;
 
    float clearColorR, clearColorG, clearColorB;
 
