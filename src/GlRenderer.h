@@ -9,6 +9,7 @@
 #include "ShaderPrograms/ShaderProgram.h"
 #include "objects/GlRenderedInstance.h"
 #include "objects/GlRenderObject.h"
+#include "Material.h"
 
 class GlRenderer
 {
@@ -21,12 +22,12 @@ public:
    };
 
    GlRenderer(AbstractGlCamera& _camera);
-   virtual ~GlRenderer();
-
-   void ClearScene();
+   virtual ~GlRenderer();   
 
    void SetRenderShader(const ShaderEnum& renderMode);
    void SetClearColor(const float r, const float g, const float b);
+
+   void AddMaterial(Material* material);
 
    void AddRenderObject(GlRenderedInstance* object);
    void AddRenderObject(GlRenderedInstance* object, const ShaderEnum& shader);
@@ -41,6 +42,9 @@ public:
 private:
    using RenderObjectsMap = std::unordered_map<GlRenderObject*, std::vector<GlRenderedInstance*>>;
 
+   void ClearScene();
+   void ClearMaterials();
+
    void AddRenderObject(GlRenderedInstance* object, ShaderProgram* shader);
    void AddToObjectMap(GlRenderedInstance* object, RenderObjectsMap& objectMap);
 
@@ -54,6 +58,8 @@ private:
 
    // Used for storage.
    RenderObjectsMap renderObjectsStorage;
+
+   std::vector<Material*> materials;
 
    float clearColorR, clearColorG, clearColorB;
 

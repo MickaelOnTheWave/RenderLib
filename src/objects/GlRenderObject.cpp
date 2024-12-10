@@ -7,6 +7,11 @@
 
 using namespace std;
 
+GlRenderObject::GlRenderObject(Material *_material)
+  : material(_material)
+{
+}
+
 void GlRenderObject::PrepareRendering(const unsigned int shaderProgramId)
 {
    glUniform1i(glGetUniformLocation(shaderProgramId, "textureCount"), textureFiles.size());

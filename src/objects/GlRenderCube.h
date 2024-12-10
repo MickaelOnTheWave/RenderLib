@@ -6,7 +6,8 @@
 class GlRenderCube : public GlRenderObject
 {
 public:
-   GlRenderCube(const TextureVec& _textureFiles);
+   //GlRenderCube(const TextureVec& _textureFiles);
+   explicit GlRenderCube(Material* _material);
 
    void Render() override;
 

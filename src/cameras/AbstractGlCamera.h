@@ -9,7 +9,10 @@ class AbstractGlCamera
 public:
    AbstractGlCamera();
 
-   Matrix4x4 getTransformMatrix();
+
+   Vector3 GetPosition() const;
+   Vector3 GetDirection() const;
+   Matrix4x4 GetTransformMatrix() const;
 
 protected:
    Matrix4x4 transformMatrix;

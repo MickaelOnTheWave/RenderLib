@@ -2,10 +2,14 @@
 
 using namespace std;
 
-void GlRenderSphere::Initialize(const unsigned int subdivisions,
-                                          const TextureVec &_textureFiles)
+GlRenderSphere::GlRenderSphere(Material *_material)
+  : GlRenderObject(_material)
 {
-   SetTextures(_textureFiles);
+}
+
+void GlRenderSphere::Initialize(const unsigned int subdivisions)
+{
+   //SetTextures(_textureFiles);
    PopulateGeometry(subdivisions);
    InitializeGlData();
 }

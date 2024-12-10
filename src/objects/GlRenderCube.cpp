@@ -3,10 +3,16 @@
 #include <glad/gl.h>
 
 using namespace std;
-
+/*
 GlRenderCube::GlRenderCube(const TextureVec &_textureFiles)
 {
    SetTextures(_textureFiles);
+   InitializeGlData();
+}
+*/
+GlRenderCube::GlRenderCube(Material *_material)
+  : GlRenderObject(_material)
+{
    InitializeGlData();
 }
 

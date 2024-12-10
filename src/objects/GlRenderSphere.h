@@ -12,9 +12,10 @@
 class GlRenderSphere : public GlRenderObject
 {
 public:
-   GlRenderSphere() = default;
+   GlRenderSphere(Material* _material);
 
-   void Initialize(const unsigned int subdivisions, const TextureVec &_textureFiles);
+   void Initialize(const unsigned int subdivisions);
+   //void Initialize(const unsigned int subdivisions, const TextureVec &_textureFiles);
 
    void Render() override;
 

@@ -5,13 +5,15 @@
 #include <vector>
 #include <glad/gl.h>
 
+#include "Material.h"
+
 class GlRenderObject
 {
 public:
    using Texture = std::pair<std::string, int>;
    using TextureVec = std::vector<Texture>;
 
-   GlRenderObject() = default;
+   explicit GlRenderObject(Material* _material);
    virtual ~GlRenderObject() = default;
 
    virtual void PrepareRendering(const unsigned int shaderProgramId);
@@ -41,6 +43,7 @@ protected:
    unsigned int elementBufferObject;
    unsigned int textureObjects[2];
    TextureVec textureFiles;
+   Material* material;
 };
 
 #endif // GLRENDEROBJECT_H

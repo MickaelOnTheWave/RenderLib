@@ -15,7 +15,7 @@ public:
       HalfProjection
    };
 
-   GlRenderSpherePolar() = default;
+   GlRenderSpherePolar(Material* _material);
    virtual ~GlRenderSpherePolar() = default;
 
    void SetTextureProjection(const TextureMap mapping);

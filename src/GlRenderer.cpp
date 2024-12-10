@@ -20,6 +20,7 @@ GlRenderer::GlRenderer(AbstractGlCamera& _camera)
 GlRenderer::~GlRenderer()
 {
    ClearScene();
+   ClearMaterials();
 }
 
 void GlRenderer::ClearScene()
@@ -36,6 +37,13 @@ void GlRenderer::ClearScene()
    renderObjectsPerShader.clear();
 }
 
+void GlRenderer::ClearMaterials()
+{
+   for (auto material : materials)
+      delete material;
+   materials.clear();
+}
+
 void GlRenderer::SetRenderShader(const ShaderEnum &renderMode)
 {
    activeShaderProgram = shaderPrograms[renderMode].get();
@@ -46,6 +54,11 @@ void GlRenderer::SetClearColor(const float r, const float g, const float b)
    clearColorR = r;
    clearColorG = g;
    clearColorB = b;
+}
+
+void GlRenderer::AddMaterial(Material *material)
+{
+   materials.push_back(material);
 }
 
 void GlRenderer::AddRenderObject(GlRenderedInstance *object)
@@ -82,16 +95,15 @@ void GlRenderer::Render()
       ShaderProgram* currentShader = shaderRenderObj.first;
       currentShader->use();
 
-      currentShader->SetUniformMat4("cameraTransform", camera.getTransformMatrix());
+      currentShader->SetUniformMat4("cameraTransform", camera.GetTransformMatrix());
 
-
-      //const std::vector<float> lightPosition = {0.5f, -0.5f, 0.f};
       if (lightPosition)
          currentShader->SetUniformVec3("lightPosition", lightPosition->GetData());
 
-      //const std::vector<float> lightColor = {1.f, 0.5f, 1.f};
       if (lightColor)
          currentShader->SetUniformVec3("lightColor", lightColor->GetData());
+
+      // TODO : Set uniforms for material
 
       glPushMatrix();
          for (const auto& renderObj : shaderRenderObj.second)

@@ -2,6 +2,11 @@
 
 #include <cmath>
 
+GlRenderSpherePolar::GlRenderSpherePolar(Material *_material)
+  : GlRenderSphere(_material)
+{
+}
+
 void GlRenderSpherePolar::SetTextureProjection(const TextureMap mapping)
 {
    textureMapping = mapping;
