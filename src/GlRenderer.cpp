@@ -6,7 +6,7 @@ GlRenderer::GlRenderer(AbstractGlCamera& _camera)
    : camera(_camera)
 {
    shaderPrograms[ShaderEnum::SIMPLE_TEXTURING] = std::make_unique<SimpleTexturingProgram>();
-   shaderPrograms[ShaderEnum::SIMPLE_LIGHTING]  = std::make_unique<PhongLightingProgram>();
+   shaderPrograms[ShaderEnum::PHONG_LIGHTING]   = std::make_unique<PhongLightingProgram>();
    shaderPrograms[ShaderEnum::OBJECT_COLOR_ONLY]= std::make_unique<ObjectColorProgram>();
    shaderPrograms[ShaderEnum::TESTING]          = std::make_unique<TestingProgram>();
 
@@ -103,12 +103,12 @@ void GlRenderer::Render()
       if (lightColor)
          currentShader->SetUniformVec3("lightColor", lightColor->GetData());
 
-      // TODO : Set uniforms for material
-
       glPushMatrix();
          for (const auto& renderObj : shaderRenderObj.second)
          {
             renderObj.first->PrepareRendering(currentShader->GetId());
+
+            currentShader->SetUniformMaterial(renderObj.first->GetMaterial());
 
             for (const auto renderedObj : renderObj.second)
             {

@@ -25,6 +25,11 @@ void GlRenderObject::PrepareRendering(const unsigned int shaderProgramId)
    glBindVertexArray(vertexArrayObject);
 }
 
+Material *GlRenderObject::GetMaterial() const
+{
+   return material;
+}
+
 void GlRenderObject::SetTextures(const TextureVec &textures)
 {
    textureFiles = textures;

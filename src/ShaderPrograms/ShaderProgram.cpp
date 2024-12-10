@@ -47,6 +47,28 @@ void ShaderProgram::SetUniformVec3(const std::string &varName, const std::vector
    glUniform3fv(varLocation, 1, &value[0]);
 }
 
+void ShaderProgram::SetUniformMaterial(Material *material)
+{
+   if (material)
+   {
+      SetUniformVec3("ambientColor", material->ambientColor);
+      SetUniformVec3("diffuseColor", material->diffuseColor);
+      SetUniformVec3("specularColor", material->specularColor);
+
+      unsigned int varLocation = glGetUniformLocation(GetId(), "shininess");
+      glUniform1f(varLocation, material->shininess);
+   }
+   else
+   {
+      SetUniformVec3("ambientColor", Vector3());
+      SetUniformVec3("diffuseColor", Vector3());
+      SetUniformVec3("specularColor", Vector3());
+
+      unsigned int varLocation = glGetUniformLocation(GetId(), "shininess");
+      glUniform1f(varLocation, 0);
+   }
+}
+
 void ShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
                                const std::string& shaderFile, GLenum shaderType)
 {

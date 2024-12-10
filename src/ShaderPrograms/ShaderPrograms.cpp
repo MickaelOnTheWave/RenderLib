@@ -12,7 +12,7 @@ void SimpleTexturingProgram::use()
 }
 
 PhongLightingProgram::PhongLightingProgram()
-  : ShaderProgram("data/basiclighting.vert", "data/basiclighting.frag")
+  : ShaderProgram("data/phong.vert", "data/phong.frag")
 {
 }
 

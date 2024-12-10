@@ -20,6 +20,8 @@ public:
 
    virtual void Render() = 0;
 
+   Material* GetMaterial() const;
+
    void SetTextures(const TextureVec& textures);
 
 protected:

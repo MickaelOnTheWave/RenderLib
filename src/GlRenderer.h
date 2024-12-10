@@ -16,7 +16,7 @@ class GlRenderer
 public:
    enum class ShaderEnum {
        SIMPLE_TEXTURING = 0,
-       SIMPLE_LIGHTING,
+       PHONG_LIGHTING,
        OBJECT_COLOR_ONLY,
        TESTING
    };
