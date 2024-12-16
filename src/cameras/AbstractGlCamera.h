@@ -3,7 +3,6 @@
 
 #include "math/Matrix4x4.h"
 
-// TODO Implement FPS Camera
 class AbstractGlCamera
 {
 public:

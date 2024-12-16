@@ -1,8 +1,8 @@
 #include "OrbitCamera.h"
 
-OrbitCamera::OrbitCamera(const float _targetX, const float _targetY, const float _targetZ)
+OrbitCamera::OrbitCamera(const Vector3 &_target)
    : AbstractGlCamera(),
-     targetX(_targetX), targetY(_targetY), targetZ(_targetZ)
+  target(_target)
 {
    rotationSpeed = 0.01f;
 }
@@ -21,6 +21,6 @@ void OrbitCamera::RotateInY(const double angle)
 
 void OrbitCamera::updateTransformMatrix(void)
 {
-   transformMatrix = Matrix4x4::Translation(-targetX, -targetY, -targetZ) * Matrix4x4::RotationX(currentAngleX) *
+   transformMatrix = Matrix4x4::Translation(-target.X(), -target.Y(), -target.Z()) * Matrix4x4::RotationX(currentAngleX) *
                      Matrix4x4::RotationY(currentAngleY);
 }

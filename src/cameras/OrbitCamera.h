@@ -6,9 +6,7 @@
 class OrbitCamera : public AbstractGlCamera
 {
 public:
-   OrbitCamera(const float _targetX,
-               const float _targetY,
-               const float _targetZ);
+   OrbitCamera(const Vector3& _target);
 
    void RotateInX(const double angle);
    void RotateInY(const double angle);
@@ -16,6 +14,7 @@ public:
 private:
    void updateTransformMatrix(void);
 
+   Vector3 target;
    float targetX, targetY, targetZ;
    float rotationSpeed;
    float currentAngleX = 0.f;
