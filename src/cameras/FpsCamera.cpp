@@ -15,12 +15,20 @@ void FpsCamera::MoveInY(const double speed)
    transformMatrix *= Matrix4x4::Translation(Vector3(-speed, 0, 0));
 }
 
-void FpsCamera::RotateInX(const double angle)
+void FpsCamera::RotateHorizontal(const double angle)
 {
-
+   const Matrix4x4 minusPositionMat = Matrix4x4::Translation(GetPosition() * -1);
+   //transformMatrix *= minusPositionMat;
+   transformMatrix *= Matrix4x4::RotationY(angle);
 }
 
-void FpsCamera::RotateInY(const double angle)
+void FpsCamera::RotateVertical(const double angle)
 {
+   /*const Matrix4x4 positionMat = Matrix4x4::Translation(GetPosition());
+   const Matrix4x4 minusPositionMat = Matrix4x4::Translation(GetPosition() * -1);
+   transformMatrix *= minusPositionMat;
+   transformMatrix *= Matrix4x4::RotationX(angle);
+   transformMatrix *= positionMat;*/
+
 
 }

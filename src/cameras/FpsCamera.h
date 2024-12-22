@@ -10,8 +10,8 @@ public:
 
    void MoveInX(const double speed);
    void MoveInY(const double speed);
-   void RotateInX(const double angle);
-   void RotateInY(const double angle);
+   void RotateHorizontal(const double angle);
+   void RotateVertical(const double angle);
 
 };
 
