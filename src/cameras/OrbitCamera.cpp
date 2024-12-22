@@ -21,6 +21,6 @@ void OrbitCamera::RotateInY(const double angle)
 
 void OrbitCamera::updateTransformMatrix(void)
 {
-   transformMatrix = Matrix4x4::Translation(-target.X(), -target.Y(), -target.Z()) * Matrix4x4::RotationX(currentAngleX) *
+   transformMatrix = Matrix4x4::Translation(target * -1) * Matrix4x4::RotationX(currentAngleX) *
                      Matrix4x4::RotationY(currentAngleY);
 }

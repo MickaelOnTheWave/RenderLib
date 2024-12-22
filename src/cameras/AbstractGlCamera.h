@@ -7,7 +7,7 @@ class AbstractGlCamera
 {
 public:
    AbstractGlCamera();
-
+    virtual ~AbstractGlCamera() = default;
 
    Vector3 GetPosition() const;
    Vector3 GetDirection() const;

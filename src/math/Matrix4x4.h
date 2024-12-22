@@ -10,6 +10,7 @@ public:
    Matrix4x4(const float* _data);
 
    static Matrix4x4 Identity();
+   static Matrix4x4 Translation(const Vector3& value);
    static Matrix4x4 Translation(const float x, const float y, const float z);
    static Matrix4x4 Scale(const float x, const float y, const float z);
    static Matrix4x4 Scale(const float s);

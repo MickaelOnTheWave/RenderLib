@@ -21,9 +21,10 @@ public:
        TESTING
    };
 
-   GlRenderer(AbstractGlCamera& _camera);
-   virtual ~GlRenderer();   
+   GlRenderer(AbstractGlCamera *_camera);
+   virtual ~GlRenderer();
 
+   void SetCamera(AbstractGlCamera *newCamera);
    void SetRenderShader(const ShaderEnum& renderMode);
    void SetClearColor(const float r, const float g, const float b);
 
@@ -49,7 +50,7 @@ private:
    void AddToObjectMap(GlRenderedInstance* object, RenderObjectsMap& objectMap);
 
 
-   AbstractGlCamera& camera;
+   AbstractGlCamera* camera;
    std::map<ShaderEnum, std::unique_ptr<ShaderProgram>> shaderPrograms;
    ShaderProgram* activeShaderProgram = nullptr;
 

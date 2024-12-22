@@ -2,7 +2,7 @@
 
 #include "ShaderPrograms/ShaderPrograms.h"
 
-GlRenderer::GlRenderer(AbstractGlCamera& _camera)
+GlRenderer::GlRenderer(AbstractGlCamera* _camera)
    : camera(_camera)
 {
    shaderPrograms[ShaderEnum::SIMPLE_TEXTURING] = std::make_unique<SimpleTexturingProgram>();
@@ -21,6 +21,11 @@ GlRenderer::~GlRenderer()
 {
    ClearScene();
    ClearMaterials();
+}
+
+void GlRenderer::SetCamera(AbstractGlCamera* newCamera)
+{
+   camera = newCamera;
 }
 
 void GlRenderer::ClearScene()
@@ -95,7 +100,7 @@ void GlRenderer::Render()
       ShaderProgram* currentShader = shaderRenderObj.first;
       currentShader->use();
 
-      currentShader->SetUniformMat4("cameraTransform", camera.GetTransformMatrix());
+      currentShader->SetUniformMat4("cameraTransform", camera->GetTransformMatrix());
 
       if (lightPosition)
          currentShader->SetUniformVec3("lightPosition", lightPosition->GetData());

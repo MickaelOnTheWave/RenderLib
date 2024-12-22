@@ -24,6 +24,11 @@ Matrix4x4 Matrix4x4::Identity()
    return Matrix4x4(newData);
 }
 
+Matrix4x4 Matrix4x4::Translation(const Vector3 &value)
+{
+   return Translation(value.X(), value.Y(), value.Z());
+}
+
 Matrix4x4 Matrix4x4::Translation(const float x, const float y,
                                  const float z)
 {
