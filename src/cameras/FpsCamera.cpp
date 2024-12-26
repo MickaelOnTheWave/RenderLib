@@ -7,7 +7,7 @@ FpsCamera::FpsCamera(const Vector3 &startPosition)
 
 void FpsCamera::MoveInX(const double speed)
 {
-   transformMatrix *= Matrix4x4::Translation(Vector3(0, 0, -speed));
+   transformMatrix *= Matrix4x4::Translation(Vector3(0, 0, speed));
 }
 
 void FpsCamera::MoveInY(const double speed)

@@ -1,6 +1,7 @@
 #ifndef MATRIX4X4_H
 #define MATRIX4X4_H
 
+#include <glm/glm.hpp>
 #include "Vector3.h"
 
 class Matrix4x4
@@ -8,6 +9,7 @@ class Matrix4x4
 public:
    Matrix4x4();
    Matrix4x4(const float* _data);
+   Matrix4x4(const glm::mat4& matrix);
 
    static Matrix4x4 Identity();
    static Matrix4x4 Translation(const Vector3& value);
@@ -18,7 +20,7 @@ public:
    static Matrix4x4 RotationY(const float angle);
 
    Matrix4x4& operator=(const float* other);
-   Matrix4x4 operator*(const Matrix4x4& other);
+   Matrix4x4 operator*(const Matrix4x4& other) const;
    Matrix4x4& operator*=(const Matrix4x4& other);
    float& operator[](const int index);
    float operator[](const int index) const;

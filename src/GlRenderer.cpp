@@ -100,6 +100,7 @@ void GlRenderer::Render()
       ShaderProgram* currentShader = shaderRenderObj.first;
       currentShader->use();
 
+      currentShader->SetUniformMat4("cameraProjection", camera->GetProjectionMatrix());
       currentShader->SetUniformMat4("cameraTransform", camera->GetTransformMatrix());
 
       if (lightPosition)

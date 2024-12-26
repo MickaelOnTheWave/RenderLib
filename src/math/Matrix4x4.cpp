@@ -13,6 +13,15 @@ Matrix4x4::Matrix4x4(const float* _data)
       data[i] = _data[i];
 }
 
+Matrix4x4::Matrix4x4(const glm::mat4 &matrix)
+{
+   for (int i=0; i<4; ++i)
+   {
+      for (int j=0; j<4; ++j)
+         data[i*4 + j] = matrix[i][j];
+   }
+}
+
 Matrix4x4 Matrix4x4::Identity()
 {
    const float newData[16] = {
@@ -90,7 +99,7 @@ Matrix4x4& Matrix4x4::operator=(const float* other)
    return *this;
 }
 
-Matrix4x4 Matrix4x4::operator*(const Matrix4x4& other)
+Matrix4x4 Matrix4x4::operator*(const Matrix4x4& other) const
 {
    Matrix4x4 result;
    for (int i=0; i<4; ++i)
