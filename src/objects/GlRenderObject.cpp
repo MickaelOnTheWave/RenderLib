@@ -10,6 +10,8 @@ using namespace std;
 GlRenderObject::GlRenderObject(Material *_material)
   : material(_material)
 {
+   if (material)
+      textureFiles.push_back(material->diffuseComponent);
 }
 
 void GlRenderObject::PrepareRendering(const unsigned int shaderProgramId)
@@ -71,7 +73,7 @@ void GlRenderObject::setupTextureObject()
    for (int i=0; i<textureFiles.size(); ++i)
    {
       const auto& textureFile = textureFiles[i];
-      generateTextureObject(textureFile.first.c_str(), i, textureFile.second);
+      generateTextureObject(textureFile.file.c_str(), i, textureFile.format);
    }
 }
 

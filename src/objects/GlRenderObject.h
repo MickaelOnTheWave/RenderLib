@@ -1,7 +1,6 @@
 #ifndef GLRENDEROBJECT_H
 #define GLRENDEROBJECT_H
 
-#include <string>
 #include <vector>
 #include <glad/gl.h>
 
@@ -10,7 +9,6 @@
 class GlRenderObject
 {
 public:
-   using Texture = std::pair<std::string, int>;
    using TextureVec = std::vector<Texture>;
 
    explicit GlRenderObject(Material* _material);

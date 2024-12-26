@@ -52,7 +52,7 @@ void ShaderProgram::SetUniformMaterial(Material *material)
    if (material)
    {
       SetUniformVec3("ambientColor", material->ambientColor);
-      SetUniformVec3("diffuseColor", material->diffuseColor);
+      //SetUniformVec3("diffuseColor", material->diffuseComponent);
       SetUniformVec3("specularColor", material->specularColor);
 
       unsigned int varLocation = glGetUniformLocation(GetId(), "shininess");

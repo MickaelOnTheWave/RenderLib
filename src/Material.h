@@ -4,6 +4,15 @@
 #include <string>
 #include "math/Vector3.h"
 
+struct Texture
+{
+   Texture() = default;
+   Texture(const std::string& _file, const int _format);
+
+   std::string file;
+   int format;
+};
+
 class Material
 {
 public:
@@ -12,7 +21,7 @@ public:
    std::string name;
 
    Vector3 ambientColor;
-   Vector3 diffuseColor;
+   Texture diffuseComponent;
    Vector3 specularColor;
    float shininess;
 };
