@@ -14,6 +14,11 @@ public:
    Matrix4x4 GetTransformMatrix() const;
    Matrix4x4 GetProjectionMatrix() const;
 
+   void SetPerspectiveProjection(const float fieldOfView, const float aspectRatio,
+                                 const float nearZ, const float farZ);
+   void SetOrthographicProjection(const float width, const float height,
+                                  const float nearZ, const float farZ);
+
 protected:
    Matrix4x4 transformMatrix;
    Matrix4x4 projectionMatrix;

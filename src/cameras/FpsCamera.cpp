@@ -3,6 +3,9 @@
 FpsCamera::FpsCamera(const Vector3 &startPosition)
 {
    transformMatrix = Matrix4x4::Translation(startPosition * -1);
+
+   // Defaults to perspective projection
+   SetPerspectiveProjection(90.f, 800.f / 600.f, 0.1f, 500.f);
 }
 
 void FpsCamera::MoveInX(const double speed)
@@ -17,18 +20,10 @@ void FpsCamera::MoveInY(const double speed)
 
 void FpsCamera::RotateHorizontal(const double angle)
 {
-   const Matrix4x4 minusPositionMat = Matrix4x4::Translation(GetPosition() * -1);
-   //transformMatrix *= minusPositionMat;
    transformMatrix *= Matrix4x4::RotationY(angle);
 }
 
 void FpsCamera::RotateVertical(const double angle)
 {
-   /*const Matrix4x4 positionMat = Matrix4x4::Translation(GetPosition());
-   const Matrix4x4 minusPositionMat = Matrix4x4::Translation(GetPosition() * -1);
-   transformMatrix *= minusPositionMat;
    transformMatrix *= Matrix4x4::RotationX(angle);
-   transformMatrix *= positionMat;*/
-
-
 }

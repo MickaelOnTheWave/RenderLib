@@ -10,6 +10,8 @@ public:
 
    void RotateInX(const double angle);
    void RotateInY(const double angle);
+   void ZoomIn(const double speed);
+   void ZoomOut(const double speed);
 
 private:
    void updateTransformMatrix(void);

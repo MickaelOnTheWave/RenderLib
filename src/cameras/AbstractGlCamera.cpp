@@ -6,9 +6,6 @@
 
 AbstractGlCamera::AbstractGlCamera()
 {
-   const float fov = glm::radians(90.f);
-   const glm::mat4 glmProjection = glm::perspective(fov, 800.f / 600.f, 0.1f, 100.f);
-   projectionMatrix = Matrix4x4(glmProjection);
 }
 
 Vector3 AbstractGlCamera::GetPosition() const
@@ -30,3 +27,17 @@ Matrix4x4 AbstractGlCamera::GetProjectionMatrix() const
 {
    return projectionMatrix;
 }
+
+void AbstractGlCamera::SetPerspectiveProjection(const float fieldOfView, const float aspectRatio, const float nearZ, const float farZ)
+{
+   const float fovInRadians = glm::radians(fieldOfView);
+   const glm::mat4 glmProjection = glm::perspective(fovInRadians, 800.f / 600.f, nearZ, farZ);
+   projectionMatrix = Matrix4x4(glmProjection);
+}
+
+void AbstractGlCamera::SetOrthographicProjection(const float width, const float height, const float nearZ, const float farZ)
+{
+   const glm::mat4 glmProjection = glm::ortho(0.f, width, 0.f, height, nearZ, farZ);
+   projectionMatrix = Matrix4x4(glmProjection);
+}
+
