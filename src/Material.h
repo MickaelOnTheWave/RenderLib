@@ -17,11 +17,12 @@ class Material
 {
 public:
    Material(const std::string& _name);
+   Material(const Material& other);
 
    std::string name;
 
    Vector3 ambientColor;
-   Texture diffuseComponent;
+   unsigned int diffuseTextureId;
    Vector3 specularColor;
    float shininess;
 };

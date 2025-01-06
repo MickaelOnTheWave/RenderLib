@@ -18,6 +18,8 @@ public:
    unsigned int GetId() const;
    virtual void use();
 
+   void SetUniformInt(const std::string& varName, const int value);
+   void SetUniformFloat(const std::string& varName, const float value);
    void SetUniformMat4(const std::string& varName, const Matrix4x4& value);
    void SetUniformVec3(const std::string& varName, const Vector3& value);
    void SetUniformVec3(const std::string& varName, const std::vector<float>& value);

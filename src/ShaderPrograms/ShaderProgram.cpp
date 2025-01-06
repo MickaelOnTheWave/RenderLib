@@ -30,6 +30,18 @@ void ShaderProgram::use()
    glUseProgram(shaderProgram);
 }
 
+void ShaderProgram::SetUniformInt(const std::string &varName, const int value)
+{
+   unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
+   glUniform1i(varLocation, value);
+}
+
+void ShaderProgram::SetUniformFloat(const std::string &varName, const float value)
+{
+   unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
+   glUniform1f(varLocation, value);
+}
+
 void ShaderProgram::SetUniformMat4(const std::string &varName, const Matrix4x4 &value)
 {
    unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
@@ -49,23 +61,18 @@ void ShaderProgram::SetUniformVec3(const std::string &varName, const std::vector
 
 void ShaderProgram::SetUniformMaterial(Material *material)
 {
+   SetUniformInt("diffuseTexture", 0);
    if (material)
    {
       SetUniformVec3("ambientColor", material->ambientColor);
-      //SetUniformVec3("diffuseColor", material->diffuseComponent);
       SetUniformVec3("specularColor", material->specularColor);
-
-      unsigned int varLocation = glGetUniformLocation(GetId(), "shininess");
-      glUniform1f(varLocation, material->shininess);
+      SetUniformFloat("shininess", material->shininess);
    }
    else
    {
       SetUniformVec3("ambientColor", Vector3());
-      SetUniformVec3("diffuseColor", Vector3());
       SetUniformVec3("specularColor", Vector3());
-
-      unsigned int varLocation = glGetUniformLocation(GetId(), "shininess");
-      glUniform1f(varLocation, 0);
+      SetUniformFloat("shininess", 0.f);
    }
 }
 

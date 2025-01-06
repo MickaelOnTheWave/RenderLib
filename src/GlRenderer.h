@@ -28,6 +28,7 @@ public:
    void SetRenderShader(const ShaderEnum& renderMode);
    void SetClearColor(const float r, const float g, const float b);
 
+   unsigned int AddTexture(const std::string& file, const int format);
    void AddMaterial(Material* material);
 
    void AddRenderObject(GlRenderedInstance* object);
@@ -49,6 +50,7 @@ private:
    void AddRenderObject(GlRenderedInstance* object, ShaderProgram* shader);
    void AddToObjectMap(GlRenderedInstance* object, RenderObjectsMap& objectMap);
 
+   unsigned int CreateGlTexture(const Texture& texture);
 
    AbstractGlCamera* camera;
    std::map<ShaderEnum, std::unique_ptr<ShaderProgram>> shaderPrograms;
@@ -61,6 +63,8 @@ private:
    RenderObjectsMap renderObjectsStorage;
 
    std::vector<Material*> materials;
+
+   std::vector<unsigned int> textureObjects;
 
    float clearColorR, clearColorG, clearColorB;
 

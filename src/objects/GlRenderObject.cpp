@@ -2,26 +2,19 @@
 
 #include <glad/gl.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 using namespace std;
 
 GlRenderObject::GlRenderObject(Material *_material)
   : material(_material)
 {
-   if (material)
-      textureFiles.push_back(material->diffuseComponent);
 }
 
 void GlRenderObject::PrepareRendering(const unsigned int shaderProgramId)
 {
-   glUniform1i(glGetUniformLocation(shaderProgramId, "textureCount"), textureFiles.size());
-
-   for (unsigned int i=0; i<textureFiles.size(); ++i)
+   if (material)
    {
-      glActiveTexture(GL_TEXTURE0 + i);
-      glBindTexture(GL_TEXTURE_2D, textureObjects[i]);
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, material->diffuseTextureId);
    }
 
    glBindVertexArray(vertexArrayObject);
@@ -32,11 +25,6 @@ Material *GlRenderObject::GetMaterial() const
    return material;
 }
 
-void GlRenderObject::SetTextures(const TextureVec &textures)
-{
-   textureFiles = textures;
-}
-
 void GlRenderObject::InitializeGlData()
 {
    glGenVertexArrays(1, &vertexArrayObject);
@@ -44,7 +32,6 @@ void GlRenderObject::InitializeGlData()
 
    setupVertexBufferObject();
    setupElementBufferObject();
-   setupTextureObject();
 
    setupVertexArrayAttributes();
 }
@@ -67,16 +54,6 @@ void GlRenderObject::setupElementBufferObject()
    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), indices.data(), GL_STATIC_DRAW);
 }
 
-void GlRenderObject::setupTextureObject()
-{
-   glGenTextures(textureFiles.size(), textureObjects);
-   for (int i=0; i<textureFiles.size(); ++i)
-   {
-      const auto& textureFile = textureFiles[i];
-      generateTextureObject(textureFile.file.c_str(), i, textureFile.format);
-   }
-}
-
 void GlRenderObject::setupVertexArrayAttributes()
 {
    const GLsizei stride = 8 * sizeof(float);
@@ -94,25 +71,3 @@ void GlRenderObject::setupVertexArrayAttributes()
    glEnableVertexAttribArray(2);
 }
 
-void GlRenderObject::generateTextureObject(const char *imagePath, const unsigned int textureIndex,
-                                           const unsigned int dataFormat)
-{
-   int width, height, nrChannels;
-   unsigned char *textureData = stbi_load(imagePath, &width, &height, &nrChannels, 0);
-   if (textureData)
-   {
-      glActiveTexture(GL_TEXTURE0 + textureIndex);
-      glBindTexture(GL_TEXTURE_2D, textureObjects[textureIndex]);
-
-      // Textures
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, dataFormat, GL_UNSIGNED_BYTE, textureData);
-      glGenerateMipmap(GL_TEXTURE_2D);
-
-      stbi_image_free(textureData);
-   }
-}
