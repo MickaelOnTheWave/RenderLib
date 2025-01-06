@@ -21,7 +21,6 @@ public:
 
    std::string name;
 
-   Vector3 ambientColor;
    unsigned int diffuseTextureId;
    Vector3 specularColor;
    float shininess;

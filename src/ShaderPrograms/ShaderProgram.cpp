@@ -64,13 +64,11 @@ void ShaderProgram::SetUniformMaterial(Material *material)
    SetUniformInt("diffuseTexture", 0);
    if (material)
    {
-      SetUniformVec3("ambientColor", material->ambientColor);
       SetUniformVec3("specularColor", material->specularColor);
       SetUniformFloat("shininess", material->shininess);
    }
    else
    {
-      SetUniformVec3("ambientColor", Vector3());
       SetUniformVec3("specularColor", Vector3());
       SetUniformFloat("shininess", 0.f);
    }

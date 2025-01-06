@@ -12,7 +12,6 @@ uniform vec3 objectColor;
 uniform vec3 lightColor;
 
 // Material properties
-uniform vec3 ambientColor;
 uniform sampler2D diffuseTexture;
 uniform vec3 specularColor;
 uniform float shininess;
@@ -20,13 +19,14 @@ uniform float shininess;
 void main()
 {
     float ambientStrength = 0.2;
-    vec4 ambient = vec4(ambientStrength * ambientColor, 1.0);
 
     vec3 normalizedNormal = normalize(normal);
     vec3 lightVector = normalize(lightPosition - fragPosition);
     float diffuseStrength = max(dot(lightVector, normalizedNormal), 0);
     vec4 diffuseColor = texture(diffuseTexture, texCoord);
     vec4 diffuse = diffuseStrength * diffuseColor;
+
+    vec4 ambient = ambientStrength * diffuseColor;
 
     //vec3 cameraPosition = vec3(cameraTransform[3][0], cameraTransform[3][1], cameraTransform[3][2]);
     vec3 cameraPosition = vec3(cameraTransform[0][3], cameraTransform[1][3], cameraTransform[2][3]);
