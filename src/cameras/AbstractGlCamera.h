@@ -9,8 +9,8 @@ public:
    AbstractGlCamera();
     virtual ~AbstractGlCamera() = default;
 
-   Vector3 GetPosition() const;
-   Vector3 GetDirection() const;
+   virtual Vector3 GetPosition() const;
+   virtual Vector3 GetDirection() const;
    Matrix4x4 GetTransformMatrix() const;
    Matrix4x4 GetProjectionMatrix() const;
 

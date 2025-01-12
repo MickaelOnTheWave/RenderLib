@@ -25,7 +25,7 @@ public:
    float& operator[](const int index);
    float operator[](const int index) const;
 
-   Vector3 operator*(const Vector3& vec);
+   Vector3 operator*(const Vector3& vec) const;
 
    float* getData();
    const float *GetData() const;

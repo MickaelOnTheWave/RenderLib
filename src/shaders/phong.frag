@@ -11,6 +11,8 @@ uniform vec3 lightPosition;
 uniform vec3 objectColor;
 uniform vec3 lightColor;
 
+uniform vec3 cameraPosition;
+
 // Material properties
 uniform sampler2D diffuseTexture;
 uniform vec3 specularColor;
@@ -29,7 +31,7 @@ void main()
     vec4 ambient = ambientStrength * diffuseColor;
 
     //vec3 cameraPosition = vec3(cameraTransform[3][0], cameraTransform[3][1], cameraTransform[3][2]);
-    vec3 cameraPosition = vec3(cameraTransform[0][3], cameraTransform[1][3], cameraTransform[2][3]);
+    //vec3 cameraPosition = vec3(cameraTransform[0][3], cameraTransform[1][3], cameraTransform[2][3]);
 
     float specularStrength = 0.8;
     vec3 viewDir = normalize(cameraPosition - fragPosition);

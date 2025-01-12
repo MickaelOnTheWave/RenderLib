@@ -2,6 +2,8 @@
 
 #include "ShaderPrograms/ShaderPrograms.h"
 
+#include <iostream>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -110,6 +112,10 @@ void GlRenderer::Render()
       ShaderProgram* currentShader = shaderRenderObj.first;
       currentShader->use();
 
+      const Vector3 camPos = camera->GetPosition();
+      std::cout << "Camera Pos : (" << camPos.X() << "," << camPos.Y() << "," << camPos.Z() << ")" << std::endl;
+
+      currentShader->SetUniformVec3("cameraPosition", camera->GetPosition());
       currentShader->SetUniformMat4("cameraProjection", camera->GetProjectionMatrix());
       currentShader->SetUniformMat4("cameraTransform", camera->GetTransformMatrix());
 

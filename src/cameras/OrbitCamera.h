@@ -8,10 +8,13 @@ class OrbitCamera : public AbstractGlCamera
 public:
    OrbitCamera(const Vector3& _target);
 
+   Vector3 GetPosition() const override;
+   Vector3 GetDirection() const override;
+
    void RotateInX(const double angle);
    void RotateInY(const double angle);
-   void ZoomIn(const double speed);
-   void ZoomOut(const double speed);
+   void CloseIn(const double speed);
+   void CloseOut(const double speed);
 
 private:
    void updateTransformMatrix(void);
@@ -21,6 +24,7 @@ private:
    float rotationSpeed;
    float currentAngleX = 0.f;
    float currentAngleY = 0.f;
+   float distance = -2.f;
 };
 
 #endif // ORBITCAMERA_H
