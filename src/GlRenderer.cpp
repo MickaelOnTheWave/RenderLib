@@ -7,6 +7,35 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+namespace Debug
+{
+   void PrintVec(const std::string& label, const Vector3& data)
+   {
+      std::cout << label << " : (" << data.X() << "," << data.Y() << "," << data.Z() << ")" << std::endl;
+   }
+
+   void PrintCameraVecs(AbstractGlCamera* camera)
+   {
+      Debug::PrintVec("Pos", camera->GetPosition());
+      Debug::PrintVec("Dir", camera->GetDirection());
+      Debug::PrintVec("Up", camera->GetUpVector());
+      std::cout << std::endl;
+   }
+
+   void PrintCameraMatrix(AbstractGlCamera* camera)
+   {
+      const auto cameraTransform = camera->GetTransformMatrix();
+      std::cout << "Camera Matrix :" << std::endl;
+      for (int i=0; i<4; ++i)
+      {
+         for (int j=0; j<4; ++j)
+            std::cout << cameraTransform[j + 4*i] << "\t";
+         std::cout << std::endl;
+      }
+      std::cout << std::endl;
+   }
+}
+
 GlRenderer::GlRenderer(AbstractGlCamera* _camera)
    : camera(_camera)
 {
@@ -99,6 +128,7 @@ void GlRenderer::PrepareRendering()
    activeShaderProgram->use();
 }
 
+
 void GlRenderer::Render()
 {
    glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
@@ -112,10 +142,11 @@ void GlRenderer::Render()
       ShaderProgram* currentShader = shaderRenderObj.first;
       currentShader->use();
 
-      const Vector3 camPos = camera->GetPosition();
-      std::cout << "Camera Pos : (" << camPos.X() << "," << camPos.Y() << "," << camPos.Z() << ")" << std::endl;
+      //Debug::PrintCameraVecs(camera);
+      //Debug::PrintCameraMatrix(camera);
 
       currentShader->SetUniformVec3("cameraPosition", camera->GetPosition());
+      currentShader->SetUniformVec3("cameraDirection", camera->GetPosition());
       currentShader->SetUniformMat4("cameraProjection", camera->GetProjectionMatrix());
       currentShader->SetUniformMat4("cameraTransform", camera->GetTransformMatrix());
 

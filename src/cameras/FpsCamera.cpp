@@ -8,6 +8,23 @@ FpsCamera::FpsCamera(const Vector3 &startPosition)
    SetPerspectiveProjection(90.f, 800.f / 600.f, 0.1f, 500.f);
 }
 
+Vector3 FpsCamera::GetPosition() const
+{
+   return Vector3(transformMatrix[2], transformMatrix[6], transformMatrix[10]);
+}
+
+Vector3 FpsCamera::GetDirection() const
+{
+   const Vector3 rightVector = Vector3(transformMatrix[0], transformMatrix[4], transformMatrix[8]);
+   return rightVector.CrossProduct(GetUpVector()) * -1;
+}
+
+Vector3 FpsCamera::GetUpVector() const
+{
+   return Vector3(transformMatrix[1], transformMatrix[5], transformMatrix[9]);
+}
+
+
 void FpsCamera::MoveInX(const double speed)
 {
    transformMatrix *= Matrix4x4::Translation(Vector3(0, 0, speed));

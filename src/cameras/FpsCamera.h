@@ -8,6 +8,11 @@ class FpsCamera : public AbstractGlCamera
 public:
    FpsCamera(const Vector3& startPosition);
 
+   Vector3 GetPosition() const override;
+   Vector3 GetDirection() const override;
+   Vector3 GetUpVector() const override;
+
+
    void MoveInX(const double speed);
    void MoveInY(const double speed);
    void RotateHorizontal(const double angle);
