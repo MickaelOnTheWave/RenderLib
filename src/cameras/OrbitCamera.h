@@ -10,6 +10,7 @@ public:
 
    Vector3 GetPosition() const override;
    Vector3 GetDirection() const override;
+   Vector3 GetUpVector() const override;
 
    void RotateInX(const double angle);
    void RotateInY(const double angle);
