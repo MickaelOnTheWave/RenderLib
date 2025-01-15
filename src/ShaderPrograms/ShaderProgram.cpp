@@ -62,14 +62,13 @@ void ShaderProgram::SetUniformVec3(const std::string &varName, const std::vector
 void ShaderProgram::SetUniformMaterial(Material *material)
 {
    SetUniformInt("diffuseTexture", 0);
+   SetUniformInt("specularTexture", 1);
    if (material)
    {
-      SetUniformVec3("specularColor", material->specularColor);
       SetUniformFloat("shininess", material->shininess);
    }
    else
    {
-      SetUniformVec3("specularColor", Vector3());
       SetUniformFloat("shininess", 0.f);
    }
 }
