@@ -15,7 +15,7 @@ uniform vec3 cameraPosition;
 
 // Material properties
 uniform sampler2D diffuseTexture;
-uniform vec3 specularColor;
+uniform sampler2D specularTexture;
 uniform float shininess;
 
 void main()
@@ -35,11 +35,12 @@ void main()
     if (lightNormalDot > 0.0)
     {
         float specularStrength = 0.8;
+        vec4 specularColor = texture(specularTexture, texCoord);
         vec3 viewDir = normalize(cameraPosition - fragPosition);
         vec3 reflectDir = reflect(-lightVector, normalizedNormal);
         int shininess = 128;
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-        specular = vec4(specularStrength * spec * specularColor, 1.0);
+        specular = specularColor * specularStrength * spec;
     }
 
     FragColor = (ambient + diffuse + specular) * vec4(lightColor, 1.0);

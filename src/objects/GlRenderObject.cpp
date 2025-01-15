@@ -15,6 +15,8 @@ void GlRenderObject::PrepareRendering(const unsigned int shaderProgramId)
    {
       glActiveTexture(GL_TEXTURE0);
       glBindTexture(GL_TEXTURE_2D, material->diffuseTextureId);
+      glActiveTexture(GL_TEXTURE1);
+      glBindTexture(GL_TEXTURE_2D, material->specularTextureId);
    }
 
    glBindVertexArray(vertexArrayObject);

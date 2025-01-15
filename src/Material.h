@@ -2,7 +2,6 @@
 #define MATERIAL_H
 
 #include <string>
-#include "math/Vector3.h"
 
 struct Texture
 {
@@ -22,7 +21,7 @@ public:
    std::string name;
 
    unsigned int diffuseTextureId;
-   Vector3 specularColor;
+   unsigned int specularTextureId;
    float shininess;
 };
 
