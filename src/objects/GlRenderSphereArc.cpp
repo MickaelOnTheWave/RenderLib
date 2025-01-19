@@ -1,13 +1,14 @@
-#include "GlRenderSpherePolar.h"
+#include "GlRenderSphereArc.h"
 
 #include <cmath>
 
-GlRenderSpherePolar::GlRenderSpherePolar(Material *_material)
-  : GlRenderSphere(_material)
+GlRenderSphereArc::GlRenderSphereArc(const float angleInRadians, Material *_material)
+  : GlRenderSphere(_material),
+  arcAngleInRadians(angleInRadians)
 {
 }
 
-void GlRenderSpherePolar::PopulateGeometry(const unsigned int subdivisions)
+void GlRenderSphereArc::PopulateGeometry(const unsigned int subdivisions)
 {
    horizontalPointCount = pow(2, subdivisions + 2);
    verticalPointCount = pow(2, subdivisions + 1);
@@ -16,10 +17,10 @@ void GlRenderSpherePolar::PopulateGeometry(const unsigned int subdivisions)
    PopulateTriangles();
 }
 
-void GlRenderSpherePolar::PopulateCoordinates()
+void GlRenderSphereArc::PopulateCoordinates()
 {
    const GLfloat radius = 1.f;
-   const GLfloat horizontalAnglePerSlice = 2 * M_PI / static_cast<GLfloat>(horizontalPointCount);
+   const GLfloat horizontalAnglePerSlice = arcAngleInRadians / static_cast<GLfloat>(horizontalPointCount);
    const GLfloat verticalAnglePerSlice = M_PI / static_cast<GLfloat>(verticalPointCount);
 
    SphereTextureMapping* textureMappingAlgorithm = CreateMappingAlgorithm();
@@ -36,7 +37,7 @@ void GlRenderSpherePolar::PopulateCoordinates()
       const float y = radius * cos(verticalAngle);
       const float plane = radius * sin(verticalAngle);
 
-      for (int j=0; j<=horizontalPointCount; ++j)
+      for (int j=0; j<horizontalPointCount; ++j)
       {
          const GLfloat horizontalAngle = j * horizontalAnglePerSlice;
          const float x = plane * sin(horizontalAngle);
@@ -55,7 +56,7 @@ void GlRenderSpherePolar::PopulateCoordinates()
    textureMappingAlgorithm->MapBottom();
 }
 
-void GlRenderSpherePolar::PopulateTriangles()
+void GlRenderSphereArc::PopulateTriangles()
 {
    for (int j=0; j<horizontalPointCount; ++j)
       triangles.emplace_back(0, j+2, j+1);
@@ -80,7 +81,7 @@ void GlRenderSpherePolar::PopulateTriangles()
       triangles.emplace_back(finalIndex, i, i+1);
 }
 
-SphereTextureMapping *GlRenderSpherePolar::CreateMappingAlgorithm()
+SphereTextureMapping *GlRenderSphereArc::CreateMappingAlgorithm()
 {
    if (textureMapping == TextureMap::FullWrap)
       return new FullWrapSphereMapping(textureCoordinates, horizontalPointCount, verticalPointCount);

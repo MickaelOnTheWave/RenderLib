@@ -1,15 +1,15 @@
-#ifndef GLRENDERSPHEREPOLAR_H
-#define GLRENDERSPHEREPOLAR_H
+#ifndef GLRENDERSPHEREARC_H
+#define GLRENDERSPHEREARC_H
 
 #include "GlRenderSphere.h"
 
 #include "SphereTextureMappings.h"
 
-class GlRenderSpherePolar : public GlRenderSphere
+class GlRenderSphereArc : public GlRenderSphere
 {
 public:
-   GlRenderSpherePolar(Material* _material);
-   virtual ~GlRenderSpherePolar() = default;
+   GlRenderSphereArc(const float angleInRadians, Material* _material);
+   virtual ~GlRenderSphereArc() = default;
 
 protected:
    void PopulateGeometry(const unsigned int subdivisions) override;
@@ -20,8 +20,10 @@ private:
 
    SphereTextureMapping* CreateMappingAlgorithm();
 
+   float arcAngleInRadians;
    unsigned int horizontalPointCount = 0;
    unsigned int verticalPointCount = 0;
+
 };
 
-#endif // GLRENDERSPHEREPOLAR_H
+#endif // GLRENDERSPHEREARC_H

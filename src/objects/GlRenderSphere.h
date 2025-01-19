@@ -12,11 +12,20 @@
 class GlRenderSphere : public GlRenderObject
 {
 public:
+   enum class TextureMap
+   {
+      FullWrap,
+      HalfWrap,
+      HalfProjection
+   };
+
    GlRenderSphere(Material* _material);
 
    void Initialize(const unsigned int subdivisions);
 
    void Render() override;
+
+   void SetTextureProjection(const TextureMap mapping);
 
 protected:
    virtual void PopulateGeometry(const unsigned int subdivisions) = 0;
@@ -29,6 +38,8 @@ protected:
    std::vector<TexCoord> textureCoordinates;
 
    std::list<Triangle> triangles;
+
+   TextureMap textureMapping = TextureMap::FullWrap;
 };
 
 #endif // GLRENDERSPHERE_H

@@ -9,7 +9,6 @@ GlRenderSphere::GlRenderSphere(Material *_material)
 
 void GlRenderSphere::Initialize(const unsigned int subdivisions)
 {
-   //SetTextures(_textureFiles);
    PopulateGeometry(subdivisions);
    InitializeGlData();
 }
@@ -20,6 +19,11 @@ void GlRenderSphere::Render()
    const unsigned int faceCount = triangles.size();
    const unsigned int indexCount = vertexPerFace * faceCount;
    glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
+}
+
+void GlRenderSphere::SetTextureProjection(const TextureMap mapping)
+{
+   textureMapping = mapping;
 }
 
 vector<GLfloat> GlRenderSphere::CreateVertexBufferData() const
