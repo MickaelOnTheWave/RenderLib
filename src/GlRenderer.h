@@ -10,6 +10,7 @@
 #include "objects/GlRenderedInstance.h"
 #include "objects/GlRenderObject.h"
 #include "Material.h"
+#include "TextureManager.h"
 
 class GlRenderer
 {
@@ -50,8 +51,6 @@ private:
    void AddRenderObject(GlRenderedInstance* object, ShaderProgram* shader);
    void AddToObjectMap(GlRenderedInstance* object, RenderObjectsMap& objectMap);
 
-   unsigned int CreateGlTexture(const Texture& texture);
-
    AbstractGlCamera* camera;
    std::map<ShaderEnum, std::unique_ptr<ShaderProgram>> shaderPrograms;
    ShaderProgram* activeShaderProgram = nullptr;
@@ -64,7 +63,7 @@ private:
 
    std::vector<Material*> materials;
 
-   std::vector<unsigned int> textureObjects;
+   TextureManager textureManager;
 
    float clearColorR, clearColorG, clearColorB;
 
