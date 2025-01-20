@@ -30,6 +30,7 @@ public:
    void SetClearColor(const float r, const float g, const float b);
 
    unsigned int AddTexture(const std::string& file, const int format);
+   unsigned int AddTexture(const Vector3& color);
    void AddMaterial(Material* material);
 
    void AddRenderObject(GlRenderedInstance* object);
