@@ -37,7 +37,7 @@ void GlRenderSphereArc::PopulateCoordinates()
       const float y = radius * cos(verticalAngle);
       const float plane = radius * sin(verticalAngle);
 
-      for (int j=0; j<horizontalPointCount; ++j)
+      for (int j=0; j<=horizontalPointCount; ++j)
       {
          const GLfloat horizontalAngle = j * horizontalAnglePerSlice;
          const float x = plane * sin(horizontalAngle);
