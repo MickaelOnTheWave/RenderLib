@@ -36,7 +36,7 @@ void TestingProgram::use()
 
 
 ObjectColorProgram::ObjectColorProgram()
-  : ShaderProgram("data/basiclighting.vert", "data/basiccolor.frag")
+  : ShaderProgram("data/basic.vert", "data/basiccolor.frag")
 {
 }
 
