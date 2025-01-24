@@ -2,8 +2,12 @@
 
 using namespace std;
 
-GlRenderPlane::GlRenderPlane(Material *_material)
-  : GlRenderObject(_material)
+GlRenderPlane::GlRenderPlane(Material *_material, const float _textureScale)
+  : GlRenderObject(_material), textureScale(_textureScale)
+{
+}
+
+void GlRenderPlane::Initialize()
 {
    InitializeGlData();
 }
@@ -16,7 +20,6 @@ void GlRenderPlane::Render()
 
 std::vector<GLfloat> GlRenderPlane::CreateVertexBufferData() const
 {
-   const GLfloat textureScale = 4.f;
    const GLfloat value = 0.5f;
    const vector<GLfloat> verticesNormalsTexcoords = {
        -value, -value,  0.f,   0.f,0.f,1.f,   0.f,0.f,

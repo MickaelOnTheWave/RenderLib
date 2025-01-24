@@ -2,14 +2,16 @@
 
 using namespace std;
 
-GlRenderSphere::GlRenderSphere(Material *_material)
-  : GlRenderObject(_material)
+GlRenderSphere::GlRenderSphere(Material *_material, const unsigned int _subdivisions,
+                               const TextureMap mappingAlgorithm)
+  : GlRenderObject(_material),
+  subdivisions(_subdivisions), textureMapping(mappingAlgorithm)
 {
 }
 
-void GlRenderSphere::Initialize(const unsigned int subdivisions)
+void GlRenderSphere::Initialize()
 {
-   PopulateGeometry(subdivisions);
+   PopulateGeometry();
    InitializeGlData();
 }
 
@@ -19,11 +21,6 @@ void GlRenderSphere::Render()
    const unsigned int faceCount = triangles.size();
    const unsigned int indexCount = vertexPerFace * faceCount;
    glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
-}
-
-void GlRenderSphere::SetTextureProjection(const TextureMap mapping)
-{
-   textureMapping = mapping;
 }
 
 vector<GLfloat> GlRenderSphere::CreateVertexBufferData() const

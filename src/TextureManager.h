@@ -16,7 +16,7 @@ public:
    unsigned int AddPlainColorTexture(const Vector3& color);
 
 private:
-   unsigned int CreateGlTexture(const Texture& texture);
+   unsigned int CreateGlTexture(const std::string& file, const int format);
 
    unsigned char* CreatePlainColorData(const Vector3& color) const;
 

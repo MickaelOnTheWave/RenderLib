@@ -3,15 +3,6 @@
 
 #include <string>
 
-struct Texture
-{
-   Texture() = default;
-   Texture(const std::string& _file, const int _format);
-
-   std::string file;
-   int format;
-};
-
 class Material
 {
 public:

@@ -6,10 +6,11 @@
 class GlRenderSubdividedSphere : public GlRenderSphere
 {
 public:
-   GlRenderSubdividedSphere() = default;
+   GlRenderSubdividedSphere(Material* _material, const unsigned int _subdivisions,
+                            const TextureMap mappingAlgorithm);
 
 protected:
-   void PopulateGeometry(const unsigned int subdivisions) override;
+   void PopulateGeometry() override;
 
    virtual void PopulateInitialGeometry() = 0;
    void CreateSubdividedSphere(const unsigned int subdivisions);

@@ -14,6 +14,8 @@ public:
 
    virtual void PrepareRendering(const unsigned int shaderProgramId);
 
+   virtual void Initialize() = 0;
+
    virtual void Render() = 0;
 
    Material* GetMaterial() const;

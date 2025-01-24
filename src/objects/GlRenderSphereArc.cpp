@@ -2,13 +2,14 @@
 
 #include <cmath>
 
-GlRenderSphereArc::GlRenderSphereArc(const float angleInRadians, Material *_material)
-  : GlRenderSphere(_material),
+GlRenderSphereArc::GlRenderSphereArc(const float angleInRadians, Material *_material,
+                                     const unsigned int _subdivisions, const TextureMap mappingAlgorithm)
+  : GlRenderSphere(_material, _subdivisions, mappingAlgorithm),
   arcAngleInRadians(angleInRadians)
 {
 }
 
-void GlRenderSphereArc::PopulateGeometry(const unsigned int subdivisions)
+void GlRenderSphereArc::PopulateGeometry()
 {
    horizontalPointCount = pow(2, subdivisions + 2);
    verticalPointCount = pow(2, subdivisions + 1);

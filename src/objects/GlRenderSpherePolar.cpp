@@ -2,7 +2,8 @@
 
 #include <cmath>
 
-GlRenderSpherePolar::GlRenderSpherePolar(Material *_material)
-  : GlRenderSphereArc(2 * M_PI, _material)
+GlRenderSpherePolar::GlRenderSpherePolar(Material *_material, const unsigned int _subdivisions,
+                                         const TextureMap mappingAlgorithm)
+  : GlRenderSphereArc(2 * M_PI, _material, _subdivisions, mappingAlgorithm)
 {
 }

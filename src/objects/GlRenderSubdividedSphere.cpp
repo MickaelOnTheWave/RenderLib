@@ -2,7 +2,13 @@
 
 using namespace std;
 
-void GlRenderSubdividedSphere::PopulateGeometry(const unsigned int subdivisions)
+GlRenderSubdividedSphere::GlRenderSubdividedSphere(Material *_material, const unsigned int _subdivisions,
+                                                   const TextureMap mappingAlgorithm)
+  : GlRenderSphere(_material, _subdivisions, mappingAlgorithm)
+{
+}
+
+void GlRenderSubdividedSphere::PopulateGeometry()
 {
    PopulateInitialGeometry();
 

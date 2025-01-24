@@ -19,16 +19,15 @@ public:
       HalfProjection
    };
 
-   GlRenderSphere(Material* _material);
+   GlRenderSphere(Material* _material, const unsigned int _subdivisions,
+                  const TextureMap mappingAlgorithm);
 
-   void Initialize(const unsigned int subdivisions);
+   void Initialize() override;
 
    void Render() override;
 
-   void SetTextureProjection(const TextureMap mapping);
-
 protected:
-   virtual void PopulateGeometry(const unsigned int subdivisions) = 0;
+   virtual void PopulateGeometry() = 0;
 
    std::vector<GLfloat> CreateVertexBufferData() const override;
    std::vector<GLuint> CreateIndexData() const override;
@@ -39,6 +38,7 @@ protected:
 
    std::list<Triangle> triangles;
 
+   const unsigned int subdivisions;
    TextureMap textureMapping = TextureMap::FullWrap;
 };
 

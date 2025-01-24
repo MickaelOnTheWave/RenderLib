@@ -6,7 +6,8 @@
 class GlRenderSpherePolar : public GlRenderSphereArc
 {
 public:
-   GlRenderSpherePolar(Material* _material);
+   GlRenderSpherePolar(Material* _material, const unsigned int _subdivisions,
+                     const TextureMap mappingAlgorithm);
    virtual ~GlRenderSpherePolar() = default;
 };
 

@@ -8,11 +8,12 @@
 class GlRenderSphereArc : public GlRenderSphere
 {
 public:
-   GlRenderSphereArc(const float angleInRadians, Material* _material);
+   GlRenderSphereArc(const float angleInRadians, Material* _material,
+                     const unsigned int _subdivisions, const TextureMap mappingAlgorithm);
    virtual ~GlRenderSphereArc() = default;
 
 protected:
-   void PopulateGeometry(const unsigned int subdivisions) override;
+   void PopulateGeometry() override;
 
 private:
    void PopulateCoordinates();

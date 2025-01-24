@@ -7,7 +7,7 @@
 
 unsigned int TextureManager::AddTexture(const std::string &file, const int format)
 {
-   const unsigned int textureId = CreateGlTexture(Texture(file, format));
+   const unsigned int textureId = CreateGlTexture(file, format);
    textureObjects.push_back(textureId);
    return textureId;
 }
@@ -28,15 +28,15 @@ unsigned int TextureManager::AddPlainColorTexture(const Vector3 &color)
    return textureId;
 }
 
-unsigned int TextureManager::CreateGlTexture(const Texture &texture)
+unsigned int TextureManager::CreateGlTexture(const std::string &file, const int format)
 {
    unsigned int textureIndex = 0;
 
    int width, height, nrChannels;
-   unsigned char *textureData = stbi_load(texture.file.c_str(), &width, &height, &nrChannels, 0);
+   unsigned char *textureData = stbi_load(file.c_str(), &width, &height, &nrChannels, 0);
    if (textureData)
    {
-      textureIndex = LoadTextureData(width, height, texture.format, textureData);
+      textureIndex = LoadTextureData(width, height, format, textureData);
       stbi_image_free(textureData);
    }
 
