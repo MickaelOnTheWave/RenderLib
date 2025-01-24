@@ -92,9 +92,9 @@ void GlRenderer::SetClearColor(const float r, const float g, const float b)
    clearColorB = b;
 }
 
-unsigned int GlRenderer::AddTexture(const std::string &file, const int format)
+unsigned int GlRenderer::AddTexture(const std::string &file, const int colorChannels)
 {
-   return textureManager.AddTexture(file, format);
+   return textureManager.AddTexture(file, colorChannels);
 }
 
 unsigned int GlRenderer::AddTexture(const Vector3 &color)

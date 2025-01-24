@@ -12,11 +12,11 @@ class TextureManager
 public:
    TextureManager() = default;
 
-   unsigned int AddTexture(const std::string& file, const int format);
+   unsigned int AddTexture(const std::string& file, const int colorChannels);
    unsigned int AddPlainColorTexture(const Vector3& color);
 
 private:
-   unsigned int CreateGlTexture(const std::string& file, const int format);
+   unsigned int CreateGlTexture(const std::string& file, const int colorChannels);
 
    unsigned char* CreatePlainColorData(const Vector3& color) const;
 

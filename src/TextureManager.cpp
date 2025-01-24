@@ -5,9 +5,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-unsigned int TextureManager::AddTexture(const std::string &file, const int format)
+unsigned int TextureManager::AddTexture(const std::string &file, const int colorChannels)
 {
-   const unsigned int textureId = CreateGlTexture(file, format);
+   const unsigned int textureId = CreateGlTexture(file, colorChannels);
    textureObjects.push_back(textureId);
    return textureId;
 }
@@ -16,7 +16,7 @@ unsigned int TextureManager::AddPlainColorTexture(const Vector3 &color)
 {
    unsigned int textureId = 0;
 
-   const int width = 2, height = 2, channels = 3;
+   const int width = 2, height = 2;
    unsigned char *textureData = CreatePlainColorData(color);
    if (textureData)
    {
@@ -28,15 +28,16 @@ unsigned int TextureManager::AddPlainColorTexture(const Vector3 &color)
    return textureId;
 }
 
-unsigned int TextureManager::CreateGlTexture(const std::string &file, const int format)
+unsigned int TextureManager::CreateGlTexture(const std::string &file, const int colorChannels)
 {
    unsigned int textureIndex = 0;
 
    int width, height, nrChannels;
-   unsigned char *textureData = stbi_load(file.c_str(), &width, &height, &nrChannels, 0);
+   unsigned char *textureData = stbi_load(file.c_str(), &width, &height, &nrChannels, colorChannels);
    if (textureData)
    {
-      textureIndex = LoadTextureData(width, height, format, textureData);
+      const int glFormat = (colorChannels == 4) ? GL_RGBA: GL_RGB;
+      textureIndex = LoadTextureData(width, height, glFormat, textureData);
       stbi_image_free(textureData);
    }
 
