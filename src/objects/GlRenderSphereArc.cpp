@@ -48,7 +48,8 @@ void GlRenderSphereArc::PopulateCoordinates()
          points.push_back(point);
          normals.push_back(point.Normalized());
 
-         textureMappingAlgorithm->Map(i, j);
+         const SphereTexturingIndex index(j, i, point);
+         textureMappingAlgorithm->Map(index);
       }
    }
 
@@ -84,9 +85,13 @@ void GlRenderSphereArc::PopulateTriangles()
 
 SphereTextureMapping *GlRenderSphereArc::CreateMappingAlgorithm()
 {
+   const float scaling = 1.f;
+   SphereTexturingData texturingData(horizontalPointCount, verticalPointCount, scaling);
    if (textureMapping == TextureMap::FullWrap)
-      return new FullWrapSphereMapping(textureCoordinates, horizontalPointCount, verticalPointCount);
+      return new FullWrapSphereMapping(textureCoordinates, texturingData);
    else if (textureMapping == TextureMap::HalfWrap)
-      return new HalfWrapSphereMapping(textureCoordinates, horizontalPointCount, verticalPointCount);
+      return new HalfWrapSphereMapping(textureCoordinates, texturingData);
+   else if (textureMapping == TextureMap::HalfPolarProjection)
+      return new HalfPolarProjectionSphereMapping(textureCoordinates, texturingData);
    return nullptr;
 }
