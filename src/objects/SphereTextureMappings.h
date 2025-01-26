@@ -9,16 +9,17 @@ struct SphereTexturingData
 {
    SphereTexturingData(const unsigned int _horizontalCount,
                        const unsigned int _verticalCount,
-                       const float _scaling)
+                       const float _scalingU, const float _scalingV)
      : horizontalCount(_horizontalCount),
      verticalCount(_verticalCount),
-     scaling(_scaling)
+     scalingU(_scalingU), scalingV(_scalingV)
    {
    }
 
    unsigned int horizontalCount;
    unsigned int verticalCount;
-   float scaling;
+   float scalingU;
+   float scalingV;
 };
 
 struct SphereTexturingIndex
@@ -76,7 +77,7 @@ class HalfWrapSphereMapping : public FullWrapSphereMapping
 
 class HalfPolarProjectionSphereMapping : public SphereTextureMapping
 {
-   public :
+public :
    HalfPolarProjectionSphereMapping(std::vector<TexCoord>& _textureCoordinates,
                                     const SphereTexturingData& _texturingData);
    virtual ~HalfPolarProjectionSphereMapping() = default;
@@ -84,6 +85,9 @@ class HalfPolarProjectionSphereMapping : public SphereTextureMapping
    void MapTop() override;
    void Map(const SphereTexturingIndex& index) override;
    void MapBottom() override;
+
+private:
+   const float centerX, centerY;
 };
 
 #endif // SPHERETEXTUREMAPPINGS_H

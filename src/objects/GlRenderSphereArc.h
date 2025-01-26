@@ -9,7 +9,8 @@ class GlRenderSphereArc : public GlRenderSphere
 {
 public:
    GlRenderSphereArc(const float angleInRadians, Material* _material,
-                     const unsigned int _subdivisions, const TextureMap mappingAlgorithm);
+                     const unsigned int _subdivisions, const TextureMap mappingAlgorithm,
+                     const float _textureScaleU, const float _textureScaleV);
    virtual ~GlRenderSphereArc() = default;
 
 protected:
@@ -24,7 +25,8 @@ private:
    float arcAngleInRadians;
    unsigned int horizontalPointCount = 0;
    unsigned int verticalPointCount = 0;
-
+   const float textureScaleU;
+   const float textureScaleV;
 };
 
 #endif // GLRENDERSPHEREARC_H

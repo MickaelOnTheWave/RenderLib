@@ -3,9 +3,10 @@
 #include <cmath>
 
 GlRenderSphereArc::GlRenderSphereArc(const float angleInRadians, Material *_material,
-                                     const unsigned int _subdivisions, const TextureMap mappingAlgorithm)
+                                     const unsigned int _subdivisions, const TextureMap mappingAlgorithm,
+                                     const float _textureScaleU, const float _textureScaleV)
   : GlRenderSphere(_material, _subdivisions, mappingAlgorithm),
-  arcAngleInRadians(angleInRadians)
+  arcAngleInRadians(angleInRadians), textureScaleU(_textureScaleU), textureScaleV(_textureScaleV)
 {
 }
 
@@ -85,8 +86,8 @@ void GlRenderSphereArc::PopulateTriangles()
 
 SphereTextureMapping *GlRenderSphereArc::CreateMappingAlgorithm()
 {
-   const float scaling = 1.f;
-   SphereTexturingData texturingData(horizontalPointCount, verticalPointCount, scaling);
+   SphereTexturingData texturingData(horizontalPointCount, verticalPointCount,
+                                     textureScaleU, textureScaleV);
    if (textureMapping == TextureMap::FullWrap)
       return new FullWrapSphereMapping(textureCoordinates, texturingData);
    else if (textureMapping == TextureMap::HalfWrap)

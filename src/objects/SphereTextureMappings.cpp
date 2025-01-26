@@ -60,23 +60,24 @@ void HalfWrapSphereMapping::Map(const SphereTexturingIndex& index)
 
 HalfPolarProjectionSphereMapping::HalfPolarProjectionSphereMapping(std::vector<TexCoord> &_textureCoordinates,
                                                                    const SphereTexturingData& _texturingData)
-  : SphereTextureMapping(_textureCoordinates, _texturingData)
+  : SphereTextureMapping(_textureCoordinates, _texturingData),
+  centerX(0.5f), centerY(0.5f)
 {
 }
 
 void HalfPolarProjectionSphereMapping::MapTop()
 {
-   textureCoordinates.emplace_back(0.5f, 0.5f);
+   textureCoordinates.emplace_back(centerX, centerY);
 }
 
 void HalfPolarProjectionSphereMapping::Map(const SphereTexturingIndex& index)
 {
-   const float u = index.vertex.X();
-   const float v = index.vertex.Z();
+   const float v = centerX + index.vertex.X() * texturingData.scalingV / 2.f;
+   const float u = centerY + index.vertex.Z() * texturingData.scalingU / 2.f;
    textureCoordinates.emplace_back(u, v);
 }
 
 void HalfPolarProjectionSphereMapping::MapBottom()
 {
-   textureCoordinates.emplace_back(0.5f, 0.5f);
+   textureCoordinates.emplace_back(centerX, centerY);
 }
