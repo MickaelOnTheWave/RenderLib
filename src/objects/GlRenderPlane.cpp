@@ -22,10 +22,10 @@ std::vector<GLfloat> GlRenderPlane::CreateVertexBufferData() const
 {
    const GLfloat value = 0.5f;
    const vector<GLfloat> verticesNormalsTexcoords = {
-       -value, -value,  0.f,   0.f,0.f,1.f,   0.f,0.f,
-        value, -value,  0.f,   0.f,0.f,1.f,   textureScale,0.f,
-        value,  value,  0.f,   0.f,0.f,1.f,   textureScale,textureScale,
-       -value,  value,  0.f,   0.f,0.f,1.f,   0.f,textureScale,
+       -value, -value,  0.f,   0.f,0.f,1.f,   0.f,textureScale,
+        value, -value,  0.f,   0.f,0.f,1.f,   textureScale,textureScale,
+        value,  value,  0.f,   0.f,0.f,1.f,   textureScale,0.f,
+       -value,  value,  0.f,   0.f,0.f,1.f,   0.f,0.f,
    };
    return verticesNormalsTexcoords;
 }

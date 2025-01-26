@@ -16,7 +16,7 @@ public:
    {
       FullWrap,
       HalfWrap,
-      HalfProjection
+      HalfPolarProjection
    };
 
    GlRenderSphere(Material* _material, const unsigned int _subdivisions,
