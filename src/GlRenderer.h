@@ -9,6 +9,7 @@
 #include "ShaderPrograms/ShaderProgram.h"
 #include "objects/GlRenderedInstance.h"
 #include "objects/GlRenderObject.h"
+#include "ImageData.h"
 #include "Material.h"
 #include "TextureManager.h"
 
@@ -30,6 +31,7 @@ public:
    void SetClearColor(const float r, const float g, const float b);
 
    unsigned int AddTexture(const std::string& file, const int colorChannels);
+   unsigned int AddTexture(const ImageData& image);
    unsigned int AddTexture(const Vector3& color);
    void AddMaterial(Material* material);
 

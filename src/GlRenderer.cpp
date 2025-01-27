@@ -97,6 +97,11 @@ unsigned int GlRenderer::AddTexture(const std::string &file, const int colorChan
    return textureManager.AddTexture(file, colorChannels);
 }
 
+unsigned int GlRenderer::AddTexture(const ImageData &imageData)
+{
+   return textureManager.AddTexture(imageData);
+}
+
 unsigned int GlRenderer::AddTexture(const Vector3 &color)
 {
    return textureManager.AddPlainColorTexture(color);
