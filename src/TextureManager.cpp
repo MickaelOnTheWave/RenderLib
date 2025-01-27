@@ -12,10 +12,13 @@ unsigned int TextureManager::AddTexture(const std::string &file, const int color
    return textureId;
 }
 
-unsigned int TextureManager::AddTexture(const ImageData &imageData)
+unsigned int TextureManager::AddTexture(const ImageData &imageData, const int glFormat)
 {
-   const int glFormat = (imageData.channels == 4) ? GL_RGBA: GL_RGB;
-   return LoadTextureData(imageData.width, imageData.height, glFormat, imageData.data);
+   // 0 means autodetect
+   int finalFormat = glFormat;
+   if (glFormat == 0)
+      finalFormat = (imageData.channels == 4) ? GL_RGBA : GL_RGB;
+   return LoadTextureData(imageData.width, imageData.height, finalFormat, imageData.data);
 }
 
 unsigned int TextureManager::AddPlainColorTexture(const Vector3 &color)
