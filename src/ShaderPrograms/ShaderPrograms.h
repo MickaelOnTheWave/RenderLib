@@ -23,13 +23,21 @@ public:
 
 class ObjectColorProgram : public ShaderProgram
 {
-   public:
+public:
    ObjectColorProgram();
    virtual ~ObjectColorProgram() = default;
 
    void use() override;
 };
 
+class ProceduralEyeProgram : public ShaderProgram
+{
+public:
+   ProceduralEyeProgram();
+   virtual ~ProceduralEyeProgram() = default;
+
+   void use() override;
+};
 
 class TestingProgram : public ShaderProgram
 {

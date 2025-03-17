@@ -20,7 +20,8 @@ public:
        SIMPLE_TEXTURING = 0,
        PHONG_LIGHTING,
        OBJECT_COLOR_ONLY,
-       TESTING
+       TESTING,
+       PROCEDURAL_EYE
    };
 
    GlRenderer(AbstractGlCamera *_camera);

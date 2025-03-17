@@ -27,6 +27,21 @@ TestingProgram::TestingProgram()
 {
 }
 
+void ObjectColorProgram::use()
+{
+   ShaderProgram::use();
+}
+
+ProceduralEyeProgram::ProceduralEyeProgram()
+   : ShaderProgram("data/basic.vert", "data/eye.frag")
+{
+}
+
+void ProceduralEyeProgram::use()
+{
+   ShaderProgram::use();
+}
+
 void TestingProgram::use()
 {
    ShaderProgram::use();
@@ -38,9 +53,4 @@ void TestingProgram::use()
 ObjectColorProgram::ObjectColorProgram()
   : ShaderProgram("data/basic.vert", "data/basiccolor.frag")
 {
-}
-
-void ObjectColorProgram::use()
-{
-   ShaderProgram::use();
 }

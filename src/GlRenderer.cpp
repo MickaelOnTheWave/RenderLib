@@ -40,12 +40,13 @@ GlRenderer::GlRenderer(AbstractGlCamera* _camera)
    shaderPrograms[ShaderEnum::PHONG_LIGHTING]   = std::make_unique<PhongLightingProgram>();
    shaderPrograms[ShaderEnum::OBJECT_COLOR_ONLY]= std::make_unique<ObjectColorProgram>();
    shaderPrograms[ShaderEnum::TESTING]          = std::make_unique<TestingProgram>();
+   shaderPrograms[ShaderEnum::PROCEDURAL_EYE]   = std::make_unique<ProceduralEyeProgram>();
 
    for (const auto& shader : shaderPrograms)
       renderObjectsPerShader[shader.second.get()] = RenderObjectsMap();
 
    // Default shader
-   SetRenderShader(ShaderEnum::TESTING);
+   SetRenderShader(ShaderEnum::PHONG_LIGHTING);
 }
 
 GlRenderer::~GlRenderer()
