@@ -22,6 +22,14 @@ unset(KITGL_SUPPORT_GLAD CACHE)
 option(KITGL_SUPPORT_GLFW "Set ON/OFF to enable/disable GLFW support." ON)
 option(KITGL_SUPPORT_GLAD "Set ON/OFF to enable/disable GLAD support." ON)
 
+option(USE_SYSTEM_DATA "Use system-wide data directory" OFF)
+
+if(USE_SYSTEM_DATA)
+    add_definitions(-DDATA_PATH="/usr/share/the-eye")
+else()
+    add_definitions(-DDATA_PATH="./data")
+endif()
+
 
 ###
 ### Initialization

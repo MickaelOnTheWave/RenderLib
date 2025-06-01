@@ -1,7 +1,7 @@
 #include "ShaderPrograms.h"
 
 SimpleTexturingProgram::SimpleTexturingProgram()
-  : ShaderProgram("data/basic.vert", "data/singleTexture.frag")
+  : ShaderProgram(std::string(DATA_PATH) + "/basic.vert", std::string(DATA_PATH) +"/singleTexture.frag")
 {
 }
 
@@ -12,7 +12,7 @@ void SimpleTexturingProgram::use()
 }
 
 PhongLightingProgram::PhongLightingProgram()
-  : ShaderProgram("data/phong.vert", "data/phong.frag")
+  : ShaderProgram(std::string(DATA_PATH) + "/phong.vert", std::string(DATA_PATH) + "/phong.frag")
 {
 }
 
@@ -23,7 +23,7 @@ void PhongLightingProgram::use()
 }
 
 TestingProgram::TestingProgram()
-   : ShaderProgram("data/basic.vert", "data/basic.frag")
+   : ShaderProgram(std::string(DATA_PATH) +"/basic.vert", std::string(DATA_PATH) + "/basic.frag")
 {
 }
 
@@ -33,7 +33,7 @@ void ObjectColorProgram::use()
 }
 
 ProceduralEyeProgram::ProceduralEyeProgram()
-   : ShaderProgram("data/basic.vert", "data/eye.frag")
+   : ShaderProgram(std::string(DATA_PATH) + "/basic.vert", std::string(DATA_PATH) + "/eye.frag")
 {
 }
 
@@ -51,6 +51,6 @@ void TestingProgram::use()
 
 
 ObjectColorProgram::ObjectColorProgram()
-  : ShaderProgram("data/basic.vert", "data/basiccolor.frag")
+  : ShaderProgram(std::string(DATA_PATH) + "/basic.vert", std::string(DATA_PATH) + "/basiccolor.frag")
 {
 }
