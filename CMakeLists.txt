@@ -7,6 +7,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
+if (WIN32)
+    find_package(glm CONFIG REQUIRED)
+endif()
+
+
 project(RenderLib)
 
 include_directories(src/)
@@ -96,7 +101,15 @@ target_include_directories(RenderLib PUBLIC src/ libs/glfw/deps)
 ###
 ### Linking to the project
 ###
-target_link_libraries(${PROJECT_NAME} ${PROJ_LINK_LIBS})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJ_LINK_LIBS})
+
+if (WIN32)
+    target_link_libraries(RenderLib PRIVATE glm::glm-header-only)
+
+    get_target_property(GLM_INCLUDE_DIR glm::glm-header-only INTERFACE_INCLUDE_DIRECTORIES)
+    message(STATUS "RenderLib GLM include dir: ${GLM_INCLUDE_DIR}")
+    target_include_directories(RenderLib PRIVATE ${GLM_INCLUDE_DIR})
+endif()
 
 file(GLOB shaderFiles "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/*")
 file(COPY ${shaderFiles} DESTINATION "${CMAKE_BINARY_DIR}/data")

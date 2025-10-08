@@ -2,6 +2,10 @@
 
 #include <cmath>
 
+#ifndef M_PI
+#define M_PI 3.141592
+#endif
+
 GlRenderSphereArc::GlRenderSphereArc(const float angleInRadians, Material *_material,
                                      const unsigned int _subdivisions, const TextureMap mappingAlgorithm,
                                      const float _textureScaleU, const float _textureScaleV)

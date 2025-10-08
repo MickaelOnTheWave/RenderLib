@@ -2,6 +2,11 @@
 
 #include <math.h>
 
+#ifndef M_PI
+#define M_PI 3.141592
+#endif
+
+
 void GlRenderSphereTetrahedron::PopulateInitialGeometry()
 {
    const GLfloat radius = 1.f;
