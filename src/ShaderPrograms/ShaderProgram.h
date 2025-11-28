@@ -1,13 +1,11 @@
 #ifndef SHADERPROGRAM_H
 #define SHADERPROGRAM_H
 
-#include <glad/gl.h>
 #include <string>
 
+#include "Material.h"
 #include "math/Matrix4x4.h"
 #include "math/Vector3.h"
-
-#include "Material.h"
 
 class ShaderProgram
 {
@@ -27,7 +25,7 @@ public:
 
 private:
    void prepareShader(unsigned int& shader, char** shaderData,
-                      const std::string& shaderFile, GLenum shaderType);
+                      const std::string& shaderFile, unsigned int shaderType);
    void initializeShaderProgram();
 
    char* vertexShaderDataPtr;

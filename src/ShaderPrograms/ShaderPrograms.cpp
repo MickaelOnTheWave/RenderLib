@@ -1,5 +1,7 @@
 #include "ShaderPrograms.h"
 
+#include <glad/gl.h>
+
 SimpleTexturingProgram::SimpleTexturingProgram()
   : ShaderProgram(std::string(DATA_PATH) + "/basic.vert", std::string(DATA_PATH) +"/singleTexture.frag")
 {

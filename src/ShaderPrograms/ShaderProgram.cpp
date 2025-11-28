@@ -1,5 +1,6 @@
 #include "ShaderProgram.h"
 
+#include <glad/gl.h>
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -74,7 +75,7 @@ void ShaderProgram::SetUniformMaterial(Material *material)
 }
 
 void ShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
-                               const std::string& shaderFile, GLenum shaderType)
+                               const std::string& shaderFile, unsigned int shaderType)
 {
    std::ifstream fileStream;
    fileStream.open(shaderFile);

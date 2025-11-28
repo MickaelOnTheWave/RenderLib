@@ -13,6 +13,18 @@
 #include "Material.h"
 #include "TextureManager.h"
 
+/**
+ * @brief OpenGL Implementation of Renderer.
+ * Typical usage :
+ * 1. Setup Renderer :
+ *  a. Create Renderer
+ *  b. Add camera
+ *  c. Add Shader programs to use in the renderer
+ *  d. Add materials / textures that scene objects will use
+ *  e. Add scene objects
+ *  f. Call PrepareRendering()
+ * 2. Render : call Render().
+ */
 class GlRenderer
 {
 public:
@@ -45,6 +57,9 @@ public:
 
    void Render();
 
+   bool HasError() const;
+   std::string GetError() const;
+
    void SetTempLights(Vector3* position, Vector3* color);
 
 
@@ -72,6 +87,9 @@ private:
    TextureManager textureManager;
 
    float clearColorR, clearColorG, clearColorB;
+
+   std::vector<std::string> initErrors;
+   std::vector<std::string> renderErrors;
 
    //Temp
    Vector3* lightPosition = nullptr;

@@ -13,8 +13,8 @@ public:
    void Render() override;
 
 protected:
-   std::vector<GLfloat> CreateVertexBufferData() const override;
-   std::vector<GLuint> CreateIndexData() const override;
+   std::vector<float> CreateVertexBufferData() const override;
+   std::vector<unsigned int> CreateIndexData() const override;
 
 private:
    const float textureScale;

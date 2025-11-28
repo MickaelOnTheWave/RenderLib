@@ -2,7 +2,6 @@
 #define GLRENDEROBJECT_H
 
 #include <vector>
-#include <glad/gl.h>
 
 #include "Material.h"
 
@@ -22,8 +21,8 @@ public:
 
 protected:
 
-   virtual std::vector<GLfloat> CreateVertexBufferData() const = 0;
-   virtual std::vector<GLuint> CreateIndexData() const = 0;
+   virtual std::vector<float> CreateVertexBufferData() const = 0;
+   virtual std::vector<unsigned int> CreateIndexData() const = 0;
 
    void InitializeGlData();
 

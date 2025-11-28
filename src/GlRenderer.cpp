@@ -1,5 +1,6 @@
 #include "GlRenderer.h"
 
+#include <glad/gl.h>
 #include <iostream>
 
 namespace Debug
@@ -138,7 +139,11 @@ void GlRenderer::PrepareRendering()
    //glEnable(GL_CULL_FACE);
    //glCullFace(GL_BACK);
 
-   activeShaderProgram->use();
+   if (activeShaderProgram)
+       activeShaderProgram->use();
+   else
+       initErrors.emplace_back("Can't prepare rendering : No active Shader Program.");
+
 }
 
 void GlRenderer::Render()
@@ -157,10 +162,15 @@ void GlRenderer::Render()
       //Debug::PrintCameraVecs(camera);
       //Debug::PrintCameraMatrix(camera);
 
-      currentShader->SetUniformVec3("cameraPosition", camera->GetPosition());
-      currentShader->SetUniformVec3("cameraDirection", camera->GetPosition());
-      currentShader->SetUniformMat4("cameraProjection", camera->GetProjectionMatrix());
-      currentShader->SetUniformMat4("cameraTransform", camera->GetTransformMatrix());
+      if (camera)
+      {
+          currentShader->SetUniformVec3("cameraPosition", camera->GetPosition());
+          currentShader->SetUniformVec3("cameraDirection", camera->GetPosition());
+          currentShader->SetUniformMat4("cameraProjection", camera->GetProjectionMatrix());
+          currentShader->SetUniformMat4("cameraTransform", camera->GetTransformMatrix());
+      }
+      else
+          renderErrors.emplace_back("Can't render : no camera.");
 
       if (lightPosition)
          currentShader->SetUniformVec3("lightPosition", lightPosition->GetData());
@@ -186,6 +196,20 @@ void GlRenderer::Render()
 
       glPopMatrix();
    }
+}
+
+bool GlRenderer::HasError() const
+{
+    return !initErrors.empty() || !renderErrors.empty();
+}
+
+std::string GlRenderer::GetError() const
+{
+    if (!initErrors.empty())
+        return initErrors.back();
+    else if (!renderErrors.empty())
+        return renderErrors.back();
+    return "";
 }
 
 void GlRenderer::SetTempLights(Vector3 *position, Vector3 *color)

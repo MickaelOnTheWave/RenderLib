@@ -1,5 +1,7 @@
 #include "GlRenderPlane.h"
 
+#include <glad/gl.h>
+
 using namespace std;
 
 GlRenderPlane::GlRenderPlane(Material *_material, const float _textureScale)
