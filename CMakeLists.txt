@@ -16,6 +16,8 @@ project(RenderLib)
 
 include_directories(src/)
 
+file(GLOB defaultShaders "data/*")
+
 ###
 ### Options
 ###
