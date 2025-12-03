@@ -24,11 +24,13 @@ public:
        PROCEDURAL_EYE
    };
 
-   GlRenderer(AbstractGlCamera *_camera);
+   GlRenderer(AbstractGlCamera *_camera = nullptr);
    virtual ~GlRenderer();
 
+   std::vector<int> Initialize(const std::vector<ShaderProgram*>& _shaderPrograms);
+
    void SetCamera(AbstractGlCamera *newCamera);
-   void SetRenderShader(const ShaderEnum& renderMode);
+   void SetCurrentShader(const unsigned int shaderId);
    void SetClearColor(const float r, const float g, const float b);
 
    unsigned int AddTexture(const std::string& file, const int colorChannels);
@@ -37,7 +39,7 @@ public:
    void AddMaterial(Material* material);
 
    void AddRenderObject(GlRenderedInstance* object);
-   void AddRenderObject(GlRenderedInstance* object, const ShaderEnum& shader);
+   void AddRenderObject(GlRenderedInstance* object, const unsigned int shaderId);
 
    void PrepareRendering();
 
@@ -56,7 +58,7 @@ private:
    void AddToObjectMap(GlRenderedInstance* object, RenderObjectsMap& objectMap);
 
    AbstractGlCamera* camera;
-   std::map<ShaderEnum, std::unique_ptr<ShaderProgram>> shaderPrograms;
+   std::map<unsigned int, std::shared_ptr<ShaderProgram>> shaderPrograms;
    ShaderProgram* activeShaderProgram = nullptr;
 
    // Used as a reference. Objects are stored in the RenderObjects map.

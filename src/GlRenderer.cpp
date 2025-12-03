@@ -1,7 +1,5 @@
 #include "GlRenderer.h"
 
-#include "ShaderPrograms/ShaderPrograms.h"
-
 #include <iostream>
 
 namespace Debug
@@ -36,23 +34,29 @@ namespace Debug
 GlRenderer::GlRenderer(AbstractGlCamera* _camera)
    : camera(_camera)
 {
-   shaderPrograms[ShaderEnum::SIMPLE_TEXTURING] = std::make_unique<SimpleTexturingProgram>();
-   shaderPrograms[ShaderEnum::PHONG_LIGHTING]   = std::make_unique<PhongLightingProgram>();
-   shaderPrograms[ShaderEnum::OBJECT_COLOR_ONLY]= std::make_unique<ObjectColorProgram>();
-   shaderPrograms[ShaderEnum::TESTING]          = std::make_unique<TestingProgram>();
-   shaderPrograms[ShaderEnum::PROCEDURAL_EYE]   = std::make_unique<ProceduralEyeProgram>();
-
-   for (const auto& shader : shaderPrograms)
-      renderObjectsPerShader[shader.second.get()] = RenderObjectsMap();
-
-   // Default shader
-   SetRenderShader(ShaderEnum::PHONG_LIGHTING);
 }
 
 GlRenderer::~GlRenderer()
 {
    ClearScene();
    ClearMaterials();
+}
+
+std::vector<int> GlRenderer::Initialize(const std::vector<ShaderProgram*>& _shaderPrograms)
+{
+    std::vector<int> shaderIds;
+    for (const auto& shader : _shaderPrograms)
+    {
+        const int currentI = shaderPrograms.size();
+        std::shared_ptr<ShaderProgram> managedShader(shader);
+        shaderPrograms[currentI] = managedShader;
+        shaderIds.push_back(currentI);
+        renderObjectsPerShader[managedShader.get()] = RenderObjectsMap();
+    }
+
+    // Default shader is the first one
+    SetCurrentShader(0);
+    return shaderIds;
 }
 
 void GlRenderer::SetCamera(AbstractGlCamera* newCamera)
@@ -81,9 +85,9 @@ void GlRenderer::ClearMaterials()
    materials.clear();
 }
 
-void GlRenderer::SetRenderShader(const ShaderEnum &renderMode)
+void GlRenderer::SetCurrentShader(const unsigned int shaderId)
 {
-   activeShaderProgram = shaderPrograms[renderMode].get();
+   activeShaderProgram = shaderPrograms[shaderId].get();
 }
 
 void GlRenderer::SetClearColor(const float r, const float g, const float b)
@@ -118,9 +122,9 @@ void GlRenderer::AddRenderObject(GlRenderedInstance *object)
    AddRenderObject(object, activeShaderProgram);
 }
 
-void GlRenderer::AddRenderObject(GlRenderedInstance *object, const ShaderEnum &shader)
+void GlRenderer::AddRenderObject(GlRenderedInstance *object, const unsigned int shaderId)
 {
-   ShaderProgram* renderObjectShader = shaderPrograms[shader].get();
+   ShaderProgram* renderObjectShader = shaderPrograms[shaderId].get();
    if (!renderObjectShader)
       renderObjectShader = activeShaderProgram;
    AddRenderObject(object, renderObjectShader);
