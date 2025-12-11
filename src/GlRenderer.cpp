@@ -165,7 +165,7 @@ void GlRenderer::Render()
       if (camera)
       {
           currentShader->SetUniformVec3("cameraPosition", camera->GetPosition());
-          currentShader->SetUniformVec3("cameraDirection", camera->GetPosition());
+          currentShader->SetUniformVec3("cameraDirection", camera->GetDirection());
           currentShader->SetUniformMat4("cameraProjection", camera->GetProjectionMatrix());
           currentShader->SetUniformMat4("cameraTransform", camera->GetTransformMatrix());
       }

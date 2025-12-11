@@ -94,10 +94,10 @@ void ShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
 
    int  success;
    char infoLog[512];
-   glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+   glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
    if(!success)
    {
-       glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+       glGetShaderInfoLog(shader, 512, NULL, infoLog);
        std::cout << "SHADER compilation of " << shaderFile << " failed : " << infoLog << std::endl;
    }
 
