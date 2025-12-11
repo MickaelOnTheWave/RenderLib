@@ -16,8 +16,6 @@ project(RenderLib)
 
 include_directories(src/)
 
-file(GLOB defaultShaders "data/*")
-
 ###
 ### Options
 ###
@@ -113,5 +111,5 @@ if (WIN32)
     target_include_directories(RenderLib PRIVATE ${GLM_INCLUDE_DIR})
 endif()
 
-file(GLOB shaderFiles "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders/*")
-file(COPY ${shaderFiles} DESTINATION "${CMAKE_BINARY_DIR}/data")
+file(GLOB defaultShaderFiles src/shaders/*)
+set_property(TARGET RenderLib PROPERTY shaders ${defaultShaderFiles} )

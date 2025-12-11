@@ -8,6 +8,7 @@ class GlRenderCube : public GlRenderObject
 public:
    explicit GlRenderCube(Material* _material);
 
+   void Initialize() override;
    void Render() override;
 
 protected:

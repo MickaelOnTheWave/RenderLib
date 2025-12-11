@@ -10,6 +10,10 @@ GlRenderCube::GlRenderCube(Material *_material)
    InitializeGlData();
 }
 
+void GlRenderCube::Initialize()
+{
+}
+
 void GlRenderCube::Render()
 {
    const unsigned int vertexPerFace = 6;
