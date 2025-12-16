@@ -4,8 +4,8 @@
 
 using namespace std;
 
-GlRenderCube::GlRenderCube(Material *_material)
-  : GlRenderObject(_material)
+GlRenderCube::GlRenderCube(Material *_material, const string& _name)
+  : GlRenderObject(_material, _name)
 {
    InitializeGlData();
 }

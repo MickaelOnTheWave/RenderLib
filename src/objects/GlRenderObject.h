@@ -3,12 +3,14 @@
 
 #include <vector>
 
+#include "NamedEntity.h"
+
 #include "Material.h"
 
-class GlRenderObject
+class GlRenderObject : public NamedEntity
 {
 public:
-   explicit GlRenderObject(Material* _material);
+    explicit GlRenderObject(Material* _material, const std::string& _name = "");
    virtual ~GlRenderObject() = default;
 
    virtual void PrepareRendering(const unsigned int shaderProgramId);

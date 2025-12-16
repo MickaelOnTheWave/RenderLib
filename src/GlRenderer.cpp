@@ -113,9 +113,19 @@ unsigned int GlRenderer::AddTexture(const Vector3 &color)
    return textureManager.AddPlainColorTexture(color);
 }
 
+std::vector<unsigned int> GlRenderer::GetTextures() const
+{
+    return textureManager.GetTextureObjects();
+}
+
 void GlRenderer::AddMaterial(Material *material)
 {
    materials.push_back(material);
+}
+
+std::vector<Material*> GlRenderer::GetMaterials()
+{
+    return materials;
 }
 
 void GlRenderer::AddRenderObject(GlRenderedInstance *object)
@@ -129,6 +139,25 @@ void GlRenderer::AddRenderObject(GlRenderedInstance *object, const unsigned int 
    if (!renderObjectShader)
       renderObjectShader = activeShaderProgram;
    AddRenderObject(object, renderObjectShader);
+}
+
+std::vector<GlRenderObject*> GlRenderer::ComputeRenderObjectsList() const
+{
+    std::vector<GlRenderObject*> objects;
+    for (const auto renderObj : renderObjectsStorage)
+        objects.push_back(renderObj.first);
+    return objects;
+}
+
+std::vector<GlRenderedInstance*> GlRenderer::ComputeInstancesList() const
+{
+    std::vector<GlRenderedInstance*> instances;
+    for (const auto renderObj : renderObjectsStorage)
+    {
+        for (const auto instance : renderObj.second)
+            instances.push_back(instance);
+    }
+    return instances;
 }
 
 void GlRenderer::PrepareRendering()

@@ -1,12 +1,12 @@
 #include "Material.h"
 
 Material::Material(const std::string &_name)
-  : name(_name)
+  : NamedEntity(_name)
 {
 }
 
 Material::Material(const Material &other)
-  : name(other.name),
+  : NamedEntity(other),
   diffuseTextureId(other.diffuseTextureId),
   specularTextureId(other.specularTextureId), shininess(other.shininess)
 {

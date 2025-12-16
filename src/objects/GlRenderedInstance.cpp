@@ -1,7 +1,8 @@
 #include "GlRenderedInstance.h"
 
-GlRenderedInstance::GlRenderedInstance(GlRenderObject *_object, const Matrix4x4 &_transform)
-  : renderObject(_object), transform(_transform)
+GlRenderedInstance::GlRenderedInstance(GlRenderObject *_object, const Matrix4x4 &_transform,
+                                       const std::string& _name)
+    : NamedEntity(_name), renderObject(_object), transform(_transform)
 {
 }
 

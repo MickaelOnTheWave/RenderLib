@@ -8,7 +8,6 @@
 unsigned int TextureManager::AddTexture(const std::string &file, const int colorChannels)
 {
    const unsigned int textureId = CreateGlTexture(file, colorChannels);
-   textureObjects.push_back(textureId);
    return textureId;
 }
 
@@ -32,9 +31,12 @@ unsigned int TextureManager::AddPlainColorTexture(const Vector3 &color)
       textureId = LoadTextureData(width, height, GL_RGB, textureData);
       delete[] textureData;
    }
-
-   textureObjects.push_back(textureId);
    return textureId;
+}
+
+std::vector<unsigned int> TextureManager::GetTextureObjects() const
+{
+    return textureObjects;
 }
 
 unsigned int TextureManager::CreateGlTexture(const std::string &file, const int colorChannels)

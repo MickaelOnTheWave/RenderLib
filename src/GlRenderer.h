@@ -48,10 +48,17 @@ public:
    unsigned int AddTexture(const std::string& file, const int colorChannels);
    unsigned int AddTexture(const ImageData& image, const int glFormat = 0);
    unsigned int AddTexture(const Vector3& color);
+   std::vector<unsigned int> GetTextures() const;
+
+
    void AddMaterial(Material* material);
+   std::vector<Material*> GetMaterials();
 
    void AddRenderObject(GlRenderedInstance* object);
    void AddRenderObject(GlRenderedInstance* object, const unsigned int shaderId);
+
+   std::vector<GlRenderObject*> ComputeRenderObjectsList() const;
+   std::vector<GlRenderedInstance*> ComputeInstancesList() const;
 
    void PrepareRendering();
 

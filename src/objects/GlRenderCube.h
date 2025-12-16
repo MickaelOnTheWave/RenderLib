@@ -6,7 +6,7 @@
 class GlRenderCube : public GlRenderObject
 {
 public:
-   explicit GlRenderCube(Material* _material);
+    explicit GlRenderCube(Material* _material, const std::string& _name = "");
 
    void Initialize() override;
    void Render() override;

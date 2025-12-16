@@ -1,14 +1,17 @@
 #ifndef GLRENDEREDINSTANCE_H
 #define GLRENDEREDINSTANCE_H
 
+#include "NamedEntity.h"
+
 #include "GlRenderObject.h"
 #include "math/Matrix4x4.h"
 
-class GlRenderedInstance
+class GlRenderedInstance : public NamedEntity
 {
 public:
    GlRenderedInstance(GlRenderObject* _object,
-                     const Matrix4x4& _transform);
+                     const Matrix4x4& _transform,
+                     const std::string& _name = "");
 
    GlRenderObject* GetRenderObject() const;
    Matrix4x4 GetTransform() const;

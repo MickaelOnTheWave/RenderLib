@@ -16,6 +16,8 @@ public:
    unsigned int AddTexture(const ImageData& imageData, const int glFormat = 0);
    unsigned int AddPlainColorTexture(const Vector3& color);
 
+   std::vector<unsigned int> GetTextureObjects() const;
+
 private:
    unsigned int CreateGlTexture(const std::string& file, const int colorChannels);
 
