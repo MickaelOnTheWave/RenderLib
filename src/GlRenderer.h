@@ -11,7 +11,7 @@
 #include "objects/GlRenderObject.h"
 #include "ImageData.h"
 #include "Material.h"
-#include "TextureManager.h"
+#include "GlTextureManager.h"
 
 /**
  * @brief OpenGL Implementation of Renderer.
@@ -45,10 +45,10 @@ public:
    void SetCurrentShader(const unsigned int shaderId);
    void SetClearColor(const float r, const float g, const float b);
 
-   unsigned int AddTexture(const std::string& file, const int colorChannels);
-   unsigned int AddTexture(const ImageData& image, const int glFormat = 0);
-   unsigned int AddTexture(const Vector3& color);
-   std::vector<unsigned int> GetTextures() const;
+   unsigned int AddTexture(const std::string& file, const int colorChannels, const std::string& name = "");
+   unsigned int AddTexture(const ImageData& image, const std::string& name = "", const int glFormat = 0);
+   unsigned int AddTexture(const Vector3& color, const std::string& name = "");
+   std::vector<GlTexture> GetTextures() const;
 
 
    void AddMaterial(Material* material);
@@ -91,7 +91,7 @@ private:
 
    std::vector<Material*> materials;
 
-   TextureManager textureManager;
+   GlTextureManager textureManager;
 
    float clearColorR, clearColorG, clearColorB;
 

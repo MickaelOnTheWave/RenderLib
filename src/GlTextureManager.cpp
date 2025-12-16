@@ -1,26 +1,30 @@
-#include "TextureManager.h"
+#include "GlTextureManager.h"
 
 #include <glad/gl.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-unsigned int TextureManager::AddTexture(const std::string &file, const int colorChannels)
+unsigned int GlTextureManager::AddTexture(const std::string &file, const int colorChannels, const std::string& _name)
 {
+   const std::string effectiveName = (_name.empty() ? file : _name) ;
    const unsigned int textureId = CreateGlTexture(file, colorChannels);
+   textureObjects.emplace_back(textureId, effectiveName);
    return textureId;
 }
 
-unsigned int TextureManager::AddTexture(const ImageData &imageData, const int glFormat)
+unsigned int GlTextureManager::AddTexture(const ImageData &imageData, const std::string& _name, const int glFormat)
 {
    // 0 means autodetect
    int finalFormat = glFormat;
    if (glFormat == 0)
       finalFormat = (imageData.channels == 4) ? GL_RGBA : GL_RGB;
-   return LoadTextureData(imageData.width, imageData.height, finalFormat, imageData.data);
+   const unsigned int textureId = LoadTextureData(imageData.width, imageData.height, finalFormat, imageData.data);
+   textureObjects.emplace_back(textureId, _name);
+   return textureId;
 }
 
-unsigned int TextureManager::AddPlainColorTexture(const Vector3 &color)
+unsigned int GlTextureManager::AddPlainColorTexture(const Vector3 &color, const std::string& _name)
 {
    unsigned int textureId = 0;
 
@@ -29,17 +33,18 @@ unsigned int TextureManager::AddPlainColorTexture(const Vector3 &color)
    if (textureData)
    {
       textureId = LoadTextureData(width, height, GL_RGB, textureData);
+      textureObjects.emplace_back(textureId, _name);
       delete[] textureData;
    }
    return textureId;
 }
 
-std::vector<unsigned int> TextureManager::GetTextureObjects() const
+std::vector<GlTexture> GlTextureManager::GetTextureObjects() const
 {
     return textureObjects;
 }
 
-unsigned int TextureManager::CreateGlTexture(const std::string &file, const int colorChannels)
+unsigned int GlTextureManager::CreateGlTexture(const std::string &file, const int colorChannels)
 {
    unsigned int textureIndex = 0;
 
@@ -55,7 +60,7 @@ unsigned int TextureManager::CreateGlTexture(const std::string &file, const int 
    return textureIndex;
 }
 
-unsigned char *TextureManager::CreatePlainColorData(const Vector3 &color) const
+unsigned char *GlTextureManager::CreatePlainColorData(const Vector3 &color) const
 {
    const int width = 2, height = 2, channels = 3;
    auto textureData = new unsigned char[width * height * channels];
@@ -70,14 +75,11 @@ unsigned char *TextureManager::CreatePlainColorData(const Vector3 &color) const
    return textureData;
 }
 
-unsigned int TextureManager::LoadTextureData(const int width, const int height, const int textureFormat, const unsigned char *textureData)
+unsigned int GlTextureManager::LoadTextureData(const int width, const int height, const int textureFormat, const unsigned char *textureData)
 {
    unsigned int textureIndex = 0;
    const unsigned int textureIdQuantity = 1;
    glGenTextures(textureIdQuantity, &textureIndex);
-
-   textureObjects.push_back(textureIndex);
-
    glBindTexture(GL_TEXTURE_2D, textureIndex);
 
    // Textures

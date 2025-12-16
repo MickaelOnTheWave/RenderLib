@@ -98,22 +98,22 @@ void GlRenderer::SetClearColor(const float r, const float g, const float b)
    clearColorB = b;
 }
 
-unsigned int GlRenderer::AddTexture(const std::string &file, const int colorChannels)
+unsigned int GlRenderer::AddTexture(const std::string &file, const int colorChannels, const std::string& name)
 {
-   return textureManager.AddTexture(file, colorChannels);
+   return textureManager.AddTexture(file, colorChannels, name);
 }
 
-unsigned int GlRenderer::AddTexture(const ImageData &imageData, const int glFormat)
+unsigned int GlRenderer::AddTexture(const ImageData &imageData, const std::string& name, const int glFormat)
 {
-   return textureManager.AddTexture(imageData, glFormat);
+   return textureManager.AddTexture(imageData, name, glFormat);
 }
 
-unsigned int GlRenderer::AddTexture(const Vector3 &color)
+unsigned int GlRenderer::AddTexture(const Vector3 &color, const std::string& name)
 {
-   return textureManager.AddPlainColorTexture(color);
+   return textureManager.AddPlainColorTexture(color, name);
 }
 
-std::vector<unsigned int> GlRenderer::GetTextures() const
+std::vector<GlTexture> GlRenderer::GetTextures() const
 {
     return textureManager.GetTextureObjects();
 }
