@@ -33,7 +33,7 @@ namespace Debug
 }
 
 GlRenderer::GlRenderer(AbstractGlCamera* _camera)
-   : camera(_camera)
+   : camera(_camera), polygonMode(GL_FILL)
 {
 }
 
@@ -48,16 +48,18 @@ std::vector<int> GlRenderer::Initialize(const std::vector<ShaderProgram*>& _shad
     std::vector<int> shaderIds;
     for (const auto& shader : _shaderPrograms)
     {
-        const int currentI = shaderPrograms.size();
-        std::shared_ptr<ShaderProgram> managedShader(shader);
-        shaderPrograms[currentI] = managedShader;
-        shaderIds.push_back(currentI);
-        renderObjectsPerShader[managedShader.get()] = RenderObjectsMap();
+       const int shaderId = AddShader(shader);
+       shaderIds.push_back(shaderId);
     }
 
     // Default shader is the first one
     SetCurrentShader(0);
     return shaderIds;
+}
+
+AbstractGlCamera* GlRenderer::GetCamera() const
+{
+   return camera;
 }
 
 void GlRenderer::SetCamera(AbstractGlCamera* newCamera)
@@ -162,7 +164,7 @@ std::vector<GlRenderedInstance*> GlRenderer::ComputeInstancesList() const
 
 void GlRenderer::PrepareRendering()
 {
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+   glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
    glEnable(GL_DEPTH_TEST);
 
    //glEnable(GL_CULL_FACE);
@@ -177,6 +179,7 @@ void GlRenderer::PrepareRendering()
 
 void GlRenderer::Render()
 {
+   glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
    glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -239,6 +242,20 @@ std::string GlRenderer::GetError() const
     else if (!renderErrors.empty())
         return renderErrors.back();
     return "";
+}
+
+void GlRenderer::EnableWireframeMode(const bool enable)
+{
+   polygonMode = enable ? GL_LINE : GL_FILL;
+}
+
+int GlRenderer::AddShader(ShaderProgram* newShaderProgram)
+{
+   const int currentI = shaderPrograms.size();
+   std::shared_ptr<ShaderProgram> managedShader(newShaderProgram);
+   shaderPrograms[currentI] = managedShader;
+   renderObjectsPerShader[managedShader.get()] = RenderObjectsMap();
+   return currentI;
 }
 
 void GlRenderer::SetTempLights(Vector3 *position, Vector3 *color)

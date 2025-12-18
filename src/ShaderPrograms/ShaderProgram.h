@@ -1,16 +1,19 @@
 #ifndef SHADERPROGRAM_H
 #define SHADERPROGRAM_H
 
+#include "NamedEntity.h"
+
 #include <string>
 
 #include "Material.h"
 #include "math/Matrix4x4.h"
 #include "math/Vector3.h"
 
-class ShaderProgram
+class ShaderProgram : public NamedEntity
 {
 public:
-   ShaderProgram(const std::string& vertexFile, const std::string& fragmentFile);
+   ShaderProgram(const std::string& vertexFile, const std::string& fragmentFile,
+                 const std::string& _name = "Unnamed Shader");
    virtual ~ShaderProgram();
 
    unsigned int GetId() const;

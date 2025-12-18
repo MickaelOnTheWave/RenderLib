@@ -6,7 +6,9 @@
 #include <iostream>
 #include <string.h>
 
-ShaderProgram::ShaderProgram(const std::string& vertexFile, const std::string& fragmentFile)
+ShaderProgram::ShaderProgram( const std::string& vertexFile, const std::string& fragmentFile,
+                              const std::string& _name)
+   : NamedEntity(_name)
 {
    prepareShader(vertexShader, &vertexShaderDataPtr, vertexFile, GL_VERTEX_SHADER);
    prepareShader(fragmentShader, &fragmentShaderDataPtr, fragmentFile, GL_FRAGMENT_SHADER);

@@ -41,9 +41,14 @@ public:
 
    std::vector<int> Initialize(const std::vector<ShaderProgram*>& _shaderPrograms);
 
+   AbstractGlCamera* GetCamera() const;
    void SetCamera(AbstractGlCamera *newCamera);
-   void SetCurrentShader(const unsigned int shaderId);
+
    void SetClearColor(const float r, const float g, const float b);
+   void EnableWireframeMode(const bool enable);
+
+   int AddShader(ShaderProgram* newShaderProgram);
+   void SetCurrentShader(const unsigned int shaderId);
 
    unsigned int AddTexture(const std::string& file, const int colorChannels, const std::string& name = "");
    unsigned int AddTexture(const ImageData& image, const std::string& name = "", const int glFormat = 0);
@@ -101,6 +106,7 @@ private:
    //Temp
    Vector3* lightPosition = nullptr;
    Vector3* lightColor = nullptr;
+   unsigned int polygonMode;
 };
 
 #endif // GLRENDERER_H
