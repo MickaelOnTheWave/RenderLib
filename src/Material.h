@@ -1,11 +1,11 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "NamedEntity.h"
+#include "EngineEntity.h"
 
 #include <string>
 
-class Material : public NamedEntity
+class Material : public EngineEntity
 {
 public:
    Material(const std::string& _name);

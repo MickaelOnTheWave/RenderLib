@@ -58,6 +58,7 @@ public:
 
    void AddMaterial(Material* material);
    std::vector<Material*> GetMaterials();
+   Material* GetMaterial(const unsigned int id);
 
    void AddRenderObject(GlRenderedInstance* object);
    void AddRenderObject(GlRenderedInstance* object, const unsigned int shaderId);

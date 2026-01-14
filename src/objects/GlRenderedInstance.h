@@ -1,12 +1,12 @@
 #ifndef GLRENDEREDINSTANCE_H
 #define GLRENDEREDINSTANCE_H
 
-#include "NamedEntity.h"
+#include "EngineEntity.h"
 
 #include "GlRenderObject.h"
 #include "math/Matrix4x4.h"
 
-class GlRenderedInstance : public NamedEntity
+class GlRenderedInstance : public EngineEntity
 {
 public:
    GlRenderedInstance(GlRenderObject* _object,

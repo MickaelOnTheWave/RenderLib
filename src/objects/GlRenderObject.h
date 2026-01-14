@@ -3,11 +3,11 @@
 
 #include <vector>
 
-#include "NamedEntity.h"
+#include "EngineEntity.h"
 
 #include "Material.h"
 
-class GlRenderObject : public NamedEntity
+class GlRenderObject : public EngineEntity
 {
 public:
     explicit GlRenderObject(Material* _material, const std::string& _name = "");

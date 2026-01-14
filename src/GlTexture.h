@@ -1,14 +1,17 @@
 #ifndef GLTEXTURE_H
 #define GLTEXTURE_H
 
-#include "NamedEntity.h"
+#include "EngineEntity.h"
 
-class GlTexture : public NamedEntity
+class GlTexture : public EngineEntity
 {
 public:
-    GlTexture(const unsigned int id, const std::string& _name);
+   GlTexture(const unsigned int id, const std::string& _name);
+   GlTexture(const GlTexture& other);
 
-    unsigned int textureId;
+   GlTexture& operator=(const GlTexture& other);
+
+   unsigned int textureId;
 };
 
 #endif // GLTEXTURE_H

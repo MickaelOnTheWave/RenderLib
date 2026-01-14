@@ -5,7 +5,7 @@
 using namespace std;
 
 GlRenderObject::GlRenderObject(Material *_material, const std::string& _name)
-    : NamedEntity(_name), material(_material)
+    : EngineEntity(_name), material(_material)
 {
 }
 

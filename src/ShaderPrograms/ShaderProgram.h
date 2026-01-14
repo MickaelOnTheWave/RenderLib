@@ -1,7 +1,7 @@
 #ifndef SHADERPROGRAM_H
 #define SHADERPROGRAM_H
 
-#include "NamedEntity.h"
+#include "EngineEntity.h"
 
 #include <string>
 
@@ -9,7 +9,7 @@
 #include "math/Matrix4x4.h"
 #include "math/Vector3.h"
 
-class ShaderProgram : public NamedEntity
+class ShaderProgram : public EngineEntity
 {
 public:
    ShaderProgram(const std::string& vertexFile, const std::string& fragmentFile,

@@ -130,6 +130,16 @@ std::vector<Material*> GlRenderer::GetMaterials()
     return materials;
 }
 
+Material* GlRenderer::GetMaterial(const unsigned int id)
+{
+   for (auto currentMat : materials)
+   {
+      if (currentMat->GetId() == id)
+         return currentMat;
+   }
+   return nullptr;
+}
+
 void GlRenderer::AddRenderObject(GlRenderedInstance *object)
 {
    AddRenderObject(object, activeShaderProgram);
