@@ -7,7 +7,9 @@ class Vector3
 {
 public:
    explicit Vector3(const float _x=0, const float _y=0, const float _z=0);
+   Vector3(const Vector3& other);
 
+   Vector3& operator=(const Vector3& other);
    Vector3& operator*=(const float factor);
 
    Vector3 operator+(const Vector3& other) const;

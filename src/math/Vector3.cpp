@@ -7,6 +7,19 @@ Vector3::Vector3(const float _x, const float _y, const float _z)
 {
 }
 
+Vector3::Vector3(const Vector3& other)
+   : x(other.x), y(other.y), z(other.z)
+{
+}
+
+Vector3& Vector3::operator=(const Vector3& other)
+{
+   x = other.x;
+   y = other.y;
+   z = other.z;
+   return *this;
+}
+
 Vector3& Vector3::operator*=(const float factor)
 {
    x *= factor;
