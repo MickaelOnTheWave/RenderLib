@@ -5,7 +5,7 @@
 
 #include "EngineEntity.h"
 
-#include "Material.h"
+#include "scene/resources/Material.h"
 
 class GlRenderObject : public EngineEntity
 {

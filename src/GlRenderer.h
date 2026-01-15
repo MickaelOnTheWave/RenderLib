@@ -10,7 +10,7 @@
 #include "objects/GlRenderedInstance.h"
 #include "objects/GlRenderObject.h"
 #include "ImageData.h"
-#include "Material.h"
+#include "scene/resources/Material.h"
 #include "GlTextureManager.h"
 
 /**

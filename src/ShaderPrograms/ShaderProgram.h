@@ -5,7 +5,7 @@
 
 #include <string>
 
-#include "Material.h"
+#include "scene/resources/Material.h"
 #include "math/Matrix4x4.h"
 #include "math/Vector3.h"
 
