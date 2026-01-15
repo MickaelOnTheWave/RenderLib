@@ -3,6 +3,7 @@
 
 #include "managers/MaterialManager.h"
 #include "managers/TextureManager.h"
+#include "resources/Camera.h"
 #include "resources/Geometry.h"
 #include "resources/Model.h"
 
@@ -16,6 +17,8 @@ private:
    MaterialManager materialManager;
    ResourceManager<Model> modelManager;
    ResourceManager<Geometry> geometryManager;
+
+   ResourceManager<Camera> cameraManager;
 };
 
 #endif // SCENE_H
