@@ -2,9 +2,9 @@
 #define MATERIALMANAGER_H
 
 #include "scene/resources/Material.h"
-#include "ResourceManager.h"
+#include "ValueResourceManager.h"
 
-class MaterialManager : public ResourceManager<Material>
+class MaterialManager : public ValueResourceManager<Material>
 {
 public:
    MaterialManager() = default;
