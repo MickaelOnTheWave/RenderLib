@@ -13,6 +13,7 @@ public:
    Scene();
 
    const std::vector<Texture*>& GetTextures() const;
+   const std::vector<Material>& GetMaterials() const;
 
 private:
    TextureManager textureManager;

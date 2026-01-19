@@ -60,10 +60,28 @@ void OpenGlRenderer::CreateGpuRepresentation(const Scene& scene)
       glTextures.push_back(GlTexture(*texture));
    }
 
-
+   glMaterials.clear();
+   const std::vector<Material>& sceneMaterials = scene.GetMaterials();
+   for (const auto material : sceneMaterials)
+   {
+      GlMaterial glMaterial;
+      glMaterial.sceneId = material.GetId();
+      glMaterial.glDiffuseTextureId = FindGlTextureId(material.diffuseTextureId);
+      glMaterial.glSpecularTextureId = FindGlTextureId(material.specularTextureId);
+      glMaterials.push_back(glMaterial);
+   }
 }
 
 void OpenGlRenderer::UpdateGpuRepresentation(const Scene& scene)
 {
 
+}
+
+unsigned int OpenGlRenderer::FindGlTextureId(const unsigned int sceneId) const
+{
+   auto finder = [sceneId](const GlTexture texture) {
+      return (texture.sceneId == sceneId);
+   };
+   auto itFound = std::find_if(glTextures.begin(), glTextures.end(), finder);
+   return (itFound != glTextures.end() ? itFound->glTextureId : 0);
 }

@@ -5,6 +5,10 @@ class GlMaterial
 {
 public:
    GlMaterial();
+
+   unsigned int sceneId;
+   unsigned int glDiffuseTextureId;
+   unsigned int glSpecularTextureId;
 };
 
 #endif // GLMATERIAL_H

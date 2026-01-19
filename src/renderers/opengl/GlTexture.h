@@ -8,11 +8,10 @@ class GlTexture
 public:
    GlTexture(const Texture& sceneTexture);
 
-private:
-   unsigned int BindToOpenGL(const ImageData& imageData);
-
    unsigned int sceneId;
    unsigned int glTextureId;
+private:
+   unsigned int BindToOpenGL(const ImageData& imageData);
 };
 
 #endif // GLTEXTURE_H
