@@ -9,7 +9,6 @@
 #include "ShaderPrograms/ShaderProgram.h"
 #include "objects/GlRenderedInstance.h"
 #include "objects/GlRenderObject.h"
-#include "ImageData.h"
 #include "scene/resources/Material.h"
 #include "GlTextureManager.h"
 
@@ -49,11 +48,6 @@ public:
 
    int AddShader(ShaderProgram* newShaderProgram);
    void SetCurrentShader(const unsigned int shaderId);
-
-   unsigned int AddTexture(const std::string& file, const int colorChannels, const std::string& name = "");
-   unsigned int AddTexture(const ImageData& image, const std::string& name = "", const int glFormat = 0);
-   unsigned int AddTexture(const Vector3& color, const std::string& name = "");
-   std::vector<GlTexture> GetTextures() const;
 
 
    void AddMaterial(Material* material);

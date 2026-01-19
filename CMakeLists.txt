@@ -51,6 +51,7 @@ file(GLOB_RECURSE PROJ_SRC_SCENE_RESOURCES_GEOMETRIES src/scene/resources/geomet
 file(GLOB_RECURSE PROJ_SRC_SCENE_MANAGERS src/scene/managers/*.h src/scene/managers/*.cpp)
 file(GLOB_RECURSE PROJ_SRC_RENDERERS src/renderers/*.h src/renderers/*.cpp)
 file(GLOB_RECURSE PROJ_SRC_RENDERERS_GL src/renderers/opengl/*.h src/renderers/opengl/*.cpp)
+file(GLOB_RECURSE PROJ_SRC_UTILS src/utils/*.h src/utils/*.cpp)
 file(GLOB_RECURSE PROJ_SRC_OBJS src/objects/*.h src/objects/*.cpp)
 file(GLOB_RECURSE PROJ_SRC_CAMS src/cameras/*.h src/cameras/*.cpp)
 file(GLOB_RECURSE PROJ_SRC_MATH src/math/*.h src/MATH/*.cpp)
@@ -102,7 +103,7 @@ endif(KITGL_SUPPORT_GLAD)
 add_library(${PROJECT_NAME}
    ${PROJ_SRC} ${PROJ_SRC_SCENE} ${PROJ_SRC_SCENE_RESOURCES} ${PROJ_SRC_SCENE_RESOURCES_GEOMETRIES}
    ${PROJ_SRC_SCENE_MANAGERS} ${PROJ_SRC_RENDERERS} ${PROJ_SRC_RENDERERS_GL} ${PROJ_SRC_OBJS}
-   ${PROJ_SRC_CAMS} ${PROJ_SRC_MATH} ${PROJ_SRC_SHADERPROGRAMS} ${PROJ_SHADERS}
+   ${PROJ_SRC_CAMS} ${PROJ_SRC_MATH} ${PROJ_SRC_SHADERPROGRAMS} ${PROJ_SRC_UTILS} ${PROJ_SHADERS} ${PROJ_SRC_UTILS}
 )
 
 target_include_directories(RenderLib PUBLIC src/ libs/glfw/deps)

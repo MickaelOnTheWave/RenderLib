@@ -22,6 +22,11 @@ ImageData& Texture::GetData()
    return data;
 }
 
+ImageData const& Texture::GetData() const
+{
+   return data;
+}
+
 std::string Texture::GetSource() const
 {
    return source;

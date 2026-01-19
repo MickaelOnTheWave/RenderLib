@@ -15,6 +15,8 @@ public:
    bool Remove(const unsigned int id);
    T* Find(const unsigned int id);
 
+   const std::vector<T*>& GetData() const;
+
 private:
    typename std::vector<T*>::iterator FindIterator(const unsigned int id);
 
@@ -44,6 +46,12 @@ T* ResourceManager<T>::Find(const unsigned int id)
 {
    auto it = FindIterator(id);
    return (it != data.end()) ? *it : nullptr;
+}
+
+template<class T>
+inline const std::vector<T*>& ResourceManager<T>::GetData() const
+{
+   return data;
 }
 
 template <class T>

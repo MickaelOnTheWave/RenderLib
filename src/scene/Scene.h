@@ -12,6 +12,8 @@ class Scene
 public:
    Scene();
 
+   const std::vector<Texture*>& GetTextures() const;
+
 private:
    TextureManager textureManager;
    MaterialManager materialManager;

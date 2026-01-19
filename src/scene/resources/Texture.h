@@ -4,7 +4,7 @@
 #include "EngineEntity.h"
 
 #include <string>
-#include "ImageData.h"
+#include "utils/ImageData.h"
 
 class Texture : public EngineEntity
 {
@@ -24,6 +24,8 @@ public:
    virtual ~Texture() = default;
 
    ImageData& GetData();
+   ImageData const& GetData() const;
+
    std::string GetSource() const;
    SourceType GetSourceType() const;
 
