@@ -14,14 +14,15 @@ public:
 
    const std::vector<Texture*>& GetTextures() const;
    const std::vector<Material>& GetMaterials() const;
+   const std::vector<Model>& GetModels() const;
 
 private:
    TextureManager textureManager;
    MaterialManager materialManager;
-   ResourceManager<Model> modelManager;
+   ValueResourceManager<Model> modelManager;
    ResourceManager<Geometry> geometryManager;
 
-   ResourceManager<Camera> cameraManager;
+   ValueResourceManager<Camera> cameraManager;
 };
 
 #endif // SCENE_H

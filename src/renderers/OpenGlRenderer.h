@@ -3,9 +3,7 @@
 
 #include "AbstractRenderer.h"
 
-#include <vector>
-#include "renderers/opengl/GlMaterial.h"
-#include "renderers/opengl/GlTexture.h"
+#include "renderers/opengl/GlSceneCache.h"
 
 class OpenGlRenderer : public AbstractRenderer
 {
@@ -19,16 +17,11 @@ public:
 
 private:
    void PrepareRenderPass();
-   void CreateGpuRepresentation(const Scene& scene);
-   void UpdateGpuRepresentation(const Scene& scene);
-
-   unsigned int FindGlTextureId(const unsigned int sceneId) const;
 
    unsigned int polygonMode;
    bool gpuRepresentationCreated = false;
 
-   std::vector<GlTexture> glTextures;
-   std::vector<GlMaterial> glMaterials;
+   GlSceneCache sceneCache;
 };
 
 #endif // OPENGLRENDERER_H

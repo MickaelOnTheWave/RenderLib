@@ -10,7 +10,6 @@ class Model : public EngineEntity
 public:
    Model(const std::string& _name);
 
-private:
    struct ModelPart
    {
       unsigned int geometryId;

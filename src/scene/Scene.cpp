@@ -11,3 +11,8 @@ const std::vector<Material>& Scene::GetMaterials() const
 {
    return materialManager.GetData();
 }
+
+const std::vector<Model>& Scene::GetModels() const
+{
+   return modelManager.GetData();
+}
