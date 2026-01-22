@@ -95,4 +95,9 @@ const GlMaterial* GlSceneCache::FindGlMaterial(const unsigned int sceneId) const
 
 const GlGeometry* GlSceneCache::FindGlGeometry(const unsigned int sceneId) const
 {
+   auto finder = [sceneId](const GlGeometry& geometry) {
+      return (geometry.sceneId == sceneId);
+   };
+   auto itFound = std::find_if(glGeometry.begin(), glGeometry.end(), finder);
+   return (itFound != glGeometry.end() ? &(*itFound) : nullptr);
 }

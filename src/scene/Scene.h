@@ -1,9 +1,9 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include "managers/CameraManager.h"
 #include "managers/MaterialManager.h"
 #include "managers/TextureManager.h"
-#include "resources/Camera.h"
 #include "resources/Geometry.h"
 #include "resources/Model.h"
 
@@ -22,7 +22,7 @@ private:
    ValueResourceManager<Model> modelManager;
    ResourceManager<Geometry> geometryManager;
 
-   ValueResourceManager<Camera> cameraManager;
+   CameraManager cameraManager;
 };
 
 #endif // SCENE_H

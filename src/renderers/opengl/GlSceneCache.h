@@ -31,6 +31,7 @@ private:
    bool gpuRepresentationCreated = false;
    std::vector<GlTexture> glTextures;
    std::vector<GlMaterial> glMaterials;
+   std::vector<GlGeometry> glGeometry;
    std::vector<GlModel> glModels;
 };
 
