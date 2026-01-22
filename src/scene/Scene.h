@@ -14,6 +14,7 @@ public:
 
    const std::vector<Texture*>& GetTextures() const;
    const std::vector<Material>& GetMaterials() const;
+   const std::vector<Geometry*>& GetGeometries() const;
    const std::vector<Model>& GetModels() const;
 
 private:

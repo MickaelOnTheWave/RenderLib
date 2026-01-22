@@ -1,7 +1,9 @@
 #ifndef GLSCENECACHE_H
 #define GLSCENECACHE_H
 
+#include <memory>
 #include <vector>
+
 #include "renderers/opengl/GlMaterial.h"
 #include "renderers/opengl/GlModel.h"
 #include "renderers/opengl/GlTexture.h"
@@ -22,6 +24,7 @@ private:
 
    void CreateTextureMapping(const Scene& scene);
    void CreateMaterialMapping(const Scene& scene);
+   void CreateGeometryMapping(const Scene& scene);
    void CreateModelMapping(const Scene& scene);
 
    const GlTexture* FindGlTexture(const unsigned int sceneId) const;
@@ -31,7 +34,7 @@ private:
    bool gpuRepresentationCreated = false;
    std::vector<GlTexture> glTextures;
    std::vector<GlMaterial> glMaterials;
-   std::vector<GlGeometry> glGeometry;
+   std::vector<std::unique_ptr<GlGeometry>> glGeometries;
    std::vector<GlModel> glModels;
 };
 

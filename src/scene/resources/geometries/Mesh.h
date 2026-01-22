@@ -12,9 +12,10 @@ public:
    Mesh();
 
 private:
-   using Face = std::vector<unsigned int>; // indices into vertices
+   using FaceIndices = std::vector<unsigned int>;
    std::vector<Vector3> vertices;
-   std::vector<Face> faces;
+   std::vector<FaceIndices> faces;
 };
 
 #endif // MESH_H
+

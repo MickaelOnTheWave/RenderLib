@@ -1,5 +1,7 @@
 #include "GlSceneCache.h"
 
+#include "GlGeometryFactory.h"
+
 GlSceneCache::GlSceneCache() {}
 
 void GlSceneCache::Update(const Scene& scene)
@@ -22,6 +24,7 @@ void GlSceneCache::CreateGpuRepresentation(const Scene& scene)
 {
    CreateTextureMapping(scene);
    CreateMaterialMapping(scene);
+   CreateGeometryMapping(scene);
    CreateModelMapping(scene);
 }
 
@@ -52,6 +55,16 @@ void GlSceneCache::CreateMaterialMapping(const Scene& scene)
       glMaterial.glSpecularTexture = FindGlTexture(material.specularTextureId);
       glMaterial.shininess = material.shininess;
       glMaterials.push_back(glMaterial);
+   }
+}
+
+void GlSceneCache::CreateGeometryMapping(const Scene& scene)
+{
+   glGeometries.clear();
+   const std::vector<Geometry*>& sceneGeometries = scene.GetGeometries();
+   for (Geometry* geometry : sceneGeometries)
+   {
+      glGeometries.push_back(GlGeometryFactory::Create(geometry));
    }
 }
 
@@ -95,9 +108,9 @@ const GlMaterial* GlSceneCache::FindGlMaterial(const unsigned int sceneId) const
 
 const GlGeometry* GlSceneCache::FindGlGeometry(const unsigned int sceneId) const
 {
-   auto finder = [sceneId](const GlGeometry& geometry) {
-      return (geometry.sceneId == sceneId);
+   auto finder = [sceneId](const std::unique_ptr<GlGeometry>& geometry) {
+      return (geometry->sceneId == sceneId);
    };
-   auto itFound = std::find_if(glGeometry.begin(), glGeometry.end(), finder);
-   return (itFound != glGeometry.end() ? &(*itFound) : nullptr);
+   auto itFound = std::find_if(glGeometries.begin(), glGeometries.end(), finder);
+   return (itFound != glGeometries.end() ? itFound->get() : nullptr);
 }
