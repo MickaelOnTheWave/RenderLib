@@ -1,4 +1,4 @@
-#include "ShaderProgram.h"
+#include "GlslShaderProgram.h"
 
 #include <glad/gl.h>
 #include <fstream>
@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string.h>
 
-ShaderProgram::ShaderProgram( const std::string& vertexFile, const std::string& fragmentFile,
+GlslShaderProgram::GlslShaderProgram( const std::string& vertexFile, const std::string& fragmentFile,
                               const std::string& _name)
    : EngineEntity(_name)
 {
@@ -15,7 +15,7 @@ ShaderProgram::ShaderProgram( const std::string& vertexFile, const std::string& 
    initializeShaderProgram();
 }
 
-ShaderProgram::~ShaderProgram()
+GlslShaderProgram::~GlslShaderProgram()
 {
    free(vertexShaderDataPtr);
    vertexShaderDataPtr = nullptr;
@@ -23,53 +23,53 @@ ShaderProgram::~ShaderProgram()
    fragmentShaderDataPtr = nullptr;
 }
 
-unsigned int ShaderProgram::GetId() const
+unsigned int GlslShaderProgram::GetId() const
 {
    return shaderProgram;
 }
 
-void ShaderProgram::use()
+void GlslShaderProgram::use()
 {
    glUseProgram(shaderProgram);
 }
 
-void ShaderProgram::SetUniformInt(const std::string &varName, const int value)
+void GlslShaderProgram::SetUniformInt(const std::string &varName, const int value)
 {
    unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
    glUniform1i(varLocation, value);
 }
 
-void ShaderProgram::SetUniformFloat(const std::string &varName, const float value)
+void GlslShaderProgram::SetUniformFloat(const std::string &varName, const float value)
 {
    unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
    glUniform1f(varLocation, value);
 }
 
-void ShaderProgram::SetUniformMat4(const std::string &varName, const Matrix4x4 &value)
+void GlslShaderProgram::SetUniformMat4(const std::string &varName, const Matrix4x4 &value)
 {
    unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
    glUniformMatrix4fv(varLocation, 1, GL_FALSE, value.GetData());
 }
 
-void ShaderProgram::SetUniformVec3(const std::string &varName, const Vector3 &value)
+void GlslShaderProgram::SetUniformVec3(const std::string &varName, const Vector3 &value)
 {
    SetUniformVec3(varName, value.GetData());
 }
 
-void ShaderProgram::SetUniformVec3(const std::string &varName, const std::vector<float> &value)
+void GlslShaderProgram::SetUniformVec3(const std::string &varName, const std::vector<float> &value)
 {
    unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
    glUniform3fv(varLocation, 1, &value[0]);
 }
 
-void ShaderProgram::SetUniformMaterial(const GlMaterial* material)
+void GlslShaderProgram::SetUniformMaterial(const GlMaterial* material)
 {
    SetUniformInt("diffuseTexture", material->glDiffuseTexture->glTextureId);
    SetUniformInt("specularTexture", material->glSpecularTexture->glTextureId);
    SetUniformFloat("shininess", material->shininess);
 }
 
-void ShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
+void GlslShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
                                const std::string& shaderFile, unsigned int shaderType)
 {
    std::ifstream fileStream;
@@ -98,7 +98,7 @@ void ShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
 
 }
 
-void ShaderProgram::initializeShaderProgram()
+void GlslShaderProgram::initializeShaderProgram()
 {
    shaderProgram = glCreateProgram();
    glAttachShader(shaderProgram, vertexShader);

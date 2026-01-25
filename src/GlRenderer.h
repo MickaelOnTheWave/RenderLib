@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "cameras/AbstractGlCamera.h"
-#include "ShaderPrograms/ShaderProgram.h"
+#include "ShaderPrograms/GlslShaderProgram.h"
 #include "objects/GlRenderedInstance.h"
 #include "objects/GlRenderObject.h"
 #include "scene/resources/Material.h"
@@ -38,7 +38,7 @@ public:
    GlRenderer(AbstractGlCamera *_camera = nullptr);
    virtual ~GlRenderer();
 
-   std::vector<int> Initialize(const std::vector<ShaderProgram*>& _shaderPrograms);
+   std::vector<int> Initialize(const std::vector<GlslShaderProgram*>& _shaderPrograms);
 
    AbstractGlCamera* GetCamera() const;
    void SetCamera(AbstractGlCamera *newCamera);
@@ -46,7 +46,7 @@ public:
    void SetClearColor(const float r, const float g, const float b);
    void EnableWireframeMode(const bool enable);
 
-   int AddShader(ShaderProgram* newShaderProgram);
+   int AddShader(GlslShaderProgram* newShaderProgram);
    void SetCurrentShader(const unsigned int shaderId);
 
 
@@ -76,15 +76,15 @@ private:
    void ClearScene();
    void ClearMaterials();
 
-   void AddRenderObject(GlRenderedInstance* object, ShaderProgram* shader);
+   void AddRenderObject(GlRenderedInstance* object, GlslShaderProgram* shader);
    void AddToObjectMap(GlRenderedInstance* object, RenderObjectsMap& objectMap);
 
    AbstractGlCamera* camera;
-   std::map<unsigned int, std::shared_ptr<ShaderProgram>> shaderPrograms;
-   ShaderProgram* activeShaderProgram = nullptr;
+   std::map<unsigned int, std::shared_ptr<GlslShaderProgram>> shaderPrograms;
+   GlslShaderProgram* activeShaderProgram = nullptr;
 
    // Used as a reference. Objects are stored in the RenderObjects map.
-   std::map<ShaderProgram*, RenderObjectsMap> renderObjectsPerShader;
+   std::map<GlslShaderProgram*, RenderObjectsMap> renderObjectsPerShader;
 
    // Used for storage.
    RenderObjectsMap renderObjectsStorage;

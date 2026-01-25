@@ -10,8 +10,16 @@ class ModelInstance : public EngineEntity
 public:
    ModelInstance(const std::string& _name);
 
+   Matrix4x4 GetTransform() const;
+   void SetTransform(const Matrix4x4& newTransform);
+
+   Vector3 GetColor() const;
+   void SetColor(const Vector3& _color);
+
+private:
    unsigned int modelId;
    Matrix4x4 transform;
+   Vector3 color;
 };
 
 #endif // MODELINSTANCE_H

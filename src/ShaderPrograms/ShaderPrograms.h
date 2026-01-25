@@ -1,9 +1,9 @@
 #ifndef SHADERPROGRAMS_H
 #define SHADERPROGRAMS_H
 
-#include "ShaderProgram.h"
+#include "GlslShaderProgram.h"
 
-class SimpleTexturingProgram : public ShaderProgram
+class SimpleTexturingProgram : public GlslShaderProgram
 {
 public:
    SimpleTexturingProgram();
@@ -12,7 +12,7 @@ public:
    void use() override;
 };
 
-class PhongLightingProgram : public ShaderProgram
+class PhongLightingProgram : public GlslShaderProgram
 {
 public:
    PhongLightingProgram();
@@ -21,7 +21,7 @@ public:
    void use() override;
 };
 
-class ObjectColorProgram : public ShaderProgram
+class ObjectColorProgram : public GlslShaderProgram
 {
 public:
    ObjectColorProgram();
@@ -30,7 +30,7 @@ public:
    void use() override;
 };
 
-class ProceduralEyeProgram : public ShaderProgram
+class ProceduralEyeProgram : public GlslShaderProgram
 {
 public:
    ProceduralEyeProgram();
@@ -39,7 +39,7 @@ public:
    void use() override;
 };
 
-class TestingProgram : public ShaderProgram
+class TestingProgram : public GlslShaderProgram
 {
 public:
    TestingProgram();

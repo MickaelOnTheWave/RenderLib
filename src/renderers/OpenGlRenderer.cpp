@@ -2,7 +2,7 @@
 
 #include <glad/gl.h>
 
-#include "ShaderPrograms/ShaderProgram.h"
+#include "ShaderPrograms/GlslShaderProgram.h"
 
 OpenGlRenderer::OpenGlRenderer()
 : polygonMode(GL_FILL)
@@ -18,7 +18,7 @@ bool OpenGlRenderer::Render(const Scene& scene)
 {
    sceneCache.Update(scene);
 
-   ShaderProgram* currentShader = nullptr;
+   GlslShaderProgram* currentShader = nullptr;
 
    PrepareRenderPass();
 
@@ -36,26 +36,15 @@ bool OpenGlRenderer::Render(const Scene& scene)
          for (const auto& instance : modelInstances)
          {
             glPushMatrix();
-            currentShader->SetUniformMat4("objectTransform", instance.transform);
-            modelPart.Render();
+            currentShader->SetUniformMat4("objectTransform", instance.GetTransform());
+            currentShader->SetUniformVec3("objectColor", instance.GetColor());
+            modelPart.Render(currentShader);
             glPopMatrix();
          }
       }
 
    }
    return true;
-/*
-   for (const auto currentShader : renderMap)
-   {
-      for (const auto currentModel : currentShader.models)
-      {
-         currentModel.PrepareRendering();
-         for (const auto currentGeom : currentModel.geometries)
-         {
-            currentGeom.Render();
-         }
-      }
-   }*/
 }
 
 void OpenGlRenderer::EnableWireframeMode(const bool enable)

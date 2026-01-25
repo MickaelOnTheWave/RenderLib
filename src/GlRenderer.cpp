@@ -43,7 +43,7 @@ GlRenderer::~GlRenderer()
    ClearMaterials();
 }
 
-std::vector<int> GlRenderer::Initialize(const std::vector<ShaderProgram*>& _shaderPrograms)
+std::vector<int> GlRenderer::Initialize(const std::vector<GlslShaderProgram*>& _shaderPrograms)
 {
     std::vector<int> shaderIds;
     for (const auto& shader : _shaderPrograms)
@@ -128,7 +128,7 @@ void GlRenderer::AddRenderObject(GlRenderedInstance *object)
 
 void GlRenderer::AddRenderObject(GlRenderedInstance *object, const unsigned int shaderId)
 {
-   ShaderProgram* renderObjectShader = shaderPrograms[shaderId].get();
+   GlslShaderProgram* renderObjectShader = shaderPrograms[shaderId].get();
    if (!renderObjectShader)
       renderObjectShader = activeShaderProgram;
    AddRenderObject(object, renderObjectShader);
@@ -179,7 +179,7 @@ void GlRenderer::Render()
       if (shaderRenderObj.second.empty())
          continue;
 
-      ShaderProgram* currentShader = shaderRenderObj.first;
+      GlslShaderProgram* currentShader = shaderRenderObj.first;
       currentShader->use();
 
       //Debug::PrintCameraVecs(camera);
@@ -240,10 +240,10 @@ void GlRenderer::EnableWireframeMode(const bool enable)
    polygonMode = enable ? GL_LINE : GL_FILL;
 }
 
-int GlRenderer::AddShader(ShaderProgram* newShaderProgram)
+int GlRenderer::AddShader(GlslShaderProgram* newShaderProgram)
 {
    const int currentI = shaderPrograms.size();
-   std::shared_ptr<ShaderProgram> managedShader(newShaderProgram);
+   std::shared_ptr<GlslShaderProgram> managedShader(newShaderProgram);
    shaderPrograms[currentI] = managedShader;
    renderObjectsPerShader[managedShader.get()] = RenderObjectsMap();
    return currentI;
@@ -255,7 +255,7 @@ void GlRenderer::SetTempLights(Vector3 *position, Vector3 *color)
    lightColor = color;
 }
 
-void GlRenderer::AddRenderObject(GlRenderedInstance *object, ShaderProgram *shader)
+void GlRenderer::AddRenderObject(GlRenderedInstance *object, GlslShaderProgram *shader)
 {
    RenderObjectsMap& renderObjectMap = renderObjectsPerShader[shader];
    AddToObjectMap(object, renderObjectMap);

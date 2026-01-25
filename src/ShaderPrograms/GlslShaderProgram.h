@@ -1,5 +1,5 @@
-#ifndef SHADERPROGRAM_H
-#define SHADERPROGRAM_H
+#ifndef GLSLSHADERPROGRAM_H
+#define GLSLSHADERPROGRAM_H
 
 #include "EngineEntity.h"
 
@@ -8,12 +8,12 @@
 #include "math/Vector3.h"
 #include "renderers/opengl/GlMaterial.h"
 
-class ShaderProgram : public EngineEntity
+class GlslShaderProgram : public EngineEntity
 {
 public:
-   ShaderProgram(const std::string& vertexFile, const std::string& fragmentFile,
+   GlslShaderProgram(const std::string& vertexFile, const std::string& fragmentFile,
                  const std::string& _name = "Unnamed Shader");
-   virtual ~ShaderProgram();
+   virtual ~GlslShaderProgram();
 
    unsigned int GetId() const;
    virtual void use();
@@ -39,4 +39,4 @@ private:
    unsigned int shaderProgram;
 };
 
-#endif // SHADERPROGRAM_H
+#endif // GLSLSHADERPROGRAM_H
