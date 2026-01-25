@@ -20,8 +20,9 @@ const std::vector<std::unique_ptr<GlModel> >& GlSceneCache::GetModels() const
    return glModels;
 }
 
-const std::vector<ModelInstance>& GlSceneCache::GetModelInstances(const GlModelPart& modelPart) const
+const std::vector<const ModelInstance*>& GlSceneCache::GetModelInstances(const GlModelPart* modelPart) const
 {
+   return renderMap.at(modelPart);
 }
 
 void GlSceneCache::CreateGpuRepresentation(const Scene& scene)
@@ -100,7 +101,8 @@ void GlSceneCache::CreateInstanceMapping(const Scene& scene)
    for (const auto instance : sceneInstances)
    {
       auto glModel = FindGlModel(instance->GetModelId());
-      renderMap[glModel].push_back(instance);
+      for (const auto& glModelPart : glModel->modelParts)
+         renderMap[&glModelPart].push_back(instance);
    }
 }
 

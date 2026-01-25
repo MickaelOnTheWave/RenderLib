@@ -31,11 +31,11 @@ bool OpenGlRenderer::Render(const Scene& scene)
       {
          modelPart.PrepareRendering(currentShader);
 
-         const auto modelInstances = sceneCache.GetModelInstances(modelPart);
-         for (const auto& instance : modelInstances)
+         const auto modelInstances = sceneCache.GetModelInstances(&modelPart);
+         for (const auto* instance : modelInstances)
          {
             glPushMatrix();
-            PrepareRendering(instance, currentShader);
+            PrepareRendering(*instance, currentShader);
             modelPart.Render();
             glPopMatrix();
          }

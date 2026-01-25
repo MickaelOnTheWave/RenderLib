@@ -19,7 +19,7 @@ public:
    void Update(const Scene& scene);
 
    const std::vector<std::unique_ptr<GlModel>>& GetModels() const;
-   const std::vector<ModelInstance>& GetModelInstances(const GlModelPart& modelPart) const;
+   const std::vector<const ModelInstance*>& GetModelInstances(const GlModelPart* modelPart) const;
 
 private:
    void CreateGpuRepresentation(const Scene& scene);
@@ -42,7 +42,7 @@ private:
    std::vector<std::unique_ptr<GlGeometry>> glGeometries;
    std::vector<std::unique_ptr<GlModel>> glModels;
 
-   using RenderObjectsMap = std::unordered_map<const GlModel*, std::vector<const ModelInstance*>>;
+   using RenderObjectsMap = std::unordered_map<const GlModelPart*, std::vector<const ModelInstance*>>;
    RenderObjectsMap renderMap;
 };
 
