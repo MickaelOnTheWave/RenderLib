@@ -7,6 +7,7 @@
 #include "renderers/opengl/GlMaterial.h"
 #include "renderers/opengl/GlModel.h"
 #include "renderers/opengl/GlTexture.h"
+#include "scene/resources/ModelInstance.h"
 #include "scene/Scene.h"
 
 class GlSceneCache
@@ -17,6 +18,7 @@ public:
    void Update(const Scene& scene);
 
    const std::vector<GlModel>& GetModels() const;
+   const std::vector<ModelInstance>& GetModelInstances(const GlModelPart& modelPart) const;
 
 private:
    void CreateGpuRepresentation(const Scene& scene);

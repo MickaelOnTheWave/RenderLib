@@ -2,17 +2,23 @@
 #define GLTRIANGULATEDGEOMETRY_H
 
 #include "GlGeometry.h"
+#include "scene/resources/geometries/Triangulator.h"
 
 #include <vector>
-#include "math/Vector3.h"
 
 class GlTriangulatedGeometry : public GlGeometry
 {
 public:
-   GlTriangulatedGeometry();
+   GlTriangulatedGeometry(const TriangulatedData& data);
 
-   std::vector<Vector3> points;
-   std::vector<Vector3> normals;
+   std::vector<float> verticesNormalsUVs;
+   std::vector<unsigned int> faceIndices;
+
+private:
+   std::vector<float> CreateVertexBufferData() const override;
+   std::vector<unsigned int> CreateIndexData() const override;
+
+   void CreateWithFaceNormals(const TriangulatedData& data);
 };
 
 #endif // GLTRIANGULATEDGEOMETRY_H

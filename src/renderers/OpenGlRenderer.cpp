@@ -2,6 +2,8 @@
 
 #include <glad/gl.h>
 
+#include "ShaderPrograms/ShaderProgram.h"
+
 OpenGlRenderer::OpenGlRenderer()
 : polygonMode(GL_FILL)
 {
@@ -16,16 +18,28 @@ void OpenGlRenderer::Render(const Scene& scene)
 {
    sceneCache.Update(scene);
 
+   ShaderProgram* currentShader = nullptr;
+
    PrepareRenderPass();
 
    const std::vector<GlModel>& glModels = sceneCache.GetModels();
 
    for (const auto model : glModels)
    {
-      const std::vector<GlModel::GlModelPart>& glModelParts = model.modelParts;
+      const std::vector<GlModelPart>& glModelParts = model.modelParts;
       for (const auto modelPart : glModelParts)
       {
+         modelPart.PrepareRendering();
+         currentShader->SetUniformMaterial(modelPart.glMaterial);
 
+         const auto modelInstances = sceneCache.GetModelInstances(modelPart);
+         for (const auto& instance : modelInstances)
+         {
+            glPushMatrix();
+            currentShader->SetUniformMat4("objectTransform", instance.transform);
+            modelPart.Render();
+            glPopMatrix();
+         }
       }
 
    }

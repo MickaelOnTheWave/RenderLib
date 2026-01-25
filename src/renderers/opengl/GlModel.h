@@ -6,16 +6,20 @@
 #include "GlGeometry.h"
 #include "GlMaterial.h"
 
+class GlModelPart
+{
+public:
+   void PrepareRendering() const;
+   void Render() const;
+
+   const GlGeometry* glGeometry;
+   const GlMaterial* glMaterial;
+};
+
 class GlModel
 {
 public:
    GlModel();
-
-   struct GlModelPart
-   {
-      const GlGeometry* glGeometry;
-      const GlMaterial* glMaterial;
-   };
 
    unsigned int sceneId;
    std::vector<GlModelPart> modelParts;

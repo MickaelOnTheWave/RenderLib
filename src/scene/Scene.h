@@ -5,6 +5,7 @@
 #include "managers/MaterialManager.h"
 #include "managers/TextureManager.h"
 #include "resources/Geometry.h"
+#include "resources/Light.h"
 #include "resources/Model.h"
 
 class Scene
@@ -17,13 +18,16 @@ public:
    const std::vector<Geometry*>& GetGeometries() const;
    const std::vector<Model>& GetModels() const;
 
+   Camera* GetCurrentCamera();
+
 private:
    TextureManager textureManager;
    MaterialManager materialManager;
    ValueResourceManager<Model> modelManager;
-   ResourceManager<Geometry> geometryManager;
+   ReferenceResourceManager<Geometry> geometryManager;
 
    CameraManager cameraManager;
+   ReferenceResourceManager<Light> lightManager;
 };
 
 #endif // SCENE_H

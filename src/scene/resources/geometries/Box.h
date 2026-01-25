@@ -10,6 +10,9 @@ class Box : public Geometry
 public:
    Box();
 
+   Vector3 GetCenter() const;
+   Vector3 GetSizes() const;
+
 private:
    Vector3 center;
    Vector3 sizes;

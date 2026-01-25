@@ -62,18 +62,11 @@ void ShaderProgram::SetUniformVec3(const std::string &varName, const std::vector
    glUniform3fv(varLocation, 1, &value[0]);
 }
 
-void ShaderProgram::SetUniformMaterial(Material *material)
+void ShaderProgram::SetUniformMaterial(const GlMaterial* material)
 {
-   SetUniformInt("diffuseTexture", 0);
-   SetUniformInt("specularTexture", 1);
-   if (material)
-   {
-      SetUniformFloat("shininess", material->shininess);
-   }
-   else
-   {
-      SetUniformFloat("shininess", 0.f);
-   }
+   SetUniformInt("diffuseTexture", material->glDiffuseTexture->glTextureId);
+   SetUniformInt("specularTexture", material->glSpecularTexture->glTextureId);
+   SetUniformFloat("shininess", material->shininess);
 }
 
 void ShaderProgram::prepareShader(unsigned int& shader, char** shaderData,

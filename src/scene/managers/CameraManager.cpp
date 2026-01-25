@@ -12,6 +12,6 @@ Camera* CameraManager::GetCurrentCamera()
 
 void CameraManager::Add(Camera* newCamera)
 {
-   ResourceManager<Camera>::Add(newCamera);
+   ReferenceResourceManager<Camera>::Add(newCamera);
    currentCamera = newCamera;
 }

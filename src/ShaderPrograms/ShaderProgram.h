@@ -4,10 +4,9 @@
 #include "EngineEntity.h"
 
 #include <string>
-
-#include "scene/resources/Material.h"
 #include "math/Matrix4x4.h"
 #include "math/Vector3.h"
+#include "renderers/opengl/GlMaterial.h"
 
 class ShaderProgram : public EngineEntity
 {
@@ -24,7 +23,7 @@ public:
    void SetUniformMat4(const std::string& varName, const Matrix4x4& value);
    void SetUniformVec3(const std::string& varName, const Vector3& value);
    void SetUniformVec3(const std::string& varName, const std::vector<float>& value);
-   void SetUniformMaterial(Material* material);
+   void SetUniformMaterial(const GlMaterial* material);
 
 private:
    void prepareShader(unsigned int& shader, char** shaderData,

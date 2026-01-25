@@ -17,6 +17,7 @@ public:
 
    Vector3 operator+(const float factor) const;
    Vector3 operator*(const float factor) const;
+   Vector3 operator/(const float factor) const;
 
    Vector3* CreateMedian(const Vector3& other) const;
    Vector3 CrossProduct(const Vector3& other) const;

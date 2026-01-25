@@ -206,7 +206,7 @@ void GlRenderer::Render()
          {
             renderObj.first->PrepareRendering(currentShader->GetId());
 
-            currentShader->SetUniformMaterial(renderObj.first->GetMaterial());
+            //currentShader->SetUniformMaterial(renderObj.first->GetMaterial());
 
             for (const auto renderedObj : renderObj.second)
             {

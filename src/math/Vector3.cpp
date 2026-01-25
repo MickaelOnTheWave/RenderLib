@@ -48,6 +48,11 @@ Vector3 Vector3::operator*(const float factor) const
    return Vector3(x * factor, y * factor, z * factor);
 }
 
+Vector3 Vector3::operator/(const float factor) const
+{
+   return Vector3(x / factor, y / factor, z / factor);
+}
+
 Vector3 *Vector3::CreateMedian(const Vector3 &other) const
 {
    return new Vector3((x + other.x) / 2.f, (y + other.y) / 2.f,

@@ -1,11 +1,11 @@
 #ifndef CAMERAMANAGER_H
 #define CAMERAMANAGER_H
 
-#include "ResourceManager.h"
+#include "ReferenceResourceManager.h"
 
 #include "scene/resources/Camera.h"
 
-class CameraManager : public ResourceManager<Camera>
+class CameraManager : public ReferenceResourceManager<Camera>
 {
 public:
    CameraManager();

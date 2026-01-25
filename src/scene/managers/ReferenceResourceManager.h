@@ -1,15 +1,15 @@
-#ifndef RESOURCEMANAGER_H
-#define RESOURCEMANAGER_H
+#ifndef REFERENCERESOURCEMANAGER_H
+#define REFERENCERESOURCEMANAGER_H
 
 #include <algorithm>
 #include <vector>
 
 template <class T>
-class ResourceManager
+class ReferenceResourceManager
 {
 public:
-   ResourceManager() = default;
-   virtual ~ResourceManager() = default;
+   ReferenceResourceManager() = default;
+   virtual ~ReferenceResourceManager() = default;
 
    void Add(T* newData);
    bool Remove(const unsigned int id);
@@ -24,13 +24,13 @@ private:
 };
 
 template <class T>
-void ResourceManager<T>::Add(T* newData)
+void ReferenceResourceManager<T>::Add(T* newData)
 {
    data.push_back(newData);
 }
 
 template <class T>
-bool ResourceManager<T>::Remove(const unsigned int id)
+bool ReferenceResourceManager<T>::Remove(const unsigned int id)
 {
    auto it = FindIterator(id);
    if (it != data.end())
@@ -42,20 +42,20 @@ bool ResourceManager<T>::Remove(const unsigned int id)
 }
 
 template <class T>
-T* ResourceManager<T>::Find(const unsigned int id)
+T* ReferenceResourceManager<T>::Find(const unsigned int id)
 {
    auto it = FindIterator(id);
    return (it != data.end()) ? *it : nullptr;
 }
 
 template<class T>
-inline const std::vector<T*>& ResourceManager<T>::GetData() const
+inline const std::vector<T*>& ReferenceResourceManager<T>::GetData() const
 {
    return data;
 }
 
 template <class T>
-typename std::vector<T*>::iterator ResourceManager<T>::FindIterator(const unsigned int id)
+typename std::vector<T*>::iterator ReferenceResourceManager<T>::FindIterator(const unsigned int id)
 {
    auto finder = [id](auto itElement) {
       return (itElement->GetId() == id);
@@ -63,4 +63,4 @@ typename std::vector<T*>::iterator ResourceManager<T>::FindIterator(const unsign
    return std::find_if(data.begin(), data.end(), finder);
 }
 
-#endif // RESOURCEMANAGER_H
+#endif // REFERENCERESOURCEMANAGER_H

@@ -20,6 +20,10 @@ const std::vector<GlModel>& GlSceneCache::GetModels() const
    return glModels;
 }
 
+const std::vector<ModelInstance>& GlSceneCache::GetModelInstances(const GlModelPart& modelPart) const
+{
+}
+
 void GlSceneCache::CreateGpuRepresentation(const Scene& scene)
 {
    CreateTextureMapping(scene);
@@ -79,7 +83,7 @@ void GlSceneCache::CreateModelMapping(const Scene& scene)
 
       for (const auto modelPart : model.parts)
       {
-         GlModel::GlModelPart glModelPart;
+         GlModelPart glModelPart;
          glModelPart.glGeometry = FindGlGeometry(modelPart.geometryId);
          glModelPart.glMaterial = FindGlMaterial(modelPart.materialId);
          glModel.modelParts.push_back(glModelPart);
