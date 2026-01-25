@@ -8,11 +8,8 @@
 
 GlslShaderProgram::GlslShaderProgram( const std::string& vertexFile, const std::string& fragmentFile,
                               const std::string& _name)
-   : EngineEntity(_name)
+   : EngineEntity(_name), vertexShaderFile(vertexFile), fragmentShaderFile(fragmentFile)
 {
-   prepareShader(vertexShader, &vertexShaderDataPtr, vertexFile, GL_VERTEX_SHADER);
-   prepareShader(fragmentShader, &fragmentShaderDataPtr, fragmentFile, GL_FRAGMENT_SHADER);
-   initializeShaderProgram();
 }
 
 GlslShaderProgram::~GlslShaderProgram()
@@ -21,6 +18,14 @@ GlslShaderProgram::~GlslShaderProgram()
    vertexShaderDataPtr = nullptr;
    free(fragmentShaderDataPtr);
    fragmentShaderDataPtr = nullptr;
+}
+
+bool GlslShaderProgram::Initialize()
+{
+   const bool vertexShaderOk = prepareShader(vertexShader, &vertexShaderDataPtr, vertexShaderFile, GL_VERTEX_SHADER);
+   const bool fragmentShaderOk = prepareShader(fragmentShader, &fragmentShaderDataPtr, fragmentShaderFile, GL_FRAGMENT_SHADER);
+   const bool shaderLinkOk = initializeShaderProgram();
+   return (vertexShaderOk && fragmentShaderOk && shaderLinkOk);
 }
 
 unsigned int GlslShaderProgram::GetId() const
@@ -69,7 +74,12 @@ void GlslShaderProgram::SetUniformMaterial(const GlMaterial* material)
    SetUniformFloat("shininess", material->shininess);
 }
 
-void GlslShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
+std::vector<std::string> GlslShaderProgram::GetErrors() const
+{
+   return errors;
+}
+
+bool GlslShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
                                const std::string& shaderFile, unsigned int shaderType)
 {
    std::ifstream fileStream;
@@ -93,12 +103,14 @@ void GlslShaderProgram::prepareShader(unsigned int& shader, char** shaderData,
    if(!success)
    {
        glGetShaderInfoLog(shader, 512, NULL, infoLog);
-       std::cout << "SHADER compilation of " << shaderFile << " failed : " << infoLog << std::endl;
+       std::stringstream errorLog;
+       errorLog << "SHADER compilation of " << shaderFile << " failed : " << infoLog << std::endl;
+       errors.push_back(errorLog.str());
    }
-
+   return (success != 0);
 }
 
-void GlslShaderProgram::initializeShaderProgram()
+bool GlslShaderProgram::initializeShaderProgram()
 {
    shaderProgram = glCreateProgram();
    glAttachShader(shaderProgram, vertexShader);
@@ -108,11 +120,16 @@ void GlslShaderProgram::initializeShaderProgram()
    int  success;
    char infoLog[512];
    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-   if(!success) {
+   if(!success)
+   {
        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-       std::cout << "SHADER linking failed : " << infoLog << std::endl;
+       std::stringstream errorLog;
+       errorLog << "SHADER linking failed : " << infoLog << std::endl;
+       errors.push_back(errorLog.str());
    }
 
    glDeleteShader(vertexShader);
    glDeleteShader(fragmentShader);
+
+   return (success != 0);
 }

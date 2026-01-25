@@ -27,6 +27,7 @@ private:
    bool gpuRepresentationCreated = false;
 
    GlSceneCache sceneCache;
+   std::unique_ptr<GlslShaderProgram> currentShader;
 };
 
 #endif // OPENGLRENDERER_H

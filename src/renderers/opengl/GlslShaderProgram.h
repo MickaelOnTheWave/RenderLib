@@ -15,6 +15,8 @@ public:
                  const std::string& _name = "Unnamed Shader");
    virtual ~GlslShaderProgram();
 
+   bool Initialize();
+
    unsigned int GetId() const;
    virtual void use();
 
@@ -25,10 +27,12 @@ public:
    void SetUniformVec3(const std::string& varName, const std::vector<float>& value);
    void SetUniformMaterial(const GlMaterial* material);
 
+   std::vector<std::string> GetErrors() const;
+
 private:
-   void prepareShader(unsigned int& shader, char** shaderData,
+   bool prepareShader(unsigned int& shader, char** shaderData,
                       const std::string& shaderFile, unsigned int shaderType);
-   void initializeShaderProgram();
+   bool initializeShaderProgram();
 
    char* vertexShaderDataPtr;
    unsigned int vertexShader;
@@ -37,6 +41,13 @@ private:
    unsigned int fragmentShader;
 
    unsigned int shaderProgram;
+
+   // TODO : refactor that. This class should handle only the content,
+   // file reading should be done in a separate util.
+   std::string vertexShaderFile;
+   std::string fragmentShaderFile;
+
+   std::vector<std::string> errors;
 };
 
 #endif // GLSLSHADERPROGRAM_H

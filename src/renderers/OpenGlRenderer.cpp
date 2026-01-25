@@ -7,18 +7,26 @@
 OpenGlRenderer::OpenGlRenderer()
 : polygonMode(GL_FILL)
 {
+   // Only while full shader support is not back
+   const std::string vertexShaderFile = std::string(DATA_PATH) + "/basic.vert";
+   const std::string fragmentShaderFile = std::string(DATA_PATH) + "/singleTexture.frag";
+   currentShader = std::make_unique<GlslShaderProgram>(vertexShaderFile, fragmentShaderFile);
 }
 
 bool OpenGlRenderer::Initialize()
 {
-   return true;
+   const bool shaderOk = currentShader->Initialize();
+   if (!shaderOk)
+   {
+      const std::vector<std::string> shaderErrors = currentShader->GetErrors();
+      initErrors.insert(shaderErrors.end(), shaderErrors.begin(), shaderErrors.end());
+   }
+   return shaderOk;
 }
 
 bool OpenGlRenderer::Render(const Scene& scene)
 {
    sceneCache.Update(scene);
-
-   std::unique_ptr<GlslShaderProgram> currentShader = nullptr;
 
    PrepareRenderPass();
 
