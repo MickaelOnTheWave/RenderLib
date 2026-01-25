@@ -1,7 +1,7 @@
 #include "ShaderPrograms.h"
 
 #include <glad/gl.h>
-
+/*
 SimpleTexturingProgram::SimpleTexturingProgram()
   : GlslShaderProgram(std::string(DATA_PATH) + "/basic.vert", std::string(DATA_PATH) +"/singleTexture.frag")
 {
@@ -56,3 +56,4 @@ ObjectColorProgram::ObjectColorProgram()
   : GlslShaderProgram(std::string(DATA_PATH) + "/basic.vert", std::string(DATA_PATH) + "/basiccolor.frag")
 {
 }
+*/

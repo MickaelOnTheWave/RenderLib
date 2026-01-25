@@ -5,6 +5,11 @@ ModelInstance::ModelInstance(const std::string& _name)
 {
 }
 
+unsigned int ModelInstance::GetModelId() const
+{
+   return modelId;
+}
+
 Matrix4x4 ModelInstance::GetTransform() const
 {
    return transform;

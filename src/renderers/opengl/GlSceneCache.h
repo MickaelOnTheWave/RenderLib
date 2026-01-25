@@ -2,6 +2,7 @@
 #define GLSCENECACHE_H
 
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
 #include "renderers/opengl/GlMaterial.h"
@@ -17,7 +18,7 @@ public:
 
    void Update(const Scene& scene);
 
-   const std::vector<GlModel>& GetModels() const;
+   const std::vector<std::unique_ptr<GlModel>>& GetModels() const;
    const std::vector<ModelInstance>& GetModelInstances(const GlModelPart& modelPart) const;
 
 private:
@@ -28,16 +29,21 @@ private:
    void CreateMaterialMapping(const Scene& scene);
    void CreateGeometryMapping(const Scene& scene);
    void CreateModelMapping(const Scene& scene);
+   void CreateInstanceMapping(const Scene& scene);
 
    const GlTexture* FindGlTexture(const unsigned int sceneId) const;
    const GlMaterial* FindGlMaterial(const unsigned int sceneId) const;
    const GlGeometry* FindGlGeometry(const unsigned int sceneId) const;
+   const GlModel* FindGlModel(const unsigned int sceneId) const;
 
    bool gpuRepresentationCreated = false;
    std::vector<GlTexture> glTextures;
    std::vector<GlMaterial> glMaterials;
    std::vector<std::unique_ptr<GlGeometry>> glGeometries;
-   std::vector<GlModel> glModels;
+   std::vector<std::unique_ptr<GlModel>> glModels;
+
+   using RenderObjectsMap = std::unordered_map<const GlModel*, std::vector<const ModelInstance*>>;
+   RenderObjectsMap renderMap;
 };
 
 #endif // GLSCENECACHE_H

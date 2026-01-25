@@ -7,6 +7,7 @@
 #include "resources/Geometry.h"
 #include "resources/Light.h"
 #include "resources/Model.h"
+#include "resources/ModelInstance.h"
 
 class Scene
 {
@@ -17,6 +18,7 @@ public:
    const std::vector<Material>& GetMaterials() const;
    const std::vector<Geometry*>& GetGeometries() const;
    const std::vector<Model>& GetModels() const;
+   const std::vector<ModelInstance*>& GetInstances() const;
 
    Camera* GetCurrentCamera();
 
@@ -25,6 +27,7 @@ private:
    MaterialManager materialManager;
    ValueResourceManager<Model> modelManager;
    ReferenceResourceManager<Geometry> geometryManager;
+   ReferenceResourceManager<ModelInstance> instanceManager;
 
    CameraManager cameraManager;
    ReferenceResourceManager<Light> lightManager;

@@ -21,3 +21,8 @@ const std::vector<Model>& Scene::GetModels() const
 {
    return modelManager.GetData();
 }
+
+const std::vector<ModelInstance*>& Scene::GetInstances() const
+{
+   return instanceManager.GetData();
+}

@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "cameras/AbstractGlCamera.h"
-#include "ShaderPrograms/GlslShaderProgram.h"
+#include "renderers/opengl/GlslShaderProgram.h"
 #include "objects/GlRenderedInstance.h"
 #include "objects/GlRenderObject.h"
 #include "scene/resources/Material.h"

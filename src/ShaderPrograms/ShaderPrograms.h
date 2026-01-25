@@ -1,6 +1,6 @@
 #ifndef SHADERPROGRAMS_H
 #define SHADERPROGRAMS_H
-
+/*
 #include "GlslShaderProgram.h"
 
 class SimpleTexturingProgram : public GlslShaderProgram
@@ -47,5 +47,5 @@ public:
 
    void use() override;
 };
-
+*/
 #endif // SHADERPROGRAMS

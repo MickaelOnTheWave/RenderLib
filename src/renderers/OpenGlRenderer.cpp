@@ -2,7 +2,7 @@
 
 #include <glad/gl.h>
 
-#include "ShaderPrograms/GlslShaderProgram.h"
+#include "opengl/GlslShaderProgram.h"
 
 OpenGlRenderer::OpenGlRenderer()
 : polygonMode(GL_FILL)
@@ -18,27 +18,25 @@ bool OpenGlRenderer::Render(const Scene& scene)
 {
    sceneCache.Update(scene);
 
-   GlslShaderProgram* currentShader = nullptr;
+   std::unique_ptr<GlslShaderProgram> currentShader = nullptr;
 
    PrepareRenderPass();
 
-   const std::vector<GlModel>& glModels = sceneCache.GetModels();
+   const std::vector<std::unique_ptr<GlModel>>& glModels = sceneCache.GetModels();
 
-   for (const auto model : glModels)
+   for (const auto& model : glModels)
    {
-      const std::vector<GlModelPart>& glModelParts = model.modelParts;
+      const std::vector<GlModelPart>& glModelParts = model->modelParts;
       for (const auto modelPart : glModelParts)
       {
-         modelPart.PrepareRendering();
-         currentShader->SetUniformMaterial(modelPart.glMaterial);
+         modelPart.PrepareRendering(currentShader);
 
          const auto modelInstances = sceneCache.GetModelInstances(modelPart);
          for (const auto& instance : modelInstances)
          {
             glPushMatrix();
-            currentShader->SetUniformMat4("objectTransform", instance.GetTransform());
-            currentShader->SetUniformVec3("objectColor", instance.GetColor());
-            modelPart.Render(currentShader);
+            PrepareRendering(instance, currentShader);
+            modelPart.Render();
             glPopMatrix();
          }
       }
@@ -59,4 +57,10 @@ void OpenGlRenderer::PrepareRenderPass()
 
    //glEnable(GL_CULL_FACE);
    //glCullFace(GL_BACK);
+}
+
+void OpenGlRenderer::PrepareRendering(const ModelInstance& instance, std::unique_ptr<GlslShaderProgram>& currentShader)
+{
+   currentShader->SetUniformMat4("objectTransform", instance.GetTransform());
+   currentShader->SetUniformVec3("objectColor", instance.GetColor());
 }

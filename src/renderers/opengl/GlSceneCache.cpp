@@ -15,7 +15,7 @@ void GlSceneCache::Update(const Scene& scene)
       UpdateGpuRepresentation(scene);
 }
 
-const std::vector<GlModel>& GlSceneCache::GetModels() const
+const std::vector<std::unique_ptr<GlModel> >& GlSceneCache::GetModels() const
 {
    return glModels;
 }
@@ -30,6 +30,7 @@ void GlSceneCache::CreateGpuRepresentation(const Scene& scene)
    CreateMaterialMapping(scene);
    CreateGeometryMapping(scene);
    CreateModelMapping(scene);
+   CreateInstanceMapping(scene);
 }
 
 void GlSceneCache::UpdateGpuRepresentation(const Scene& scene)
@@ -78,17 +79,28 @@ void GlSceneCache::CreateModelMapping(const Scene& scene)
    const std::vector<Model> sceneModels = scene.GetModels();
    for (const auto model : sceneModels)
    {
-      GlModel glModel;
-      glModel.sceneId = model.GetId();
+      auto glModel = std::make_unique<GlModel>();
+      glModel->sceneId = model.GetId();
 
       for (const auto modelPart : model.parts)
       {
          GlModelPart glModelPart;
          glModelPart.glGeometry = FindGlGeometry(modelPart.geometryId);
          glModelPart.glMaterial = FindGlMaterial(modelPart.materialId);
-         glModel.modelParts.push_back(glModelPart);
+         glModel->modelParts.push_back(glModelPart);
       }
-      glModels.push_back(glModel);
+      glModels.push_back(std::move(glModel));
+   }
+}
+
+void GlSceneCache::CreateInstanceMapping(const Scene& scene)
+{
+   renderMap.clear();
+   const std::vector<ModelInstance*> sceneInstances = scene.GetInstances();
+   for (const auto instance : sceneInstances)
+   {
+      auto glModel = FindGlModel(instance->GetModelId());
+      renderMap[glModel].push_back(instance);
    }
 }
 
@@ -117,4 +129,13 @@ const GlGeometry* GlSceneCache::FindGlGeometry(const unsigned int sceneId) const
    };
    auto itFound = std::find_if(glGeometries.begin(), glGeometries.end(), finder);
    return (itFound != glGeometries.end() ? itFound->get() : nullptr);
+}
+
+const GlModel* GlSceneCache::FindGlModel(const unsigned int sceneId) const
+{
+   auto finder = [sceneId](const std::unique_ptr<GlModel>& model) {
+      return (model->sceneId == sceneId);
+   };
+   auto itFound = std::find_if(glModels.begin(), glModels.end(), finder);
+   return (itFound != glModels.end() ? itFound->get() : nullptr);
 }

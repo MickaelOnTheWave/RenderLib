@@ -1,15 +1,17 @@
 #ifndef GLMODEL_H
 #define GLMODEL_H
 
+#include <memory>
 #include <vector>
 
 #include "GlGeometry.h"
 #include "GlMaterial.h"
+#include "GlslShaderProgram.h"
 
 class GlModelPart
 {
 public:
-   void PrepareRendering() const;
+   void PrepareRendering(std::unique_ptr<GlslShaderProgram>& currentShader) const;
    void Render() const;
 
    const GlGeometry* glGeometry;
