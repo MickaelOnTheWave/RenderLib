@@ -44,4 +44,5 @@ void GlTriangulatedGeometry::CreateWithFaceNormals(const TriangulatedData& data)
       faceIndices.push_back(i + 1);   // v1
       faceIndices.push_back(i + 2);   // v2
    }
+   faceCount = faceIndices.size() / 3;
 }

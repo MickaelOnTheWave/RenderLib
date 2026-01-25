@@ -10,8 +10,8 @@ class OpenGlRenderer : public AbstractRenderer
 public:
    OpenGlRenderer();
 
-   void Initialize() override;
-   void Render(const Scene& scene) override;
+   bool Initialize() override;
+   bool Render(const Scene& scene) override;
 
    void EnableWireframeMode(const bool enable);
 

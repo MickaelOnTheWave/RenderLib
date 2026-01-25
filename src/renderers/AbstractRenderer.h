@@ -12,8 +12,8 @@ class AbstractRenderer
 public:
    AbstractRenderer() = default;
 
-   virtual void Initialize() = 0;
-   virtual void Render(const Scene& scene) = 0;
+   virtual bool Initialize() = 0;
+   virtual bool Render(const Scene& scene) = 0;
 
    void SetClearColor(const float r, const float g, const float b);
 

@@ -9,12 +9,12 @@ OpenGlRenderer::OpenGlRenderer()
 {
 }
 
-void OpenGlRenderer::Initialize()
+bool OpenGlRenderer::Initialize()
 {
-
+   return true;
 }
 
-void OpenGlRenderer::Render(const Scene& scene)
+bool OpenGlRenderer::Render(const Scene& scene)
 {
    sceneCache.Update(scene);
 
@@ -43,6 +43,7 @@ void OpenGlRenderer::Render(const Scene& scene)
       }
 
    }
+   return true;
 /*
    for (const auto currentShader : renderMap)
    {
