@@ -23,20 +23,7 @@ const std::vector<std::unique_ptr<GlModel> >& GlSceneCache::GetModels() const
 
 const std::vector<const ModelInstance*>& GlSceneCache::GetModelInstances(const GlModelPart* modelPart) const
 {
-   try
-   {
-      return renderMap.at(modelPart);
-   }
-   catch(std::out_of_range& e)
-   {
-      int i=0; // TODO find out why
-   }
-   catch(std::exception& e)
-   {
-      int j=0;
-   }
-
-
+   return renderMap.at(modelPart);
 }
 
 bool GlSceneCache::CreateGpuRepresentation(const Scene& scene)
