@@ -11,6 +11,7 @@ public:
    ModelInstance(const std::string& _name);
 
    unsigned int GetModelId() const;
+   void SetModelId(const unsigned int _modelId);
 
    Matrix4x4 GetTransform() const;
    void SetTransform(const Matrix4x4& newTransform);

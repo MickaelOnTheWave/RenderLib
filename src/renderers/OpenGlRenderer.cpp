@@ -35,7 +35,7 @@ bool OpenGlRenderer::Render(const Scene& scene)
    for (const auto& model : glModels)
    {
       const std::vector<GlModelPart>& glModelParts = model->modelParts;
-      for (const auto modelPart : glModelParts)
+      for (const auto& modelPart : glModelParts)
       {
          modelPart.PrepareRendering(currentShader);
 

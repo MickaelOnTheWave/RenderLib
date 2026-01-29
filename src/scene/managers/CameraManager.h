@@ -12,7 +12,7 @@ public:
 
    Camera* GetCurrentCamera();
 
-   void Add(Camera* newCamera);
+   unsigned int Add(Camera* newCamera);
 
 private:
    Camera* currentCamera;

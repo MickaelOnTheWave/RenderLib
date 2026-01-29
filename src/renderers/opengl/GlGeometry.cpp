@@ -53,6 +53,6 @@ void GlGeometry::CreateVertexArrayObject()
    glEnableVertexAttribArray(1);
 
    // Texture coordinates
-   glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)(6 * sizeof(float)));
-   glEnableVertexAttribArray(2);
+   //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)(6 * sizeof(float)));
+   //glEnableVertexAttribArray(2);
 }

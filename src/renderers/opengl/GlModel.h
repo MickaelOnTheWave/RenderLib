@@ -11,6 +11,9 @@
 class GlModelPart
 {
 public:
+   GlModelPart() = default;
+   GlModelPart(const GlModelPart& other);
+
    void PrepareRendering(std::unique_ptr<GlslShaderProgram>& currentShader) const;
    void Render() const;
 

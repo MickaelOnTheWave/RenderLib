@@ -11,7 +11,10 @@ public:
    Box();
 
    Vector3 GetCenter() const;
+   void SetCenter(const Vector3& value);
+
    Vector3 GetSizes() const;
+   void SetSizes(const Vector3& value);
 
 private:
    Vector3 center;

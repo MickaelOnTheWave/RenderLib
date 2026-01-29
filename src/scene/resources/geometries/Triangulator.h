@@ -1,6 +1,7 @@
 #ifndef TRIANGULATOR_H
 #define TRIANGULATOR_H
 
+#include <array>
 #include "Box.h"
 #include "Cylinder.h"
 #include "Plane.h"
@@ -12,11 +13,17 @@ struct AdjacencyData
    std::vector<unsigned int> adjacentFaceIndices;
 };
 
+struct TriangulatedFaceData
+{
+   // 3 points per triangle
+   std::array<unsigned int, 3> vertexIndices;
+   Vector3 normal;
+};
+
 struct TriangulatedData
 {
    std::vector<Vector3> points;
-   std::vector<unsigned int> faceIndices;
-   std::vector<Vector3> faceNormals;
+   std::vector<TriangulatedFaceData> faces;
    std::vector<AdjacencyData> adjacencyData;
 };
 

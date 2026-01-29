@@ -1,5 +1,6 @@
 #include "GlSceneCache.h"
 
+#include <stdexcept>
 #include "GlGeometryFactory.h"
 
 GlSceneCache::GlSceneCache() {}
@@ -22,16 +23,42 @@ const std::vector<std::unique_ptr<GlModel> >& GlSceneCache::GetModels() const
 
 const std::vector<const ModelInstance*>& GlSceneCache::GetModelInstances(const GlModelPart* modelPart) const
 {
-   return renderMap.at(modelPart);
+   try
+   {
+      return renderMap.at(modelPart);
+   }
+   catch(std::out_of_range& e)
+   {
+      int i=0; // TODO find out why
+   }
+   catch(std::exception& e)
+   {
+      int j=0;
+   }
+
+
 }
 
-void GlSceneCache::CreateGpuRepresentation(const Scene& scene)
+bool GlSceneCache::CreateGpuRepresentation(const Scene& scene)
 {
-   CreateTextureMapping(scene);
-   CreateMaterialMapping(scene);
-   CreateGeometryMapping(scene);
-   CreateModelMapping(scene);
-   CreateInstanceMapping(scene);
+   try
+   {
+      CreateTextureMapping(scene);
+      CreateMaterialMapping(scene);
+      CreateGeometryMapping(scene);
+      CreateModelMapping(scene);
+      CreateInstanceMapping(scene);
+
+      return true;
+   }
+   catch(std::out_of_range& e)
+   {
+   }
+   catch(std::exception& e)
+   {
+   }
+
+   return false;
 }
 
 void GlSceneCache::UpdateGpuRepresentation(const Scene& scene)

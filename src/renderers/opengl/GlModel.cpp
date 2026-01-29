@@ -4,6 +4,11 @@
 
 GlModel::GlModel() {}
 
+GlModelPart::GlModelPart(const GlModelPart& other)
+   : glGeometry(other.glGeometry), glMaterial(other.glMaterial)
+{
+}
+
 void GlModelPart::PrepareRendering(std::unique_ptr<GlslShaderProgram>& currentShader) const
 {
    glActiveTexture(GL_TEXTURE0);

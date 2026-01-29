@@ -9,6 +9,7 @@ TriangulatedData Triangulator::Triangulate(const Box& geometry)
    const Vector3 center = geometry.GetCenter();
    const Vector3 radius = geometry.GetSizes() / 2.f;
 
+   data.points.reserve(8);
    data.points.push_back(center + Vector3(-radius.X(), -radius.Y(),  radius.Z()));
    data.points.push_back(center + Vector3( radius.X(), -radius.Y(),  radius.Z()));
    data.points.push_back(center + Vector3( radius.X(),  radius.Y(),  radius.Z()));
@@ -19,29 +20,68 @@ TriangulatedData Triangulator::Triangulate(const Box& geometry)
    data.points.push_back(center + Vector3( radius.X(),  radius.Y(), -radius.Z()));
    data.points.push_back(center + Vector3(-radius.X(),  radius.Y(), -radius.Z()));
 
-   data.faceIndices = {
-      // Front face (Z+)
-      0, 1, 2,  2, 3, 0,
-      // Right face (X+)
-      1, 5, 6,  6, 2, 1,
-      // Back face (Z-)
-      5, 4, 7,  7, 6, 5,
-      // Left face (X-)
-      4, 0, 3,  3, 7, 4,
-      // Bottom face (Y-)
-      4, 5, 1,  1, 0, 4,
-      // Top face (Y+)
-      3, 2, 6,  6, 7, 3
-   };
+   data.faces.reserve(12);
 
-   data.faceNormals = {
-      Vector3(0.f, 0.f, 1.f),   // Front face (Z+)
-      Vector3(1.f, 0.f, 0.f),   // Right face (X+)
-      Vector3(0.f, 0.f, -1.f),  // Back face (Z-)
-      Vector3(-1.f, 0.f, 0.f),  // Left face (X-)
-      Vector3(0.f, -1.f, 0.f),  // Bottom face (Y-)
-      Vector3(0.f, 1.f, 0.f)    // Top face (Y+)
-   };
+   TriangulatedFaceData frontFace1;
+   frontFace1.vertexIndices = {0, 1, 2};
+   frontFace1.normal = Vector3(0.f, 0.f, 1.f);
+   data.faces.push_back(frontFace1);
+
+   TriangulatedFaceData frontFace2;
+   frontFace2.vertexIndices = {2, 3, 0};
+   frontFace2.normal = Vector3(0.f, 0.f, 1.f);
+   data.faces.push_back(frontFace2);
+
+   TriangulatedFaceData rightFace1;
+   rightFace1.vertexIndices = {1, 5, 6};
+   rightFace1.normal = Vector3(1.f, 0.f, 0.f);
+   data.faces.push_back(rightFace1);
+
+   TriangulatedFaceData rightFace2;
+   rightFace2.vertexIndices = {6, 2, 1};
+   rightFace2.normal = Vector3(1.f, 0.f, 0.f);
+   data.faces.push_back(rightFace2);
+
+   TriangulatedFaceData backFace1;
+   backFace1.vertexIndices = {5, 4, 7};
+   backFace1.normal = Vector3(0.f, 0.f, -1.f);
+   data.faces.push_back(backFace1);
+
+   TriangulatedFaceData backFace2;
+   backFace2.vertexIndices = {7, 6, 5};
+   backFace2.normal = Vector3(0.f, 0.f, -1.f);
+   data.faces.push_back(backFace2);
+
+   TriangulatedFaceData leftFace1;
+   leftFace1.vertexIndices = {4, 0, 3};
+   leftFace1.normal = Vector3(-1.f, 0.f, 0.f);
+   data.faces.push_back(leftFace1);
+
+   TriangulatedFaceData leftFace2;
+   leftFace2.vertexIndices = {3, 7, 4};
+   leftFace2.normal = Vector3(-1.f, 0.f, 0.f);
+   data.faces.push_back(leftFace2);
+
+   TriangulatedFaceData bottomFace1;
+   bottomFace1.vertexIndices = {4, 5, 1};
+   bottomFace1.normal = Vector3(0.f, -1.f, 0.f);
+   data.faces.push_back(bottomFace1);
+
+   TriangulatedFaceData bottomFace2;
+   bottomFace2.vertexIndices = {1, 0, 4};
+   bottomFace2.normal = Vector3(0.f, -1.f, 0.f);
+   data.faces.push_back(bottomFace2);
+
+   TriangulatedFaceData topFace1;
+   topFace1.vertexIndices = {3, 2, 6};
+   topFace1.normal = Vector3(0.f, 1.f, 0.f);
+   data.faces.push_back(topFace1);
+
+   TriangulatedFaceData topFace2;
+   topFace2.vertexIndices = {6, 7, 3};
+   topFace2.normal = Vector3(0.f, 1.f, 0.f);
+   data.faces.push_back(topFace2);
+
 
    data.adjacencyData.resize(8); // 8 vertices
 

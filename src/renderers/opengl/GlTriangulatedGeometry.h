@@ -11,7 +11,7 @@ class GlTriangulatedGeometry : public GlGeometry
 public:
    GlTriangulatedGeometry(const TriangulatedData& data);
 
-   std::vector<float> verticesNormalsUVs;
+   std::vector<float> verticesNormalsUVs; // TODO : add UVs
    std::vector<unsigned int> faceIndices;
 
 private:

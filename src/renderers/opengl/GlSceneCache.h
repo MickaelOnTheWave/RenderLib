@@ -22,7 +22,7 @@ public:
    const std::vector<const ModelInstance*>& GetModelInstances(const GlModelPart* modelPart) const;
 
 private:
-   void CreateGpuRepresentation(const Scene& scene);
+   bool CreateGpuRepresentation(const Scene& scene);
    void UpdateGpuRepresentation(const Scene& scene);
 
    void CreateTextureMapping(const Scene& scene);

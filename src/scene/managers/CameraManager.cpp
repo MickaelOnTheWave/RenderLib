@@ -10,8 +10,9 @@ Camera* CameraManager::GetCurrentCamera()
    return currentCamera;
 }
 
-void CameraManager::Add(Camera* newCamera)
+unsigned int CameraManager::Add(Camera* newCamera)
 {
-   ReferenceResourceManager<Camera>::Add(newCamera);
+   const unsigned int id = ReferenceResourceManager<Camera>::Add(newCamera);
    currentCamera = newCamera;
+   return id;
 }

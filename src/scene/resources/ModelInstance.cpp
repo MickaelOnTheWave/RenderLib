@@ -10,6 +10,11 @@ unsigned int ModelInstance::GetModelId() const
    return modelId;
 }
 
+void ModelInstance::SetModelId(const unsigned int _modelId)
+{
+   modelId = _modelId;
+}
+
 Matrix4x4 ModelInstance::GetTransform() const
 {
    return transform;

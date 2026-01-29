@@ -15,7 +15,6 @@ std::unique_ptr<GlGeometry> GlGeometryFactory::Create(Geometry* sceneGeometry)
    {
       const TriangulatedData data = Triangulator::Triangulate(*typedGeometry);
       glGeometry = std::make_unique<GlTriangulatedGeometry>(data);
-      return glGeometry;
    }
    else if (auto typedGeometry = dynamic_cast<Cylinder*>(sceneGeometry))
    {

@@ -11,7 +11,7 @@ public:
    ValueResourceManager() = default;
    virtual ~ValueResourceManager() = default;
 
-   void Add(const T& newData);
+   unsigned int Add(T& newData);
    bool Remove(const unsigned int id);
    T& Find(const unsigned int id);
 
@@ -21,12 +21,15 @@ private:
    typename std::vector<T>::iterator FindIterator(const unsigned int id);
 
    std::vector<T> data;
+   unsigned int nextId = 0;
 };
 
 template <class T>
-void ValueResourceManager<T>::Add(const T& newData)
+unsigned int ValueResourceManager<T>::Add(T& newData)
 {
    data.push_back(newData);
+   newData.id = nextId;
+   return nextId++;
 }
 
 template <class T>

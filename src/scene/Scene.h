@@ -12,7 +12,16 @@
 class Scene
 {
 public:
-   Scene();
+   Scene() = default;
+
+   unsigned int AddTexture(const std::string& filename, const std::string& _name);
+   unsigned int AddTexture(const Vector3& color, const std::string& _name);
+   unsigned int AddMaterial(Material& material);
+   unsigned int AddGeometry(Geometry* geometry);
+   unsigned int AddSinglePartModel(const unsigned int geometryId, const unsigned int materialId,
+                                   const std::string& _name);
+   unsigned int AddInstance(ModelInstance* instance);
+   unsigned int AddCamera(Camera* camera);
 
    const std::vector<Texture*>& GetTextures() const;
    const std::vector<Material>& GetMaterials() const;
