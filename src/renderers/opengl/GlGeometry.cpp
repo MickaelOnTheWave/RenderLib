@@ -42,7 +42,7 @@ void GlGeometry::CreateVertexArrayObject()
    const unsigned int posStride = 3;
    const unsigned int normStride = 3;
    const unsigned int uvStride = 2;
-   const GLsizei stride = (posStride + normStride) * sizeof(float);
+   const GLsizei stride = (posStride + normStride + uvStride) * sizeof(float);
 
    // Position
    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
@@ -53,6 +53,6 @@ void GlGeometry::CreateVertexArrayObject()
    glEnableVertexAttribArray(1);
 
    // Texture coordinates
-   //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)(6 * sizeof(float)));
-   //glEnableVertexAttribArray(2);
+   glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)(2 * sizeof(float)));
+   glEnableVertexAttribArray(2);
 }

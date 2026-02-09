@@ -91,13 +91,13 @@ void GlSceneCache::CreateGeometryMapping(const Scene& scene)
 void GlSceneCache::CreateModelMapping(const Scene& scene)
 {
    glModels.clear();
-   const std::vector<Model> sceneModels = scene.GetModels();
+   const std::vector<Model*> sceneModels = scene.GetModels();
    for (const auto model : sceneModels)
    {
       auto glModel = std::make_unique<GlModel>();
-      glModel->sceneId = model.GetId();
+      glModel->sceneId = model->GetId();
 
-      for (const auto modelPart : model.parts)
+      for (const auto modelPart : model->parts)
       {
          GlModelPart glModelPart;
          glModelPart.glGeometry = FindGlGeometry(modelPart.geometryId);

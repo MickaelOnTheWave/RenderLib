@@ -19,7 +19,8 @@ bool OpenGlRenderer::Initialize()
    if (!shaderOk)
    {
       const std::vector<std::string> shaderErrors = currentShader->GetErrors();
-      initErrors.insert(shaderErrors.end(), shaderErrors.begin(), shaderErrors.end());
+      for (const auto& error : shaderErrors)
+         initErrors.push_back(error);
    }
    return shaderOk;
 }
@@ -29,6 +30,7 @@ bool OpenGlRenderer::Render(const Scene& scene)
    sceneCache.Update(scene);
 
    PrepareRenderPass();
+   currentShader->use();
 
    const std::vector<std::unique_ptr<GlModel>>& glModels = sceneCache.GetModels();
 
@@ -42,13 +44,10 @@ bool OpenGlRenderer::Render(const Scene& scene)
          const auto modelInstances = sceneCache.GetModelInstances(&modelPart);
          for (const auto* instance : modelInstances)
          {
-            glPushMatrix();
             PrepareRendering(*instance, currentShader);
             modelPart.Render();
-            glPopMatrix();
          }
       }
-
    }
    return true;
 }

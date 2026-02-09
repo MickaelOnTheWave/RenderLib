@@ -19,6 +19,7 @@ public:
 
    bool HasError() const;
    std::string GetError() const;
+   std::vector<std::string> GetErrors() const;
 
 protected:
    Vector3 clearColor;

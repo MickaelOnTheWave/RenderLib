@@ -18,3 +18,15 @@ std::string AbstractRenderer::GetError() const
       return renderErrors.back();
    return "";
 }
+
+std::vector<std::string> AbstractRenderer::GetErrors() const
+{
+   std::vector<std::string> errors;
+   errors.resize(initErrors.size() + renderErrors.size());
+   int i =0;
+   for (i=0; i<initErrors.size(); ++i)
+      errors[i] = initErrors[i];
+   for (int j=0; j<renderErrors.size(); ++j, ++i)
+      errors[i] = renderErrors[j];
+   return errors;
+}

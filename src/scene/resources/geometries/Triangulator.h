@@ -7,6 +7,12 @@
 #include "Plane.h"
 #include "Sphere.h"
 
+struct UV
+{
+   float x;
+   float y;
+};
+
 struct AdjacencyData
 {
    std::vector<unsigned int> adjacentVertexIndices;

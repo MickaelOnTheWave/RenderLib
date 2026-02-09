@@ -15,10 +15,15 @@ public:
    std::vector<unsigned int> faceIndices;
 
 private:
+   struct UV {
+      float x, y;
+   };
+
    std::vector<float> CreateVertexBufferData() const override;
    std::vector<unsigned int> CreateIndexData() const override;
 
    void CreateWithFaceNormals(const TriangulatedData& data);
+   void AddDataLine(const TriangulatedData& data, const Vector3& normal, const unsigned int vertexIndex, const UV& uv);
 };
 
 #endif // GLTRIANGULATEDGEOMETRY_H

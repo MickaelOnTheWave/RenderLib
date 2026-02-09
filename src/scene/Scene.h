@@ -26,7 +26,7 @@ public:
    const std::vector<Texture*>& GetTextures() const;
    const std::vector<Material>& GetMaterials() const;
    const std::vector<Geometry*>& GetGeometries() const;
-   const std::vector<Model>& GetModels() const;
+   const std::vector<Model*>& GetModels() const;
    const std::vector<ModelInstance*>& GetInstances() const;
 
    Camera* GetCurrentCamera();
@@ -34,7 +34,7 @@ public:
 private:
    TextureManager textureManager;
    MaterialManager materialManager;
-   ValueResourceManager<Model> modelManager;
+   ReferenceResourceManager<Model> modelManager;
    ReferenceResourceManager<Geometry> geometryManager;
    ReferenceResourceManager<ModelInstance> instanceManager;
 

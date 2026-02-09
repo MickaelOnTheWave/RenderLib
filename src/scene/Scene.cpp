@@ -29,12 +29,12 @@ unsigned int Scene::AddGeometry(Geometry* geometry)
 unsigned int Scene::AddSinglePartModel(const unsigned int geometryId, const unsigned int materialId,
                                        const std::string& _name)
 {
-   Model newModel(_name);
+   auto newModel = new Model(_name);
 
    Model::ModelPart part;
    part.geometryId = geometryId;
    part.materialId = materialId;
-   newModel.parts.push_back(part);
+   newModel->parts.push_back(part);
    return modelManager.Add(newModel);
 }
 
@@ -63,7 +63,7 @@ const std::vector<Geometry*>& Scene::GetGeometries() const
    return geometryManager.GetData();
 }
 
-const std::vector<Model>& Scene::GetModels() const
+const std::vector<Model*>& Scene::GetModels() const
 {
    return modelManager.GetData();
 }
