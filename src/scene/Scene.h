@@ -29,7 +29,7 @@ public:
    const std::vector<Model*>& GetModels() const;
    const std::vector<ModelInstance*>& GetInstances() const;
 
-   Camera* GetCurrentCamera();
+   Matrix4x4 GetCameraTransform() const;
 
 private:
    TextureManager textureManager;

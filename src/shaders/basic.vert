@@ -13,7 +13,7 @@ uniform vec3 objectColor;
 
 void main()
 {
-    gl_Position = /*cameraTransform * */objectTransform * vec4(aPos.x, aPos.y, aPos.z, 1.0);
+    gl_Position = cameraTransform * objectTransform * vec4(aPos.x, aPos.y, aPos.z, 1.0);
     color = objectColor;
     texCoord = aTex;
 }

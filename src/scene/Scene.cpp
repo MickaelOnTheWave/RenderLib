@@ -72,3 +72,8 @@ const std::vector<ModelInstance*>& Scene::GetInstances() const
 {
    return instanceManager.GetData();
 }
+
+Matrix4x4 Scene::GetCameraTransform() const
+{
+   return cameraManager.GetCurrentCamera()->GetViewProjectionMatrix();
+}

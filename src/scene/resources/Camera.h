@@ -11,8 +11,25 @@ public:
    Camera(const std::string& _name);
    virtual ~Camera() = default;
 
+   void SetPerspectiveProjection(const float fieldOfViewY,
+                                 const float aspectRatio,
+                                 const float nearPlaneZ = 0.1f,
+                                 const float farPlaneZ = 1000.f);
+
+   void SetPerspectiveProjectionDegrees(const float fieldOfViewY,
+                                       const float aspectRatio,
+                                       const float nearPlaneZ = 0.1f,
+                                       const float farPlaneZ = 1000.f);
+
+   void LookAt(const Vector3& eye, const Vector3& target,
+               const Vector3& up = Vector3(0.f, 1.f, 0.f));
+
+   Matrix4x4 GetViewProjectionMatrix() const;
+
 private:
-   Matrix4x4 transformMatrix;
+   float ToRadians(const float angleInDegrees) const;
+
+   Matrix4x4 viewMatrix;
    Matrix4x4 projectionMatrix;
 };
 

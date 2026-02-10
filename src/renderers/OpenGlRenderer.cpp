@@ -31,6 +31,7 @@ bool OpenGlRenderer::Render(const Scene& scene)
 
    PrepareRenderPass();
    currentShader->use();
+   currentShader->SetUniformMat4("cameraTransform", scene.GetCameraTransform());
 
    const std::vector<std::unique_ptr<GlModel>>& glModels = sceneCache.GetModels();
 

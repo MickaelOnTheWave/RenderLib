@@ -5,7 +5,7 @@ CameraManager::CameraManager()
 {
 }
 
-Camera* CameraManager::GetCurrentCamera()
+Camera* CameraManager::GetCurrentCamera() const
 {
    return currentCamera;
 }

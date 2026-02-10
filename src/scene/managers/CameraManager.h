@@ -10,7 +10,7 @@ class CameraManager : public ReferenceResourceManager<Camera>
 public:
    CameraManager();
 
-   Camera* GetCurrentCamera();
+   Camera* GetCurrentCamera() const;
 
    unsigned int Add(Camera* newCamera);
 
