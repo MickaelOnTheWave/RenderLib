@@ -4,6 +4,11 @@
 #include <glm/glm.hpp>
 #include "Vector3.h"
 
+/**
+ * @brief The Matrix4x4 class
+ * Matrix4x4 is Row-Major, that is the opposite of OpenGL representation.
+ * Thus the translations are on the last row.
+ */
 class Matrix4x4
 {
 public:
@@ -16,8 +21,8 @@ public:
    static Matrix4x4 Translation(const float x, const float y, const float z);
    static Matrix4x4 Scale(const float x, const float y, const float z);
    static Matrix4x4 Scale(const float s);
-   static Matrix4x4 RotationX(const float angle);
-   static Matrix4x4 RotationY(const float angle);
+   static Matrix4x4 RotationX(const float angleInRadians);
+   static Matrix4x4 RotationY(const float angleInRadians);
 
    Matrix4x4& operator=(const float* other);
    Matrix4x4 operator*(const Matrix4x4& other) const;
@@ -26,6 +31,8 @@ public:
    float operator[](const int index) const;
 
    Vector3 operator*(const Vector3& vec) const;
+
+   bool Equals(const Matrix4x4& other, const float delta) const;
 
    float* getData();
    const float *GetData() const;

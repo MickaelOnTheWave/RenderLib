@@ -66,28 +66,30 @@ Matrix4x4 Matrix4x4::Scale(const float s)
    return Scale(s, s, s);
 }
 
-Matrix4x4 Matrix4x4::RotationX(const float angle)
+Matrix4x4 Matrix4x4::RotationX(const float angleInRadians)
 {
-   const float cosAngle = cos(angle);
-   const float sinAngle = sin(angle);
-   const float newData[16] = {
-      1.f,       0.f,      0.f, 0.f,
-      0.f,  cosAngle, sinAngle, 0.f,
-      0.f, -sinAngle, cosAngle, 0.f,
-      0.f,       0.f,      0.f, 1.f
+   const float cosAngle = cos(angleInRadians);
+   const float sinAngle = sin(angleInRadians);
+   const float newData[16] =
+   {
+      1.f,      0.f,       0.f, 0.f,
+      0.f, cosAngle, -sinAngle, 0.f,
+      0.f, sinAngle,  cosAngle, 0.f,
+      0.f,      0.f,       0.f, 1.f
    };
    return Matrix4x4(newData);
 }
 
-Matrix4x4 Matrix4x4::RotationY(const float angle)
+Matrix4x4 Matrix4x4::RotationY(const float angleInRadians)
 {
-   const float cosAngle = cos(angle);
-   const float sinAngle = sin(angle);
-   const float newData[16] = {
-      cosAngle, 0.f, -sinAngle, 0.f,
-      0.f,      1.f,       0.f, 0.f,
-      sinAngle, 0.f,  cosAngle, 0.f,
-      0.f,      0.f,       0.f, 1.f
+   const float cosAngle = cos(angleInRadians);
+   const float sinAngle = sin(angleInRadians);
+   const float newData[16] =
+      {
+      cosAngle,  0.f, sinAngle, 0.f,
+      0.f,       1.f,      0.f, 0.f,
+      -sinAngle, 0.f, cosAngle, 0.f,
+      0.f,       0.f,      0.f, 1.f
    };
    return Matrix4x4(newData);
 }
@@ -110,6 +112,16 @@ Matrix4x4 Matrix4x4::operator*(const Matrix4x4& other) const
       }
    }
    return result;
+}
+
+bool Matrix4x4::Equals(const Matrix4x4& other, const float delta) const
+{
+   for (int i=0; i<16; ++i)
+   {
+      if (fabs(data[i] - other.data[i]) > delta)
+         return false;
+   }
+   return true;
 }
 
 Matrix4x4& Matrix4x4::operator*=(const Matrix4x4 &other)

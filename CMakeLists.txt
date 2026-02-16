@@ -16,6 +16,12 @@ project(RenderLib)
 
 include_directories(src/)
 
+option(BUILD_TESTS "Build the test suite" OFF)
+if(BUILD_TESTS)
+   add_subdirectory(tests)
+endif()
+
+
 ###
 ### Options
 ###

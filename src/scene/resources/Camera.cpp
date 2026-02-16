@@ -42,15 +42,19 @@ void Camera::LookAt(const Vector3& eye, const Vector3& target, const Vector3& up
    const Vector3 upDir = rightDir.CrossProduct(forwardDir);
 
    viewMatrix[0] = rightDir.X();
-   viewMatrix[1] = rightDir.Y();
-   viewMatrix[2] = rightDir.Z();
-   viewMatrix[3] = rightDir.DotProduct(eye) * -1.f;
-   viewMatrix[4] = upDir.X();
+   viewMatrix[1] = upDir.X();
+   viewMatrix[2] = forwardDir.X() * -1.f;
+   viewMatrix[3] = 0.f;
+   viewMatrix[4] = rightDir.Y();
    viewMatrix[5] = upDir.Y();
-   viewMatrix[6] = upDir.Z();
-   viewMatrix[7] = upDir.DotProduct(eye) * -1.f;
-   viewMatrix[8] = forwardDir.X() * -1.f;
-   viewMatrix[9] = forwardDir.Y() * -1.f;
+   viewMatrix[6] = forwardDir.Y() * -1.f;
+   viewMatrix[7] = 0.f;
+   viewMatrix[8] = rightDir.Z();
+   viewMatrix[9] = upDir.Z();
    viewMatrix[10] = forwardDir.Z() * -1.f;
-   viewMatrix[11] = forwardDir.DotProduct(eye);
+   viewMatrix[11] = 0.f;
+   viewMatrix[12] = rightDir.DotProduct(eye) * -1.f;
+   viewMatrix[13] = upDir.DotProduct(eye) * -1.f;
+   viewMatrix[14] = forwardDir.DotProduct(eye);
+   viewMatrix[15] = 1.f;
 }
