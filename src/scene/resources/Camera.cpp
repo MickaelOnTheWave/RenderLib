@@ -15,22 +15,19 @@ float Camera::ToRadians(const float angleInDegrees) const
    return angleInDegrees * (M_PI / 180.f);
 }
 
-void Camera::SetPerspectiveProjection(const float fieldOfViewYInRadians, const float aspectRatio, const float nearPlaneZ, const float farPlaneZ)
+void Camera::SetPerspectiveProjection(const Angle fieldOfViewY, const float aspectRatio, const float nearPlaneZ, const float farPlaneZ)
 {
    projectionMatrix = Matrix4x4::Identity();
 
-   const float tanHalfFieldOfView = tan(fieldOfViewYInRadians * 0.5f);
+   const float cotHalfFieldOfView =  1.f / tan(fieldOfViewY * 0.5f);
+   const float farMinusNear = (farPlaneZ - nearPlaneZ);
 
-   projectionMatrix[0] = 1.f / (aspectRatio * tanHalfFieldOfView);
-   projectionMatrix[5] = 1.f / tanHalfFieldOfView;
-   projectionMatrix[10] = (nearPlaneZ + farPlaneZ) / (nearPlaneZ - farPlaneZ);
-   projectionMatrix[11] = (2.f * nearPlaneZ * farPlaneZ) / (nearPlaneZ - farPlaneZ);
+   projectionMatrix[0] = cotHalfFieldOfView / aspectRatio;
+   projectionMatrix[5] = cotHalfFieldOfView;
+   projectionMatrix[10] = - (nearPlaneZ + farPlaneZ) / farMinusNear;
+   projectionMatrix[11] = - (2.f * nearPlaneZ * farPlaneZ) / farMinusNear;
    projectionMatrix[14] = -1.f;
-}
-
-void Camera::SetPerspectiveProjectionDegrees(const float fieldOfViewY, const float aspectRatio, const float nearPlaneZ, const float farPlaneZ)
-{
-   SetPerspectiveProjection(ToRadians(fieldOfViewY), aspectRatio, nearPlaneZ, farPlaneZ);
+   projectionMatrix[15] = 0.f;
 }
 
 void Camera::LookAt(const Vector3& eye, const Vector3& target, const Vector3& up)
