@@ -129,3 +129,22 @@ TriangulatedData Triangulator::Triangulate(const Sphere& geometry)
    TriangulatedData data;
    return data;
 }
+
+TriangulatedData Triangulator::Triangulate(const Triangle& geometry)
+{
+   TriangulatedData data;
+   data.points.reserve(3);
+   data.points.push_back(geometry.point1);
+   data.points.push_back(geometry.point2);
+   data.points.push_back(geometry.point3);
+
+   TriangulatedFaceData face;
+   face.vertexIndices = {0, 1, 2};
+
+   const Vector3 v1 = geometry.point1 - geometry.point2;
+   const Vector3 v2 = geometry.point3 - geometry.point2;
+   face.normal = v1.CrossProduct(v2).Normalized();
+
+   data.faces.push_back(face);
+   return data;
+}

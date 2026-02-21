@@ -3,7 +3,6 @@
 
 #include "scene/resources/Geometry.h"
 
-#include <vector>
 #include "math/Vector3.h"
 
 class Sphere : public Geometry
@@ -12,7 +11,7 @@ public:
    Sphere();
 
 private:
-   std::vector<Vector3> center;
+   Vector3 center;
    float radius;
 };
 

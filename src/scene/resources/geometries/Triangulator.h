@@ -6,6 +6,7 @@
 #include "Cylinder.h"
 #include "Plane.h"
 #include "Sphere.h"
+#include "Triangle.h"
 
 struct UV
 {
@@ -42,6 +43,7 @@ public:
    static TriangulatedData Triangulate(const Cylinder& geometry);
    static TriangulatedData Triangulate(const Plane& geometry);
    static TriangulatedData Triangulate(const Sphere& geometry);
+   static TriangulatedData Triangulate(const Triangle& geometry);
 };
 
 #endif // TRIANGULATOR_H
