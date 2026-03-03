@@ -12,6 +12,8 @@ public:
    Camera(const std::string& _name);
    virtual ~Camera() = default;
 
+   void TransformViewMatrix(const Matrix4x4& matrix);
+
    void SetPerspectiveProjection(const Angle fieldOfViewY,
                                  const float aspectRatio,
                                  const float nearPlaneZ = 0.1f,

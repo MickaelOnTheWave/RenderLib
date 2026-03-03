@@ -94,6 +94,11 @@ float Vector3::Z() const
    return z;
 }
 
+void Vector3::SetZ(const float newZ)
+{
+   z = newZ;
+}
+
 std::vector<float> Vector3::GetData() const
 {
    return std::vector<float>{x, y, z};

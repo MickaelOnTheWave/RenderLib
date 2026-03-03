@@ -77,3 +77,13 @@ Matrix4x4 Scene::GetCameraTransform() const
 {
    return cameraManager.GetCurrentCamera()->GetViewProjectionMatrix();
 }
+
+Camera* Scene::GetCurrentCamera()
+{
+   return cameraManager.GetCurrentCamera();
+}
+
+Model* Scene::FindModelByName(const std::string& name)
+{
+   return modelManager.Find(name);
+}

@@ -5,6 +5,11 @@ Camera::Camera(const std::string& _name)
 {
 }
 
+void Camera::TransformViewMatrix(const Matrix4x4& matrix)
+{
+   viewMatrix = viewMatrix * matrix;
+}
+
 Matrix4x4 Camera::GetViewProjectionMatrix() const
 {
    return projectionMatrix * viewMatrix;

@@ -2,6 +2,7 @@
 #define REFERENCERESOURCEMANAGER_H
 
 #include <algorithm>
+#include <string>
 #include <vector>
 
 template <class T>
@@ -14,6 +15,7 @@ public:
    unsigned int Add(T* newData);
    bool Remove(const unsigned int id);
    T* Find(const unsigned int id);
+   T* Find(const std::string& name);
 
    const std::vector<T*>& GetData() const;
 
@@ -48,6 +50,16 @@ template <class T>
 T* ReferenceResourceManager<T>::Find(const unsigned int id)
 {
    auto it = FindIterator(id);
+   return (it != data.end()) ? *it : nullptr;
+}
+
+template <class T>
+T* ReferenceResourceManager<T>::Find(const std::string& name)
+{
+   auto finder = [name](auto itElement) {
+      return (itElement->GetName() == name);
+   };
+   auto it = std::find_if(data.begin(), data.end(), finder);
    return (it != data.end()) ? *it : nullptr;
 }
 

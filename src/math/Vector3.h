@@ -29,6 +29,8 @@ public:
    float Y() const;
    float Z() const;
 
+   void SetZ(const float newZ);
+
    std::vector<float> GetData() const;
 
    float ComputeLength() const;
