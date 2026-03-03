@@ -31,7 +31,9 @@ public:
    float Y() const;
    float Z() const;
 
-   void SetZ(const float newZ);
+   void SetX(const float value);
+   void SetY(const float value);
+   void SetZ(const float value);
 
    std::vector<float> GetData() const;
 

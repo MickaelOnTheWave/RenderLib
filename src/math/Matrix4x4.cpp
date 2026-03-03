@@ -66,10 +66,10 @@ Matrix4x4 Matrix4x4::Scale(const float s)
    return Scale(s, s, s);
 }
 
-Matrix4x4 Matrix4x4::RotationX(const float angleInRadians)
+Matrix4x4 Matrix4x4::RotationX(const Angle angle)
 {
-   const float cosAngle = cos(angleInRadians);
-   const float sinAngle = sin(angleInRadians);
+   const float cosAngle = cos(angle);
+   const float sinAngle = sin(angle);
    const float newData[16] =
    {
       1.f,      0.f,       0.f, 0.f,
@@ -80,16 +80,30 @@ Matrix4x4 Matrix4x4::RotationX(const float angleInRadians)
    return Matrix4x4(newData);
 }
 
-Matrix4x4 Matrix4x4::RotationY(const float angleInRadians)
+Matrix4x4 Matrix4x4::RotationY(const Angle angle)
 {
-   const float cosAngle = cos(angleInRadians);
-   const float sinAngle = sin(angleInRadians);
+   const float cosAngle = cos(angle);
+   const float sinAngle = sin(angle);
    const float newData[16] =
-      {
+   {
       cosAngle,  0.f, sinAngle, 0.f,
       0.f,       1.f,      0.f, 0.f,
       -sinAngle, 0.f, cosAngle, 0.f,
       0.f,       0.f,      0.f, 1.f
+   };
+   return Matrix4x4(newData);
+}
+
+Matrix4x4 Matrix4x4::RotationZ(const Angle angle)
+{
+   const float cosAngle = cos(angle);
+   const float sinAngle = sin(angle);
+   const float newData[16] =
+   {
+      cosAngle,  -sinAngle, 0.f, 0.f,
+      sinAngle,   cosAngle, 0.f, 0.f,
+      0.f,             0.f, 0.f, 0.f,
+      0.f,             0.f, 0.f, 1.f
    };
    return Matrix4x4(newData);
 }

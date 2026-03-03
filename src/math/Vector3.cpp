@@ -105,9 +105,19 @@ float Vector3::Z() const
    return z;
 }
 
-void Vector3::SetZ(const float newZ)
+void Vector3::SetX(const float value)
 {
-   z = newZ;
+   x = value;
+}
+
+void Vector3::SetY(const float value)
+{
+   y = value;
+}
+
+void Vector3::SetZ(const float value)
+{
+   z = value;
 }
 
 std::vector<float> Vector3::GetData() const

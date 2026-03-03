@@ -2,6 +2,7 @@
 #define MATRIX4X4_H
 
 #include <glm/glm.hpp>
+#include "Angle.h"
 #include "Vector3.h"
 
 /**
@@ -21,8 +22,9 @@ public:
    static Matrix4x4 Translation(const float x, const float y, const float z);
    static Matrix4x4 Scale(const float x, const float y, const float z);
    static Matrix4x4 Scale(const float s);
-   static Matrix4x4 RotationX(const float angleInRadians);
-   static Matrix4x4 RotationY(const float angleInRadians);
+   static Matrix4x4 RotationX(const Angle angle);
+   static Matrix4x4 RotationY(const Angle angle);
+   static Matrix4x4 RotationZ(const Angle angle);
 
    Matrix4x4& operator=(const float* other);
    Matrix4x4 operator*(const Matrix4x4& other) const;
