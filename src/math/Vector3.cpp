@@ -12,6 +12,17 @@ Vector3::Vector3(const Vector3& other)
 {
 }
 
+bool Vector3::Equals(const Vector3& other, const float delta) const
+{
+   if (fabs(x - other.x) > delta)
+      return false;
+   else if (fabs(y - other.y) > delta)
+      return false;
+   else if (fabs(z - other.z) > delta)
+      return false;
+   return true;
+}
+
 Vector3& Vector3::operator=(const Vector3& other)
 {
    x = other.x;

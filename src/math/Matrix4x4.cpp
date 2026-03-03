@@ -142,10 +142,9 @@ float Matrix4x4::operator[](const int index) const
 
 Vector3 Matrix4x4::operator*(const Vector3& vec) const
 {
-   float resultX = data[0] * vec.X() + data[1] * vec.Y() + data[2] * vec.Z() + data[3];
-   float resultY = data[4] * vec.X() + data[5] * vec.Y() + data[6] * vec.Z() + data[7];
-   float resultZ = data[8] * vec.X() + data[9] * vec.Y() + data[10] * vec.Z() + data[11];
-
+   const float resultX = vec.X() * data[0] + vec.Y() * data[4] + vec.Z() * data[8]  + data[12];
+   const float resultY = vec.X() * data[1] + vec.Y() * data[5] + vec.Z() * data[9]  + data[13];
+   const float resultZ = vec.X() * data[2] + vec.Y() * data[6] + vec.Z() * data[10] + data[14];
    return Vector3(resultX, resultY, resultZ);
 }
 

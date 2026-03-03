@@ -9,6 +9,8 @@ public:
    explicit Vector3(const float _x=0, const float _y=0, const float _z=0);
    Vector3(const Vector3& other);
 
+   bool Equals(const Vector3& other, const float delta) const;
+
    Vector3& operator=(const Vector3& other);
    Vector3& operator*=(const float factor);
 
