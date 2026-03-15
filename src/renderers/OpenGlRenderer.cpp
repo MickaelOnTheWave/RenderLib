@@ -31,7 +31,10 @@ bool OpenGlRenderer::Render(const Scene& scene)
 
    PrepareRenderPass();
    currentShader->use();
-   currentShader->SetUniformMat4("cameraTransform", scene.GetCameraTransform());
+
+   Camera* camera = scene.GetCurrentCamera();
+   currentShader->SetUniformMat4("projection", camera->GetProjectionMatrix());
+   currentShader->SetUniformMat4("view", camera->GetViewMatrix());
 
    const std::vector<std::unique_ptr<GlModel>>& glModels = sceneCache.GetModels();
 
@@ -71,6 +74,6 @@ void OpenGlRenderer::PrepareRenderPass()
 
 void OpenGlRenderer::PrepareRendering(const ModelInstance& instance, std::unique_ptr<GlslShaderProgram>& currentShader)
 {
-   currentShader->SetUniformMat4("objectTransform", instance.GetTransform());
+   currentShader->SetUniformMat4("model", instance.GetTransform());
    currentShader->SetUniformVec3("objectColor", instance.GetColor());
 }

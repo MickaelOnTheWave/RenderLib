@@ -29,8 +29,7 @@ public:
    const std::vector<Model*>& GetModels() const;
    const std::vector<ModelInstance*>& GetInstances() const;
 
-   Matrix4x4 GetCameraTransform() const;
-   Camera* GetCurrentCamera();
+   Camera* GetCurrentCamera() const;
 
    Model* FindModelByName(const std::string& name);
 

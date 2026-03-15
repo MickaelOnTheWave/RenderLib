@@ -7,17 +7,7 @@ Camera::Camera(const std::string& _name)
 
 void Camera::TransformViewMatrix(const Matrix4x4& matrix)
 {
-   viewMatrix = viewMatrix * matrix;
-}
-
-Matrix4x4 Camera::GetViewProjectionMatrix() const
-{
-   return projectionMatrix * viewMatrix;
-}
-
-float Camera::ToRadians(const float angleInDegrees) const
-{
-   return angleInDegrees * (M_PI / 180.f);
+   viewMatrix = matrix * viewMatrix;
 }
 
 void Camera::SetPerspectiveProjection(const Angle fieldOfViewY, const float aspectRatio, const float nearPlaneZ, const float farPlaneZ)
@@ -59,4 +49,14 @@ void Camera::LookAt(const Vector3& eye, const Vector3& target, const Vector3& up
    viewMatrix[13] = upDir.DotProduct(eye) * -1.f;
    viewMatrix[14] = forwardDir.DotProduct(eye);
    viewMatrix[15] = 1.f;
+}
+
+Matrix4x4 Camera::GetViewMatrix() const
+{
+   return viewMatrix;
+}
+
+Matrix4x4 Camera::GetProjectionMatrix() const
+{
+   return projectionMatrix;
 }

@@ -22,11 +22,10 @@ public:
    void LookAt(const Vector3& eye, const Vector3& target,
                const Vector3& up = Vector3(0.f, 1.f, 0.f));
 
-   Matrix4x4 GetViewProjectionMatrix() const;
+   Matrix4x4 GetViewMatrix() const;
+   Matrix4x4 GetProjectionMatrix() const;
 
 private:
-   float ToRadians(const float angleInDegrees) const;
-
    Matrix4x4 viewMatrix;
    Matrix4x4 projectionMatrix;
 };

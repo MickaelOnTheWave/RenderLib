@@ -7,13 +7,14 @@ layout (location = 2) in vec2 aTex;
 out vec3 objColor;
 out vec2 texCoord;
 
-uniform mat4 cameraTransform;
-uniform mat4 objectTransform;
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
 uniform vec3 objectColor;
 
 void main()
 {
-   gl_Position = vec4(aPos, 1.0) * objectTransform * cameraTransform;
+   gl_Position = projection * view * model * vec4(aPos, 1.0);
    objColor = objectColor;
    texCoord = aTex;
 }

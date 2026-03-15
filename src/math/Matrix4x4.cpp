@@ -138,6 +138,29 @@ bool Matrix4x4::Equals(const Matrix4x4& other, const float delta) const
    return true;
 }
 
+void Matrix4x4::Transpose()
+{
+   std::swap(data[1], data[4]);
+   std::swap(data[2], data[8]);
+   std::swap(data[3], data[12]);
+   std::swap(data[6], data[9]);
+   std::swap(data[7], data[13]);
+   std::swap(data[11], data[14]);
+}
+
+std::string Matrix4x4::ToString() const
+{
+   std::string description;
+   for (int i=0; i<4; ++i)
+   {
+      const int colIndex = 4 * i;
+      for (int j=0; j<4; ++j)
+         description += std::to_string(data[colIndex + j]) + " ";
+      description += "\n";
+   }
+   return description;
+}
+
 Matrix4x4& Matrix4x4::operator*=(const Matrix4x4 &other)
 {
    *this = *this * other;

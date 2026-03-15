@@ -53,7 +53,7 @@ void GlslShaderProgram::SetUniformFloat(const std::string &varName, const float 
 void GlslShaderProgram::SetUniformMat4(const std::string &varName, const Matrix4x4 &value)
 {
    unsigned int varLocation = glGetUniformLocation(GetId(), varName.c_str());
-   glUniformMatrix4fv(varLocation, 1, GL_FALSE, value.GetData());
+   glUniformMatrix4fv(varLocation, 1, GL_TRUE, value.GetData());
 }
 
 void GlslShaderProgram::SetUniformVec3(const std::string &varName, const Vector3 &value)

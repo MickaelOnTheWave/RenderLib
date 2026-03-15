@@ -2,6 +2,8 @@
 #define MATRIX4X4_H
 
 #include <glm/glm.hpp>
+#include <string>
+
 #include "Angle.h"
 #include "Vector3.h"
 
@@ -35,6 +37,9 @@ public:
    Vector3 operator*(const Vector3& vec) const;
 
    bool Equals(const Matrix4x4& other, const float delta) const;
+   void Transpose();
+
+   std::string ToString() const;
 
    float* getData();
    const float *GetData() const;
